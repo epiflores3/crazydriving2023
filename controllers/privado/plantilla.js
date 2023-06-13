@@ -29,6 +29,12 @@ HEADER.innerHTML = `
     </a>
 </li>
 <li>
+    <a href="menu.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Menú</span>
+    </a>
+</li>
+<li>
     <a href="#">
         <i class='bx bxs-food-menu' ></i>
         <span class="text">Inscripción</span>
