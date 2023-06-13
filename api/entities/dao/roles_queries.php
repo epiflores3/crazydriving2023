@@ -10,7 +10,7 @@ class RolesQueries
     {
         $sql = 'SELECT id_rol, rol
         FROM rol
-        WHERE rol ILIKE ?';
+        WHERE rol ::text ILIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }

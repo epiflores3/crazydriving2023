@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,21 +10,15 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-
-
     <title>Rol</title>
 </head>
 
 <body>
-
-
     <section id="sidebar">
         <header></header>
     </section>
-
     <section id="content">
         <nav></nav>
-
         <main>
             <div class="head-title">
                 <div class="left">
@@ -40,13 +34,18 @@
                     </ul>
                 </div>
             </div>
-
-
             <!--Main principal-->
             <div class="table-data">
                 <div class="order">
                     <div class="head">
                         <h3>Registro de roles</h3>
+                        <form method="post" id="search-form">
+                            <div class="input-field">
+                                <input id="search" type="search" name="search" placeholder="Buscar"
+                                    aria-label="Buscar" required />
+                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                            </div>
+                        </form>
                         <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
                             data-bs-target="#agregarRol"><img height="25px" width="25px"
                                 src="../../resource/img/imgtablas/agregar.png" alt="check">
@@ -80,7 +79,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal  para agregar-->
             <div class="modal fade" id="agregarRol" tabindex="-1" aria-labelledby="agregarRol" aria-hidden="true">
                 <div class="modal-dialog">
@@ -108,20 +106,15 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </main>
 
     </section>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-
     <script src="../../controllers/privado/plantilla.js"></script>
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
