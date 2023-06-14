@@ -22,9 +22,9 @@ class VehiculoQueries
     }
 
     public function readOne(){
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, mo.modelo
+        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo, id_modelo
         FROM vehiculo ve
-        INNER JOIN modelo mo on mo.id_modelo = ve.id_modelo
+        inner join modelo USING (id_modelo)
         WHERE id_vehiculo = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -38,10 +38,10 @@ class VehiculoQueries
     }
    
     public function updateRow(){
-        $sql = 'UPDATE marca
-                SET marca=?
-                WHERE id_marca = ?';
-        $params = array($this->marca, $this->id);
+        $sql = 'UPDATE vehiculo
+                SET placa = ?, tipo_vehiculo = ?, id_modelo = ?
+                WHERE id_vehiculo = ?';
+        $params = array($this->placa, $this->tipo_vehiculo, $this->id_modelo, $this->id);
         return Database::executeRow($sql, $params);
     }
 

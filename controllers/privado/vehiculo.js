@@ -1,5 +1,6 @@
 // Constante para completar la ruta de la API.
 const VEHICULO_API = 'business/privado/vehiculo.php';
+const MODELO_API = 'business/privado/modelo.php';
 const MODAL_TITLE = document.getElementById('modal-title');
 
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
@@ -39,20 +40,24 @@ function openCreate() {
 
 
     SAVE_FORM.reset();
-
     // Se asigna título a la caja de diálogo.
-    MODAL_TITLE.textContent = 'Crear Marca';
+    MODAL_TITLE.textContent = 'Crear vehiculo';
+    fillSelect(MODELO_API, 'readAll', 'modelo');
+
+
+    
+    fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo');
 }
 
 // Método manejador de eventos para cuando se envía el formulario de buscar.
-SEARCH_FORM.addEventListener('submit', (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SEARCH_FORM);
-    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    fillTable(FORM);
-});
+// SEARCH_FORM.addEventListener('submit', (event) => {
+//     // Se evita recargar la página web después de enviar el formulario.
+//     event.preventDefault();
+//     // Constante tipo objeto con los datos del formulario.
+//     const FORM = new FormData(SEARCH_FORM);
+//     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+//     fillTable(FORM);
+// });
 
 
 
@@ -112,7 +117,7 @@ async function fillTable(form = null) {
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_marca', id);
+    FORM.append('id_vehiculo', id);
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(VEHICULO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -121,8 +126,11 @@ async function openUpdate(id) {
         // Se asigna título para la caja de diálogo.
         MODAL_TITLE.textContent = 'Actualizar marca';
         // Se inicializan los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_marca;
-        document.getElementById('marca').value = JSON.dataset.marca;
+        document.getElementById('id').value = JSON.dataset.id_vehiculo;
+        document.getElementById('placa').value = JSON.dataset.placa;
+        fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo', JSON.dataset.tipo_vehiculo);
+        fillSelect(MODELO_API, 'readAll', 'modelo', JSON.dataset.id_modelo);
+        ;
     } else {
         sweetAlert(2, JSON.exception, false);
     }

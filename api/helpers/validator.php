@@ -229,6 +229,16 @@ class Validator
         }
     }
 
+    public static function validatePlaca($value)
+    {
+        // Se verifica que el número tenga el formato 0000-0000 y que inicie con 2, 6 o 7.
+        if (preg_match('/^[ABCDEFGHIJKLMNPQRSTUVWXYZ]{-}[1-9]$/', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Método para validar una fecha.
     *   Parámetros: $value (dato a validar).
@@ -297,4 +307,6 @@ class Validator
             return false;
         }
     }
+
+
 }

@@ -23,14 +23,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$vehiculo->setId($_POST['id_marca'])) {
-                    $result['exception'] = 'Marca incorrecta';
+                if (!$vehiculo->setId($_POST['id_vehiculo'])) {
+                    $result['exception'] = 'Vehiculo incorrecta';
                 } elseif ($result['dataset'] = $vehiculo->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Marca inexistente';
+                    $result['exception'] = 'Vehiculo inexistente';
                 }
                 break;
             case 'search':
@@ -46,32 +46,46 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-                /*Aqui me quede no he terminado el insert*/ 
+
+                
+                case 'getTipos':
+                    $result ['status'] = 1;
+                    $result ['dataset']=array(
+                        array('Carro','Carro'),
+                        array('Pick up','Pick up'),
+                        array('Motocicleta','Motocicleta')
+                    );
+                    break;
+
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$valo->setId($_POST['id_vehiculo'])) {
-                    $result['exception'] = 'Vehiculo incorrecto';
-                } elseif (!$valo->setPlaca($_POST['placa'])) {
+                if (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecta';
-                } elseif (!$valo->setTipoVehiuclo($_POST['Tipo'])) {
+                } elseif (!$vehiculo->setTipoVehiuclo($_POST['tipovehiculo'])) {
                     $result['exception'] = 'Tipo de vehiculo incorrecta';
-                } elseif (!$valo->setId_modelo($_POST['cantidad'])) {
+                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
                         $result['exception'] = 'Modelo incorrecta';
-                } elseif ($valo->createRow()) {
+                } elseif ($vehiculo->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Vehiculo agregado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
                 break;
+
+
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$vehiculo->setId($_POST['id'])) {
-                    $result['exception'] = 'id de marca incorrecta';
+                    $result['exception'] = 'id de vehiculo incorrecta';
                 } elseif (!$data = $vehiculo->readOne()) {
-                    $result['exception'] = 'Marca inexistente';
-                } elseif (!$vehiculo->setMarca($_POST['marca'])) {
-                    $result['exception'] = 'Marca incorrecto';
+                    $result['exception'] = 'Vehiculo inexistente';
+                } elseif (!$vehiculo->setPlaca($_POST['placa'])) {
+                    $result['exception'] = 'Placa incorrecto';
+                } elseif (!$vehiculo->setTipoVehiuclo($_POST['tipovehiculo'])) {
+                    $result['exception'] = 'Tipo de vehiculo incorrecto';
+                }elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                    $result['exception'] = 'Modelo incorrecto';
                 } elseif ($vehiculo->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Marca modificada correctamente';
