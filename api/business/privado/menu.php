@@ -68,14 +68,14 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'Menú incorrecto';
                 } elseif ($menu->updateRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Mneú modificado correctamente';
+                        $result['message'] = 'Menú modificado correctamente';
                 } else {
                         $result['exception'] = Database::getException();
                 }
                 break;
                 case 'delete':
                     if (!$menu->setId($_POST['id_menu'])) {
-                        $result['exception'] = 'Mneú incorrecto';
+                        $result['exception'] = 'Menú incorrecto';
                     } elseif (!$data = $menu->readOne()) {
                         $result['exception'] = 'Mnenú inexistente';
                     } elseif ($menu->deleteRow()) {
