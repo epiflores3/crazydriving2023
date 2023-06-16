@@ -22,6 +22,13 @@ HEADER.innerHTML = `
         <span class="text">Marca</span>
     </a>
 </li>
+
+<li>
+    <a href="sucursal.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Sucursal</span>
+    </a>
+</li>
 <li>
     <a href="rol.html">
         <i class='bx bxs-group' ></i>
