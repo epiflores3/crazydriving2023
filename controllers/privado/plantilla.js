@@ -24,6 +24,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="tipo_paquete.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Tipo paquete</span>
+    </a>
+</li>
+
+<li>
     <a href="sucursal.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Sucursal</span>
