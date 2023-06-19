@@ -23,14 +23,14 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$telefono->setId($_POST['id_vehiculo'])) {
-                    $result['exception'] = 'Vehiculo incorrecta';
+                if (!$telefono->setId($_POST['id_telefono'])) {
+                    $result['exception'] = 'Telefono incorrecta';
                 } elseif ($result['dataset'] = $telefono->readOne()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Vehiculo inexistente';
+                    $result['exception'] = 'Telefono inexistente';
                 }
                 break;
             case 'search':
@@ -51,23 +51,24 @@ if (isset($_GET['action'])) {
                 case 'getTipos':
                     $result ['status'] = 1;
                     $result ['dataset']=array(
-                        array('Carro','Carro'),
-                        array('Pick up','Pick up'),
-                        array('Motocicleta','Motocicleta')
+                        array('Personal','Personal'),
+                        array('Emergencia','Emergencia'),
+                        array('Trabajo','Trabajo'),
+                        array('Casa','Casa')
                     );
                     break;
 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$telefono->setPlaca($_POST['placa'])) {
-                    $result['exception'] = 'Placa incorrecta';
-                } elseif (!$telefono->setTipoVehiuclo($_POST['tipovehiculo'])) {
-                    $result['exception'] = 'Tipo de vehiculo incorrecta';
-                } elseif (!$telefono->setId_modelo($_POST['modelo'])) {
-                        $result['exception'] = 'Modelo incorrecta';
+                if (!$telefono->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'Telefono incorrecta';
+                } elseif (!$telefono->setTipoTelefono($_POST['tipotelefono'])) {
+                    $result['exception'] = 'Tipo de telefono incorrecta';
+                } elseif (!$telefono->setId_cliente($_POST['cliente'])) {
+                        $result['exception'] = 'Cliente incorrecto';
                 } elseif ($telefono->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Vehiculo agregado correctamente';
+                    $result['message'] = 'Cliente agregado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
@@ -77,30 +78,30 @@ if (isset($_GET['action'])) {
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$telefono->setId($_POST['id'])) {
-                    $result['exception'] = 'id de vehiculo incorrecta';
+                    $result['exception'] = 'id de telefono incorrecta';
                 } elseif (!$data = $telefono->readOne()) {
-                    $result['exception'] = 'Vehiculo inexistente';
-                } elseif (!$telefono->setPlaca($_POST['placa'])) {
-                    $result['exception'] = 'Placa incorrecto';
-                } elseif (!$telefono->setTipoVehiuclo($_POST['tipovehiculo'])) {
-                    $result['exception'] = 'Tipo de vehiculo incorrecto';
-                }elseif (!$telefono->setId_modelo($_POST['modelo'])) {
-                    $result['exception'] = 'Modelo incorrecto';
+                    $result['exception'] = 'telefono inexistente';
+                } elseif (!$telefono->setTelefono($_POST['telefono'])) {
+                    $result['exception'] = 'telefono incorrecto';
+                } elseif (!$telefono->setTipoTelefono($_POST['tipotelefono'])) {
+                    $result['exception'] = 'Tipo de telefono incorrecto';
+                }elseif (!$telefono->setId_cliente($_POST['cliente'])) {
+                    $result['exception'] = 'telefono incorrecto';
                 } elseif ($telefono->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Marca modificada correctamente';
+                    $result['message'] = 'Telefono modificada correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
                 break;
             case 'delete':
-                if (!$telefono->setId($_POST['id_vehiculo'])) {
-                    $result['exception'] = 'Vehiculo incorrecta';
+                if (!$telefono->setId($_POST['id_telefono'])) {
+                    $result['exception'] = 'Telefono incorrecta';
                 } elseif (!$data = $telefono->readOne()) {
-                    $result['exception'] = 'Vehiculo inexistente';
+                    $result['exception'] = 'Telefono inexistente';
                 } elseif ($telefono->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Vehiculo eliminado correctamente';
+                    $result['message'] = 'Telefono eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }

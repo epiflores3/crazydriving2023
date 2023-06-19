@@ -1,6 +1,6 @@
 // Constante para completar la ruta de la API.
-const TELEFONO_API = 'business/privado/telefono.php';
 const CLIENTE_API = 'business/privado/cliente.php';
+const MODELO_API = 'business/privado/modelo.php';
 const MODAL_TITLE = document.getElementById('modal-title');
 
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
@@ -24,7 +24,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const JSON = await dataFetch(TELEFONO_API, action, FORM);
+    const JSON = await dataFetch(CLIENTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         SAVE_MODAL.hide();
@@ -41,9 +41,8 @@ function openCreate() {
 
     SAVE_FORM.reset();
     // Se asigna título a la caja de diálogo.
-    MODAL_TITLE.textContent = 'Crear telefono';
-    fillSelect(CLIENTE_API, 'readAll', 'cliente');
-    fillSelect(TELEFONO_API, 'getTipos', 'tipotelefono');
+    MODAL_TITLE.textContent = 'Crear cliente';
+    fillSelect(CLIENTE_API, 'getTipos', 'tipoestado');
 }
 
 // Método manejador de eventos para cuando se envía el formulario de buscar.
@@ -75,7 +74,7 @@ async function fillTable(form = null) {
     // Se verifica la acción a realizar.
     (form) ? action = 'search' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const JSON = await dataFetch(TELEFONO_API, action, form);
+    const JSON = await dataFetch(CLIENTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -84,24 +83,24 @@ async function fillTable(form = null) {
             TBODY_ROWS.innerHTML += `
 <tr>
 
-<td>${row.id_telefono}</td>
-<td>${row.telefono}</td>
-<td>${row.tipo_telefono}</td>
 <td>${row.nombre_com_cliente}</td>
+<td>${row.dui_cliente}</td>
+<td>${row.fecha_nac_cliente}</td>
+<td>${row.estado_cliente}</td>
 
 
     <td>
 
-        <button onclick="openReport(${row.id_telefono})" type="button" class="btn ">
+        <button onclick="openReport(${row.id_cliente})" type="button" class="btn ">
             <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
         </button>
 
 
-        <button type="button" class="btn " onclick="openUpdate(${row.id_telefono})">
+        <button type="button" class="btn " onclick="openUpdate(${row.id_cliente})">
             <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
         </button>
 
-        <button onclick="openDelete(${row.id_telefono})" class="btn"><img height="20px" width="20px"
+        <button onclick="openDelete(${row.id_cliente})" class="btn"><img height="20px" width="20px"
                 src="../../resource/img/imgtablas/delete.png" alt="eliminar">
         </button>
 
@@ -122,20 +121,23 @@ async function fillTable(form = null) {
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_telefono', id);
+    FORM.append('id_cliente', id);
     // Petición para obtener los datos del registro solicitado.
-    const JSON = await dataFetch(TELEFONO_API, 'readOne', FORM);
+    const JSON = await dataFetch(CLIENTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se asigna título para la caja de diálogo.
-        MODAL_TITLE.textContent = 'Actualizar Telefono';
+        MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se inicializan los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_telefono;
-        document.getElementById('telefono').value = JSON.dataset.telefono;
-        fillSelect(TELEFONO_API, 'getTipos', 'tipotelefono', JSON.dataset.tipo_telefono);
-        fillSelect(CLIENTE_API, 'readAll', 'cliente', JSON.dataset.id_cliente);
-        ;
+        document.getElementById('id').value = JSON.dataset.id_cliente;
+        document.getElementById('nombrec').value = JSON.dataset.nombre_com_cliente;
+        document.getElementById('duic').value = JSON.dataset.dui_cliente;
+        document.getElementById('fechanacc').value = JSON.dataset.fecha_nac_cliente; //No lee
+        document.getElementById('direccionc').value = JSON.dataset.direccion_cliente;
+        document.getElementById('correoc').value = JSON.dataset.correo_cliente;
+        document.getElementById('clavec').value = JSON.dataset.clave_cliente; //No lee
+        fillSelect(CLIENTE_API, 'getTipos', 'tipoestado', JSON.dataset.estado_cliente);
     } else {
         sweetAlert(2, JSON.exception, false);
     }
@@ -143,14 +145,14 @@ async function openUpdate(id) {
 
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el telefono de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_telefono', id);
+        FORM.append('id_vehiculo', id);
         // Petición para eliminar el registro seleccionado.
-        const JSON = await dataFetch(TELEFONO_API, 'delete', FORM);
+        const JSON = await dataFetch(CLIENTE_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.
