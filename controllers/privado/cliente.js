@@ -41,12 +41,8 @@ function openCreate() {
 
     SAVE_FORM.reset();
     // Se asigna título a la caja de diálogo.
-    MODAL_TITLE.textContent = 'Crear vehiculo';
-    fillSelect(MODELO_API, 'readAll', 'modelo');
-
-
-    
-    fillSelect(CLIENTE_API, 'getTipos', 'tipovehiculo');
+    MODAL_TITLE.textContent = 'Crear cliente';
+    fillSelect(CLIENTE_API, 'getTipos', 'tipoestado');
 }
 
 // Método manejador de eventos para cuando se envía el formulario de buscar.
@@ -90,7 +86,6 @@ async function fillTable(form = null) {
 <td>${row.nombre_com_cliente}</td>
 <td>${row.dui_cliente}</td>
 <td>${row.fecha_nac_cliente}</td>
-<td>${row.clave_cliente}</td>
 <td>${row.estado_cliente}</td>
 
 
@@ -126,20 +121,23 @@ async function fillTable(form = null) {
 async function openUpdate(id) {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('id_vehiculo', id);
+    FORM.append('id_cliente', id);
     // Petición para obtener los datos del registro solicitado.
     const JSON = await dataFetch(CLIENTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se asigna título para la caja de diálogo.
-        MODAL_TITLE.textContent = 'Actualizar marca';
+        MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se inicializan los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_vehiculo;
-        document.getElementById('placa').value = JSON.dataset.placa;
-        fillSelect(CLIENTE_API, 'getTipos', 'tipovehiculo', JSON.dataset.tipo_vehiculo);
-        fillSelect(MODELO_API, 'readAll', 'modelo', JSON.dataset.id_modelo);
-        ;
+        document.getElementById('id').value = JSON.dataset.id_cliente;
+        document.getElementById('nombrec').value = JSON.dataset.nombre_com_cliente;
+        document.getElementById('duic').value = JSON.dataset.dui_cliente;
+        document.getElementById('fechanacc').value = JSON.dataset.fecha_nac_cliente; //No lee
+        document.getElementById('direccionc').value = JSON.dataset.direccion_cliente;
+        document.getElementById('correoc').value = JSON.dataset.correo_cliente;
+        document.getElementById('clavec').value = JSON.dataset.clave_cliente; //No lee
+        fillSelect(CLIENTE_API, 'getTipos', 'tipoestado', JSON.dataset.estado_cliente);
     } else {
         sweetAlert(2, JSON.exception, false);
     }

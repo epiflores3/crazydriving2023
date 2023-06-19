@@ -89,7 +89,7 @@ class Cliente extends ClienteQueries
 
     public function setEstado($value)
     {
-        if (Validator::validateBoolean($value)) {
+        if (Validator::validateAlphanumeric($value, 1, 50)) {
             $this->estado = $value;
             return true;
         } else {

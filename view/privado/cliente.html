@@ -75,7 +75,6 @@
                                                             <th>Nombre completo</th>
                                                             <th>Dui</th>
                                                             <th>Fecha de nacimiento</th>
-                                                            <th>Clave</th>
                                                             <th>Estado</th>
                                                             <th>Acciones</th>
                                                         </tr>
@@ -107,27 +106,49 @@
                                 <input class="invisible" type="number" id="id" name="id">
 
                                 <div class="mb-3">
-
-                                    <label for="" class="form-label">Placa</label><br>
-                                    <input type="text" name="placa" id="placa" class="form-control" required><br>
-                                    <label for="" class="form-label">Tipo vehiculo </label><br>
-                                    <!-- <input type="text" name="tipovehiculo" id="tipovehiculo" class="form-control"
-                                        required><br> -->
-
-                                    <select class="form-select" aria-label="Default select example" name="tipovehiculo" id="tipovehiculo"></select><br>
-                                    <label for="" class="form-label">Modelo</label><br>
-                                    <select class="form-select" aria-label="Default select example" name="modelo" id="modelo">
-                                    </select>
-
+                                    <label for="">Nombres del cliente</label><br>
+                                    <input type="text" name="nombrec" id="nombrec" class="form-control" required><br>
                                 </div>
 
-                                <div>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary"><i
-                                            class="fa-solid fa-floppy-disk"></i>
-                                        Agregar</button>
+
+                                <div class="mb-3">
+                                    <label for="">Dui</label><br>
+                                    <input type="text" name="duic" id="duic" class="form-control" required><br>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="">Fecha nacimiento</label><br>
+                                    <input type="date" name="fechanacc" id="fechanacc" class="form-control"
+                                        required><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Dirección</label><br>
+                                    <input type="text" name="direccionc" id="" class="form-control" required><br>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <label for="">Correo</label><br>
+                                    <input type="email" name="correoc" id="correoc" class="form-control" required><br>
+                                </div>
+            
+
+                                <div class="mb-3">
+                                    <label for="">Clave</label><br>
+                                    <input type="pas" name="clavec" id="clavec" class="form-control" required><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Tipo estado</label><br>
+                                    <select class="form-select" aria-label="Default select example" name="tipoestado" id="tipoestado"></select><br>
+                                </div>
+
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+
                             </form>
                         </div>
 

@@ -143,12 +143,12 @@ async function openUpdate(id) {
 
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el telefono de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_vehiculo', id);
+        FORM.append('id_telefono', id);
         // Petición para eliminar el registro seleccionado.
         const JSON = await dataFetch(TELEFONO_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

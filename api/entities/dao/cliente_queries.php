@@ -22,26 +22,26 @@ class ClienteQueries
     }
 
     public function readOne(){
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo, id_modelo
-        FROM vehiculo ve
-        inner join modelo USING (id_modelo)
-        WHERE id_vehiculo = ?';
+        $sql='SELECT *FROM cliente
+        WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
-    public function createRow(){
-        $sql = 'INSERT INTO vehiculo(placa, tipo_vehiculo, id_modelo)
-            VALUES (?, ?, ?)';
-        $params = array($this->placa, $this->tipo_vehiculo, $this->id_modelo);
+    public function createRow()
+    {
+        $sql = 'INSERT INTO cliente(nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente)
+            VALUES (?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo, $this->clave, $this->estado);
         return Database::executeRow($sql, $params);
     }
-   
-    public function updateRow(){
-        $sql = 'UPDATE vehiculo
-                SET placa = ?, tipo_vehiculo = ?, id_modelo = ?
-                WHERE id_vehiculo = ?';
-        $params = array($this->placa, $this->tipo_vehiculo, $this->id_modelo, $this->id);
+
+    public function updateRow()
+    {
+        $sql = 'UPDATE cliente
+                SET nombre_com_cliente = ?, dui_cliente = ?, fecha_nac_cliente = ?, direccion_cliente = ?, correo_cliente = ?, clave_cliente = ?, estado_cliente = ?
+                WHERE id_cliente = ?';
+        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo, $this->clave, $this->estado, $this->id);
         return Database::executeRow($sql, $params);
     }
 

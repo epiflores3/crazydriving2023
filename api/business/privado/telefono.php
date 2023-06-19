@@ -95,13 +95,13 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'delete':
-                if (!$telefono->setId($_POST['id_vehiculo'])) {
-                    $result['exception'] = 'Vehiculo incorrecta';
+                if (!$telefono->setId($_POST['id_telefono'])) {
+                    $result['exception'] = 'Telefono incorrecta';
                 } elseif (!$data = $telefono->readOne()) {
-                    $result['exception'] = 'Vehiculo inexistente';
+                    $result['exception'] = 'Telefono inexistente';
                 } elseif ($telefono->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Vehiculo eliminado correctamente';
+                    $result['message'] = 'Telefono eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }
