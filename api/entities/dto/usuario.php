@@ -8,11 +8,12 @@ class Usuario extends UsuarioQueries
     protected $correo = null; 
     protected $alias = null; 
     protected $clave = null; 
-    protected $imagen = null; 
+    protected $imagen_usuario = null; 
     protected $fechacreacion = null; 
     protected $intentos = null; 
     protected $estadousu = null;
     protected $idempleado = null;
+    protected $ruta = '../../images/usuario/';
 
     public function setId($value)
     {
@@ -58,7 +59,7 @@ class Usuario extends UsuarioQueries
     public function setImagen($file)
     {
         if (Validator::validateImageFile($file, 500, 500)) {
-            $this->imagen = Validator::getFileName();
+            $this->imagen_usuario = Validator::getFileName();
             return true;
         } else {
             return false;
@@ -107,38 +108,6 @@ class Usuario extends UsuarioQueries
         }
     }
 
-       // public function setNombres($value)
-    // {
-    //     if (Validator::validateAlphabetic($value, 1, 50)) {
-    //         $this->nombres = $value;
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    // public function setApellidos($value)
-    // {
-    //     if (Validator::validateAlphabetic($value, 1, 50)) {
-    //         $this->apellidos = $value;
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    
-    // public function setTipousuario($value)
-    // {
-    //     if (Validator::validateNaturalNumber($value)) {
-            
-    //         $this->tipousuario = $value;
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-
     public function getId()
     {
         return $this->id;
@@ -166,7 +135,7 @@ class Usuario extends UsuarioQueries
    
     public function getImagen()
     {
-        return $this->imagen;
+        return $this->imagen_usuario;
     }
 
     public function getFechaCreacion()
@@ -184,19 +153,9 @@ class Usuario extends UsuarioQueries
         return $this->idempleado;
     }
 
-    // public function getNombres()
-    // {
-    //     return $this->nombres;
-    // }
-
-    // public function getApellidos()
-    // {
-    //     return $this->apellidos;
-    // }
-
-    // public function getTipousuario()
-    // {
-    //     return $this->tipousuario;
-    // }
+    public function getRuta()
+    {
+        return $this->ruta;
+    }
 }
 

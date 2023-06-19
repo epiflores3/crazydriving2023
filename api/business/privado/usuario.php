@@ -15,14 +15,14 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
              /*AUN NO */
-            // case 'getUser':
-            //     if (isset($_SESSION['alias_usuario'])) {
-            //         $result['status'] = 1;
-            //         $result['username'] = $_SESSION['alias_usuario'];
-            //     } else {
-            //         $result['exception'] = 'Alias de usuario indefinido';
-            //     }
-            //     break;
+            case 'getUser':
+                if (isset($_SESSION['alias_usuario'])) {
+                    $result['status'] = 1;
+                    $result['username'] = $_SESSION['alias_usuario'];
+                } else {
+                    $result['exception'] = 'Alias de usuario indefinido';
+                }
+                break;
                 
             case 'logOut':
                 if (session_destroy()) {
@@ -95,126 +95,173 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
              break;
-
-
-
-            
-            //  case 'readOne':
-            //         if (!$usuario->setId($_POST['id_usuario'])) {
-            //             $result['exception'] = 'Usuario incorrecto';
-            //         } elseif ($result['dataset'] = $usuario->readOne()) {
-            //             $result['status'] = 1;
-            //         } elseif (Database::getException()) {
-            //             $result['exception'] = Database::getException();
-            //         } else {
-            //             $result['exception'] = 'Usuario inexistente';
-            //         }
-            // break;
-
-            // case 'search':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if ($_POST['search'] == '') {
-            //         $result['exception'] = 'Ingrese un valor para buscar';
-            //     } elseif ($result['dataset'] = $usuario->searchRows($_POST['search'])) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-            //     } elseif (Database::getException()) {
-            //         $result['exception'] = Database::getException();
-            //     } else {
-            //         $result['exception'] = 'No hay coincidencias';
-            //     }
-            //     break;
-                 
-            // case 'create':
-            //     $_POST = Validator::validateForm($_POST);
-
-            //     if (!$usuario->setNombres($_POST['nombreus'])) {
-            //         $result['exception'] = 'Nombres incorrectos';
-
-            //     } elseif (!$usuario->setApellidos($_POST['apellidous'])) {
-            //         $result['exception'] = 'Apellidos incorrectos';
-
-            //     } elseif (!$usuario->setCorreo($_POST['correous'])) {
-            //         $result['exception'] = 'Correo incorrecto';
-
-            //     } elseif (!$usuario->setAlias($_POST['aliasus'])) {
-            //         $result['exception'] = 'Alias incorrecto';
-
-            //     } elseif (!$usuario->setClave($_POST['claveus'])) {
-            //         $result['exception'] = Validator::getPasswordError();
-
         
-            //     } elseif (!$usuario->setTipousuario($_POST['tipousuario'])) {
-            //         $result['exception'] = 'Tipo de usuario incorrecto';
+             case 'readOne':
+                    if (!$usuario->setId($_POST['id_usuario'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    } elseif ($result['dataset'] = $usuario->readOne()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'Usuario inexistente';
+                    }
+            break;
 
-                    
-            //     } elseif (!$usuario->setEstadousuario($_POST['estadous'])) {
-            //         $result['exception'] = 'Estado incorrecta';
+            case 'readEmpleado':
+                if ($result['dataset'] = $usuario->readEmpleado()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen registros';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos registrados';
+                }
+                break;
+            
+                case 'readEstadousu':
+                       $result['status'] =1;
+                       $result['dataset'] =array (
+                       array ('Activo', 'Activo'), 
+                       array ('Inactivo', 'Inactivo'), 
+                       array ('Bloqueado', 'Bloqueado') 
+                       );
+                    break;
 
+            case 'search':
+                $_POST = Validator::validateForm($_POST);
+                if ($_POST['search'] == 'alias') {
+                    $result['exception'] = 'Ingrese un valor para buscar';
+                } elseif ($result['dataset'] = $usuario->searchRows($_POST['search'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                } elseif (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay coincidencias';
+                }
+                break;
+                 
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setCorreo($_POST['correo'])) {
+                    $result['exception'] = 'Correo incorrecto';
 
-            //     } elseif ($usuario->createRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Usuario creado correctamente';
+                } elseif (!$usuario->setAlias($_POST['alias'])) {
+                    $result['exception'] = 'Alias incorrecto';
 
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+                } elseif (!$usuario->setClave($_POST['clave'])) {
+                    $result['exception'] = 'Clave incorrecta';
+
+                } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                    $result['exception'] = 'Seleccione una imagen';
+
+                } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
+                    $result['exception'] = Validator::getFileError();
+
+                } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
+                    $result['exception'] = 'Fecha creacion incorrecta';
+
+                } elseif (!$usuario->setIntentos($_POST['intentos'])) {
+                    $result['exception'] = Validator::getPasswordError();
+
+                } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
+                    $result['exception'] = 'Estado incorrecto';
+
+                }elseif (!isset($_POST['idempleado'])) {
+                    $result['exception'] = 'Seleccione un empleado';
+                } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
+                    $result['exception'] = 'empleado incorrecta';
+                } elseif ($usuario->createRow()) {
+                    $result['status'] = 1;
+                    if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
+                        $result['message'] = 'Usuario creado correctamente';
+                    } else {
+                        $result['message'] = 'Usuario creado pero no se guardó la imagen';
+                    }
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
                  
                  
-            // case 'update':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$usuario->setId($_POST['id'])) {
-            //         $result['exception'] = 'Usuario incorrecto';
+            case 'update':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setId($_POST['id'])) {
+                    $result['exception'] = 'Usuario incorrecto';
 
-            //     } elseif (!$usuario->readOne()) {
-            //         $result['exception'] = 'Usuario inexistente';
+                } elseif (!$data = $usuario->readOne()) {
+                    $result['exception'] = 'Usuario inexistente';
 
-            //     } elseif (!$usuario->setNombres($_POST['nombreus'])) {
-            //         $result['exception'] = 'Nombres incorrectos';
+                }if (!$usuario->setCorreo($_POST['correo'])) {
+                    $result['exception'] = 'Correo incorrecto';
 
-            //     } elseif (!$usuario->setApellidos($_POST['apellidous'])) {
-            //         $result['exception'] = 'Apellidos incorrectos';
+                } elseif (!$usuario->setAlias($_POST['alias'])) {
+                    $result['exception'] = 'Alias incorrecto';
 
-            //     } elseif (!$usuario->setCorreo($_POST['correous'])) {
-            //         $result['exception'] = 'Correo incorrecto';
-                
-            //     } elseif (!$usuario->setAlias($_POST['aliasus'])) {
-            //         $result['exception'] = 'Alias incorrecto';
+                } elseif (!$usuario->setClave($_POST['clave'])) {
+                    $result['exception'] = 'Clave incorrecta';
 
-            //     } elseif (!$usuario->setClave($_POST['claveus'])) {
-            //         $result['exception'] = 'Alias incorrecto';
+                } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
+                    $result['exception'] = 'Fecha creacion incorrecta';
 
-            //     } elseif (!$usuario->setTipousuario($_POST['tipousuario'])) {
-            //         $result['exception'] = 'Tipo de usuario incorrecto';
 
-            //     } elseif (!$usuario->setEstadousuario($_POST['estadous'])) {
-            //         $result['exception'] = 'Estado incorrecta';
+                }  elseif (!$usuario->setIntentos($_POST['intentos'])) {
+                    $result['exception'] = Validator::getPasswordError();
 
-            //     } elseif ($usuario->updateRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Usuario modificado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+                } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
+                    $result['exception'] = 'Estado incorrecto';
+
+                }elseif (!isset($_POST['idempleado'])) {
+                    $result['exception'] = 'Seleccione un empleado';
+                } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
+                    $result['exception'] = 'empleado incorrecta';
+
+                } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                    $result['exception'] = 'Seleccione una imagen';
+                } 
+
+                elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+                    if ($usuario->updateRow($data['imagen_usuario'])) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Usuario modificado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
+                    $result['exception'] = Validator::getFileError();
+                } elseif ($usuario->updateRow($data['imagen_usuario'])) {
+                    $result['status'] = 1;
+                    if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
+                        $result['message'] = 'Usuario modificado correctamente';
+                    } else {
+                        $result['message'] = 'Usuario modificado pero no se guardó la imagen';
+                    } 
+                }
+                elseif ($usuario->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Usuario modificado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
 
                  /*AUN NO */
-            // case 'delete':
-            //     if ($_POST['id_usuario'] == $_SESSION['id_usuario']) {
-            //         $result['exception'] = 'No se puede eliminar a sí mismo';
-            //     } elseif (!$usuario->setId($_POST['id_usuario'])) {
-            //         $result['exception'] = 'Usuario incorrecto';
-            //     } elseif (!$usuario->readOne()) {
-            //         $result['exception'] = 'Usuario inexistente';
-            //     } elseif ($usuario->deleteRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Usuario eliminado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+            case 'delete':
+                if ($_POST['id_usuario'] == $_SESSION['id_usuario']) {
+                    $result['exception'] = 'No se puede eliminar a sí mismo';
+                } elseif (!$usuario->setId($_POST['id_usuario'])) {
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif (!$usuario->readOne()) {
+                    $result['exception'] = 'Usuario inexistente';
+                } elseif ($usuario->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Usuario eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

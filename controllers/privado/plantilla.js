@@ -85,7 +85,7 @@ HEADER.innerHTML = `
     </a>
 </li>
 <li>
-    <a href="#">
+    <a href="usuario.html">
         <i class='bx bxs-user-circle' ></i>
         <span class="text">Usuario</span>
     </a>
