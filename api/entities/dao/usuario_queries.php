@@ -17,6 +17,16 @@ class UsuarioQueries
         }
     }
 
+    //para buscar en la tabla
+    public function searchRows($value)
+    {
+        $sql = "SELECT id_usuario, correo_usuario, alias_usuario, clave_usuario, imagen_usuario, fecha_creacion, intento, estado_usuario, id_empleado
+        FROM usuario
+            WHERE correo_usuario   ILIKE ? OR alias_usuario ILIKE ?";
+        $params = array("%$value%", "%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function checkPassword($password)
     {
         $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';

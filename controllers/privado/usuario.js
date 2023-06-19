@@ -15,6 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
 fillTable();
 });
 
+//Metodo para buscar//
+const SEARCH_INPUT = document.getElementById('search');
+SEARCH_INPUT.addEventListener("keyup", (event) => {
+    let texto = event.target.value;
+    console.log(texto);
+    if (texto.value != "") {
+      // Se evita recargar la página web después de enviar el formulario.
+      event.preventDefault();
+      // Constante tipo objeto con los datos del formulario.
+      const FORM = new FormData(SEARCH_FORM);
+      // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+      fillTable(FORM);
+    }
+  });
+
 SAVE_FORM.addEventListener('submit', async (event) => {
 // Se evita recargar la página web después de enviar el formulario.
 event.preventDefault();
