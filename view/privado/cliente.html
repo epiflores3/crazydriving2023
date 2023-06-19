@@ -12,7 +12,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
 
-    <title>Vehiculo</title>
+    <title>Cliente</title>
 </head>
 
 <body>
@@ -28,14 +28,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Vehiculo</h1>
+                    <h1>Cliente</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="">Vehiculo</a>
+                            <a href="">Cliente</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="#">Vehiculo</a>
+                            <a class="active" href="#">Cliente</a>
                         </li>
                     </ul>
                 </div>
@@ -47,7 +47,7 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de vehiculos</h3>
+                        <h3>Registro de clientes</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
                                 <input id="search" type="search" name="search" placeholder="Buscar" aria-label="Buscar"
@@ -72,10 +72,11 @@
                                                     <thead>
 
                                                         <tr class="text-center">
-                                                            <th>ID</th>
-                                                            <th>Placa</th>
-                                                            <th>Tipo de vehiculo</th>
-                                                            <th>Modelo</th>
+                                                            <th>Nombre completo</th>
+                                                            <th>Dui</th>
+                                                            <th>Fecha de nacimiento</th>
+                                                            <th>Clave</th>
+                                                            <th>Estado</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -113,7 +114,7 @@
                                     <!-- <input type="text" name="tipovehiculo" id="tipovehiculo" class="form-control"
                                         required><br> -->
 
-                                    <select class="form-select" aria-label="Default select example" name="tipotelefono" id="tipotelefono"></select><br>
+                                    <select class="form-select" aria-label="Default select example" name="tipovehiculo" id="tipovehiculo"></select><br>
                                     <label for="" class="form-label">Modelo</label><br>
                                     <select class="form-select" aria-label="Default select example" name="modelo" id="modelo">
                                     </select>
@@ -147,7 +148,7 @@
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/vehiculo.js"></script>
+    <script src="../../controllers/privado/cliente.js"></script>
 </body>
 
 </html>
