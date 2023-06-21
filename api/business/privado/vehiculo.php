@@ -93,6 +93,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                
             case 'delete':
                 if (!$vehiculo->setId($_POST['id_vehiculo'])) {
                     $result['exception'] = 'Vehiculo incorrecta';

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -8,14 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="../../resource/css/nav.css">
+
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
 
-    <title>Vehiculo</title>
+    <title>Document</title>
 </head>
 
-<body>
+<body id="bodyhorario">
 
 
     <section id="sidebar">
@@ -28,14 +29,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Vehiculo</h1>
+                    <h1>Paquete</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="">Vehiculo</a>
+                            <a href="">Paquete</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="#">Vehiculo</a>
+                            <a class="active" href="#">Paquete</a>
                         </li>
                     </ul>
                 </div>
@@ -44,19 +45,13 @@
 
 
             <!--Main principal-->
+            
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de vehiculos</h3>
-                        <form method="post" id="search-form">
-                            <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar" aria-label="Buscar"
-                                    required />
-                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
-                            </div>
-                        </form>
+                        <h3>Registro de Paquete</h3>
                         <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarmarca"><img height="25px" width="25px"
+                            data-bs-target="#agregar"><img height="25px" width="25px"
                                 src="../../resource/img/imgtablas/agregar.png" alt="check">
                         </button>
                     </div>
@@ -70,12 +65,13 @@
                                                 <table>
                                                     <tr id="records"></tr>
                                                     <thead>
-
+                                                        
                                                         <tr class="text-center">
-                                                            <th>ID</th>
-                                                            <th>Placa</th>
-                                                            <th>Tipo de vehiculo</th>
-                                                            <th>Modelo</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Valor del paquete</th>
+                                                            <th>Cantidad de clases</th>
+                                                            <th>Transmision</th>
+                                                            <th>Tipo de paquete</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -92,8 +88,8 @@
                 </div>
             </div>
 
-            <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarmarca" tabindex="-1" aria-labelledby="agregarmarca" aria-hidden="true">
+
+            <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregar" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -106,21 +102,32 @@
                                 <input class="invisible" type="number" id="id" name="id">
 
                                 <div class="mb-3">
-
-                                    <label for="" class="form-label">Placa</label><br>
-                                    <input type="text" name="placa" id="placa" class="form-control" required><br>
-                                   
-                                    <label for="" class="form-label">Tipo vehiculo </label><br>
-                                    <!-- <input type="text" name="tipovehiculo" id="tipovehiculo" class="form-control"
-                                        required><br> -->
-                                    <select class="form-select" aria-label="Default select example" name="tipotelefono" id="tipotelefono"></select><br>
-
-                                    
-                                    <label for="" class="form-label">Modelo</label><br>
-                                    <select class="form-select" aria-label="Default select example" name="modelo" id="modelo">
-                                    </select>
-
+                                    <label for="">Descripción</label><br>
+                                    <input type="text" name="descripcion" id="descripcion" class="form-control"><br>
                                 </div>
+                                
+                                <div class="mb-3">
+                                    <label for="">Valor paquete </label><br>
+                                    <input type="text" name="valorpaquete" id="valorpaquete" class="form-control"><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Cantidad de clases</label><br>
+                                    <input type="number" class="labeltext" name="cantidadclases" id="cantidadclases"><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Transmision </label><br>
+                                    <select class="form-select" aria-label="Default select example" name="transmision" id="transmision"></select><br>
+    
+                                </div>
+                              
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Tipo paquete</label>
+                                    <select type="text" name="tipopaquete" id="tipopaquete" class="form-select" required>
+                                    </select>
+                                </div>
+
 
                                 <div>
                                     <button type="button" class="btn btn-secondary"
@@ -135,6 +142,9 @@
                     </div>
                 </div>
             </div>
+
+
+
         </main>
 
     </section>
@@ -149,7 +159,5 @@
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/vehiculo.js"></script>
+    <script src="../../controllers/privado/paquete.js"></script>
 </body>
-
-</html>

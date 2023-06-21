@@ -52,6 +52,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="paquete.html">
+        <i class='bx c-package' ></i>
+        <span class="text">Paquete</span>
+    </a>
+</li>
+
+<li>
     <a href="cliente.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Cliente</span>
