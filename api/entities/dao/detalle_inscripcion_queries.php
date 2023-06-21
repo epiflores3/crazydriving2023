@@ -24,4 +24,27 @@ class DetalleInscripcionQueries {
         return Database::getRow($sql, $params);
     }
 
+    public function createRow(){
+        $sql = 'INSERT INTO detalle_inscripcion(fecha_inicio, dia, id_paquete, id_inscripcion, id_empleado)
+            VALUES (?, ?, ?, ?, ?)';
+        $params = array($this->fechainicio, $this->dia, $this->idpaquete, $this->idinscripcion, $this->idempleado);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateRow(){
+        $sql = 'UPDATE detalle_inscripcion
+                SET fecha_inicio = ?, dia = ?, id_paquete = ?, id_inscripcion = ?, id_empleado = ?
+                WHERE id_detalle_inscripcion = ?';
+        $params = array($this->fechainicio, $this->dia, $this->idpaquete, $this->idinscripcion, $this->idempleado, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function deleteRow(){
+        $sql = 'DELETE FROM detalle_inscripcion
+        WHERE id_detalle_inscripcion = ?';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+
 }

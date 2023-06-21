@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
             case 'readAll':
                 if ($result['dataset'] = $detalleinscripcion->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
@@ -26,73 +26,85 @@ if (isset($_GET['action'])) {
 
 
             case 'readOne':
-                if (!$detalleinscripcion->setId($_POST['idhorarioinscripcion'])) {
-                        $result['exception'] = 'Horario inscripcion incorrecto';
+                if (!$detalleinscripcion->setId($_POST['id_detalle_inscripcion'])) {
+                    $result['exception'] = 'Horario inscripcion incorrecto';
                 } elseif ($result['dataset'] = $detalleinscripcion->readOne()) {
-                        $result['status'] = 1;
+                    $result['status'] = 1;
                 } elseif (Database::getException()) {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                        $result['exception'] = 'Horario inscripcion inexistente';
+                    $result['exception'] = 'Horario inscripcion inexistente';
                 }
                 break;
-            // case 'search':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if ($_POST['search'] == '') {
-            //         $result['exception'] = 'Ingrese un valor para buscar';
-            //     } elseif ($result['dataset'] = $horario->searchRows($_POST['search'])) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-            //     } elseif (Database::getException()) {
-            //         $result['exception'] = Database::getException();
-            //     } else {
-            //         $result['exception'] = 'No hay coincidencias';
-            //     }
-            //     break;
-            // case 'create':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$horarioiinscripcion->setIdDetalleInscripcion($_POST['detalleinscripcion'])) {
-            //         $result['exception'] = 'detalle de la inscripciom incorrecto';
-            //     } elseif (!$horarioiinscripcion->setIdHorario($_POST['horario'])) {
-            //         $result['exception'] = 'hoario incorrecto';                
-            //     } elseif ($horarioiinscripcion->createRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Horario inscripcion creado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+                // case 'search':
+                //     $_POST = Validator::validateForm($_POST);
+                //     if ($_POST['search'] == '') {
+                //         $result['exception'] = 'Ingrese un valor para buscar';
+                //     } elseif ($result['dataset'] = $horario->searchRows($_POST['search'])) {
+                //         $result['status'] = 1;
+                //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                //     } elseif (Database::getException()) {
+                //         $result['exception'] = Database::getException();
+                //     } else {
+                //         $result['exception'] = 'No hay coincidencias';
+                //     }
+                //     break;
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                if (!$detalleinscripcion->setFechaInicio($_POST['fechaini'])) {
+                    $result['exception'] = 'Fecha de inicio incorrecto';
+                } elseif (!$detalleinscripcion->setDia($_POST['dia'])) {
+                    $result['exception'] = 'Dia incorrecto';
+                } elseif (!$detalleinscripcion->setIdPaquete($_POST['paquete'])) {
+                    $result['exception'] = 'Paquete incorrecto';
+                } elseif (!$detalleinscripcion->setIdInscripcion($_POST['inscripcion'])) {
+                    $result['exception'] = 'Inscripcion incorrecta';
+                } elseif (!$detalleinscripcion->setIdEmpleado($_POST['empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($detalleinscripcion->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Detalle inscripcin creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
-            // case 'update':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$horario->setId($_POST['id'])) {
-            //             $result['exception'] = 'id de horario incorrecta';
-            //     } elseif (!$data = $horario->readOne()) {
-            //             $result['exception'] = 'Horario inexistente';
-            //     } elseif (!$horario->setInicio($_POST['inicio'])) {
-            //             $result['exception'] = 'Inicio del horario incorrecto';
-            //     } elseif (!$horario->setFin($_POST['final'])) {
-            //             $result['exception'] = 'Final del horario incorrecto';
-            //     } elseif ($horario->updateRow()) {
-            //             $result['status'] = 1;
-            //             $result['message'] = 'Horario modificada correctamente';
-            //     } else {
-            //             $result['exception'] = Database::getException();
-            //     }
-            //     break;
+            case 'update':
+                $_POST = Validator::validateForm($_POST);
+                if (!$detalleinscripcion->setId($_POST['id'])) {
+                    $result['exception'] = 'id de detalle inscripcion incorrecta';
+                } elseif (!$data = $detalleinscripcion->readOne()) {
+                    $result['exception'] = 'Horario inexistente';
+                } elseif (!$detalleinscripcion->setFechaInicio($_POST['fechaini'])) {
+                    $result['exception'] = 'Fecha de inicio incorrecto';
+                } elseif (!$detalleinscripcion->setDia($_POST['dia'])) {
+                    $result['exception'] = 'Dia incorrecto';
+                } elseif (!$detalleinscripcion->setIdPaquete($_POST['paquete'])) {
+                    $result['exception'] = 'Paquete incorrecto';
+                } elseif (!$detalleinscripcion->setIdInscripcion($_POST['inscripcion'])) {
+                    $result['exception'] = 'Inscripcion incorrecta';
+                } elseif (!$detalleinscripcion->setIdEmpleado($_POST['empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif ($detalleinscripcion->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Horario modificada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
-            //     case 'delete':
-            //         if (!$horario->setId($_POST['id_horario'])) {
-            //             $result['exception'] = 'Horario incorrecta';
-            //         } elseif (!$data = $horario->readOne()) {
-            //             $result['exception'] = 'Horario inexistente';
-            //         } elseif ($horario->deleteRow()) {
-            //             $result['status'] = 1;
-            //             $result['message'] = 'Horario eliminado correctamente';
-            //         } else {
-            //             $result['exception'] = Database::getException();
-            //         }
-            //         break;    
+            case 'delete':
+                if (!$detalleinscripcion->setId($_POST['id_detalle_inscripcion'])) {
+                    $result['exception'] = 'Detalle inscripcion incorrecta';
+                } elseif (!$data = $detalleinscripcion->readOne()) {
+                    $result['exception'] = 'Detalle inscripcion inexistente';
+                } elseif ($detalleinscripcion->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Detalle inscripcion eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';

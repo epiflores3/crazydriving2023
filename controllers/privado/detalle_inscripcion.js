@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         SAVE_FORM.reset();
         // Se asigna título a la caja de diálogo.
         MODAL_TITLE.textContent = 'Crear detalle inscripcion';
-        fillSelect(INSCRIPCION_API, 'readAll', 'inscripcion');
+        fillSelect2(INSCRIPCION_API, 'readAll', 'inscripcion');
         fillSelect(PAQUETE_API, 'readAll', 'paquete');
         fillSelect(EMPLEADO_API, 'readAll', 'empleado');
     }
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         async function openUpdate(id) {
             // Se define una constante tipo objeto con los datos del registro seleccionado.
             const FORM = new FormData();
-            FORM.append('id_paquete', id);
+            FORM.append('id_detalle_inscripcion', id);
             // Petición para obtener los datos del registro solicitado.
             const JSON = await dataFetch(DETALLEINSCRIPCION_API, 'readOne', FORM);
             // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
@@ -107,12 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Se asigna título para la caja de diálogo.
                 MODAL_TITLE.textContent = 'Actualizar Detalle inscripcion';
                 // Se inicializan los campos del formulario.
-                document.getElementById('id').value = JSON.dataset.id_vehiculo;
-                document.getElementById('descripcion').value = JSON.dataset.descripcion;
-                document.getElementById('valorpaquete').value = JSON.dataset.valor_paquete;
-                document.getElementById('cantidadclases').value = JSON.dataset.cantidad_clase;
-                fillSelect(PAQUETE_API, 'getTransmision', 'transmision', JSON.dataset.transmision);
-                fillSelect(TIPOPAQUETE_API, 'readAll', 'tipopaquete', JSON.dataset.id_tipo_paquete);
+                document.getElementById('id').value = JSON.dataset.id_detalle_inscripcion;
+                document.getElementById('fechaini').value = JSON.dataset.fecha_inicio;
+                document.getElementById('dia').value = JSON.dataset.dia;
+                fillSelect2(INSCRIPCION_API, 'readAll', 'inscripcion', JSON.dataset.id_inscripcion);
+                fillSelect(PAQUETE_API, 'readAll', 'paquete', JSON.dataset.id_paquete);
+                fillSelect(EMPLEADO_API, 'readAll', 'empleado', JSON.dataset.id_empleado);
+                
                 ;
             } else {
                 sweetAlert(2, JSON.exception, false);
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (RESPONSE) {
                 // Se define una constante tipo objeto con los datos del registro seleccionado.
                 const FORM = new FormData();
-                FORM.append('id_paquete', id);
+                FORM.append('id_detalle_inscripcion', id);
                 // Petición para eliminar el registro seleccionado.
                 const JSON = await dataFetch(DETALLEINSCRIPCION_API, 'delete', FORM);
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
