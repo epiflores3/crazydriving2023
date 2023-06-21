@@ -5,7 +5,7 @@ class DetalleInscripcionQueries {
 
     public function readAll()
     {
-        $sql = 'SELECT detalle_inscripcion.id_detalle_inscripcion, detalle_inscripcion.fecha_inicio, detalle_inscripcion.dia, paquete.id_paquete, inscripcion.id_inscripcion, empleado.id_empleado
+        $sql = 'SELECT detalle_inscripcion.id_detalle_inscripcion, detalle_inscripcion.fecha_inicio, detalle_inscripcion.dia, paquete.descripcion, inscripcion.id_inscripcion, empleado.nombre_com_empleado
 	FROM detalle_inscripcion
     INNER JOIN empleado USING(id_empleado)
     INNER JOIN paquete USING(id_paquete)
