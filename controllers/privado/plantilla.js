@@ -38,6 +38,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="horario.html">
+        <i class='bx bxs-user-circe' ></i>
+        <span class="text">Horario</span>
+    </a>
+</li>
+
+<li>
     <a href="cliente.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Cliente</span>
