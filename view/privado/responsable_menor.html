@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Usuario</title>
+    <title>Responsable Menor</title>
 </head>
 
 <body>
@@ -22,14 +22,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Usuario</h1>
+                    <h1>Responsable Menor</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="">Usuario</a>
+                            <a href="">Responsable Menor</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="#">Usuario</a>
+                            <a class="active" href="#">Responsable Menor</a>
                         </li>
                     </ul>
                 </div>
@@ -38,16 +38,16 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de usuario</h3>
+                        <h3>Registro de Responsable Menor</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar" aria-label="Buscar"
-                                    required />
+                                <input id="search" type="search" name="search" placeholder="Buscar"
+                                    aria-label="Buscar" required />
                                 <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                             </div>
                         </form>
                         <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarUsuario"><img height="25px" width="25px"
+                            data-bs-target="#agregarResponsable"><img height="25px" width="25px"
                                 src="../../resource/img/imgtablas/agregar.png" alt="check">
                         </button>
                     </div>
@@ -62,14 +62,12 @@
                                                     <tr id="records"></tr>
                                                     <thead>
                                                         <tr class="text-center">
-                                                            <th>Correo Usuario</th>
-                                                            <th>Alias Usuario</th>
-                                                            <th>Clave Usuario</th>
-                                                            <th>Imagen Usuario</th>
-                                                            <th>Fecha Creacion</th>
-                                                            <th>Intento</th>
-                                                            <th>Estado Usuario</th>
-                                                            <th>Id Empleado</th>
+                                                            <th>Nombre Responsable</th>
+                                                            <th>Telefono</th>
+                                                            <th>Correo</th>
+                                                            <th>DUI</th>
+                                                            <th>Parentesco</th>
+                                                            <th>Id Cliente</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -86,8 +84,7 @@
                 </div>
             </div>
             <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario"
-                aria-hidden="true">
+            <div class="modal fade" id="agregarResponsable" tabindex="-1" aria-labelledby="agregarResponsable" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -100,61 +97,37 @@
                                 <input class="invisible" type="number" id="id" name="id">
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Correo usuario</label><br>
-                                    <input type="text" name="correo" id="correo" class="form-control" required><br>
+                                    <label for="" class="form-label">Nombre Responsable</label><br>
+                                    <input type="text" name="nombre" id="nombre" class="form-control" required><br>
+                                </div>
+
+                                
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Telefono</label><br>
+                                    <input type="text" name="telefono" id="telefono" class="form-control" required><br>
+                                </div>
+
+                                
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Correo</label><br>
+                                    <input type="email" name="correo" id="correo" class="form-control" required><br>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Alias usuario</label><br>
-                                    <input type="text" name="alias" id="alias" class="form-control" required><br>
+                                    <label for="" class="form-label">DUI</label><br>
+                                    <input type="text" name="dui" id="dui" class="form-control" required><br>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Clave usuario</label><br>
-                                    <input type="text" name="clave" id="clave" class="form-control" required><br>
+                                    <label for="" class="form-label">Parentesco</label><br>
+                                    <input type="text" name="parentesco" id="parentesco" class="form-control" required><br>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Fecha de creacion</label><br>
-                                    <input type="date" name="fechacreacion" id="fechacreacion" class="form-control"
-                                        required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="file-field input-field col s12 m6">
-                                        <div class="btn waves-effect tooltipped"
-                                            data-tooltip="Elegir imagen de al menos 700x700 px">
-                                            <i class="bi bi-imagen"></i>
-                                            <input id="imagen_usuario" type="file" name="imagen_usuario"
-                                                accept=".jpg, .png">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"
-                                                placeholder="Formatos válidos: jpg y png">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Intentos</label><br>
-                                    <input type="text" name="intentos" id="intentos" class="form-control" required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label>Estado Usuario</label>
-                                    <select class="form-select" required aria-label="select example" id="estadousu"
-                                        name="estadousu">
+                                    <label>Id Cliente</label>
+                                    <select class="form-select" required aria-label="select example" id="idcliente"
+                                        name="idcliente">
                                         <option value="">Seleccione una opcion</option>
-
-                                    </select>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label>Empleado</label>
-                                    <select class="form-select" required aria-label="select example" id="idempleado"
-                                        name="idempleado">
-                                        <option value="">Seleccione una opcion</option>
-
                                     </select>
                                 </div>
 
@@ -180,7 +153,7 @@
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/usuario.js"></script>
+    <script src="../../controllers/privado/responsable_menor.js"></script>
 </body>
 
 </html>

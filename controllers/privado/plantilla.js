@@ -24,6 +24,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="responsable_menor.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Responsable Menor</span>
+    </a>
+</li>
+
+<li>
     <a href="cliente.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Cliente</span>

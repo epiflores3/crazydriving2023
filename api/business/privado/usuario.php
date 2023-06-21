@@ -176,8 +176,10 @@ if (isset($_GET['action'])) {
 
                 }elseif (!isset($_POST['idempleado'])) {
                     $result['exception'] = 'Seleccione un empleado';
+
                 } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
                     $result['exception'] = 'empleado incorrecta';
+                    
                 } elseif ($usuario->createRow()) {
                     $result['status'] = 1;
                     if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
@@ -220,6 +222,7 @@ if (isset($_GET['action'])) {
 
                 }elseif (!isset($_POST['idempleado'])) {
                     $result['exception'] = 'Seleccione un empleado';
+                    
                 } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
                     $result['exception'] = 'empleado incorrecta';
 
