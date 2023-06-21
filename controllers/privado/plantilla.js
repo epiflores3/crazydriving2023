@@ -31,6 +31,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="faltante.html">
+        <i class='bx c-package' ></i>
+        <span class="text">Faltante</span>
+    </a>
+</li>
+
+<li>
     <a href="cliente.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Cliente</span>
