@@ -119,6 +119,7 @@ async function fillSelect2(filename, action, select, dato=null, selected = null)
     // Petición para obtener los datos.
     const FORM = new FormData();
     FORM.append('data', dato);
+    // console.log(data);
     const JSON = await dataFetch(filename, action, FORM);
     let content = '';
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje.

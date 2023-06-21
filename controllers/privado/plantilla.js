@@ -45,6 +45,13 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="horario_inscripcion.html">
+        <i class='bx c-package' ></i>
+        <span class="text">Horario Inscripcion</span>
+    </a>
+</li>
+
+<li>
     <a href="cliente.html">
         <i class='bx bxs-group' ></i>
         <span class="text">Cliente</span>
