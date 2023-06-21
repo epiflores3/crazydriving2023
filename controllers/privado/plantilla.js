@@ -102,30 +102,7 @@ HEADER.innerHTML = `
         <span class="text">Telefono</span>
     </a>
 </li>
-<li>
-    <a href="#">
-        <i class='bx bxs-food-menu' ></i>
-        <span class="text">Inscripción</span>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class='bx bxs-package' ></i>
-        <span class="text">Paquete</span>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class='bx bxs-book-bookmark' ></i>
-        <span class="text">Bitacora</span>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class='bx bxs-id-card' ></i>
-        <span class="text">Empleado</span>
-    </a>
-</li>
+
 <li>
     <a href="usuario.html">
         <i class='bx bxs-user-circle' ></i>

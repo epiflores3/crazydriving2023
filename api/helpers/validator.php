@@ -312,7 +312,6 @@ class Validator
       // Validar en formato de 12 horas
       public static function validateHours($values)
       {
-          
           if (preg_match("/^(?:1[012]|0[0-9]):[0-5][0-9]$/", $values)) {
               return true;
           } else {
