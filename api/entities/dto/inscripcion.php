@@ -69,6 +69,17 @@ class Inscripcion extends InscripcionQueries{
         }
     }
 
+    public function setEstado($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estadocliente = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public function setTlicencia($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 50)) {
@@ -125,6 +136,12 @@ public function getAnticipo()
     {
         return $this->evaluacion;
     }
+
+    public function getEstado()
+    {
+        return $this->evaluacion;
+    }
+
 
     public function getTipolicencia()
     {

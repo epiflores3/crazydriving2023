@@ -57,10 +57,18 @@ HEADER.innerHTML = `
         <span class="text">Paquete</span>
     </a>
 </li>
+
 <li>
     <a href="detalle_inscripcion.html">
         <i class='bx bxs-grou' ></i>
         <span class="text">Detalle inscripcion</span>
+    </a>
+</li>
+
+<li>
+    <a href="inscripcion.html">
+        <i class='bx bxs-grou' ></i>
+        <span class="text">Inscripcion</span>
     </a>
 </li>
 
