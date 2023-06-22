@@ -108,7 +108,12 @@ HEADER.innerHTML = `
         <span class="text">Telefono</span>
     </a>
 </li>
-
+<li>
+    <a href="empleado.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Empleado</span>
+    </a>
+</li>
 <li>
     <a href="usuario.html">
         <i class='bx bxs-user-circle' ></i>
