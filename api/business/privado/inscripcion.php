@@ -23,6 +23,111 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                case 'readOne':
+                    if (!$inscripcion->setId($_POST['id_inscripcion'])) {
+                        $result['exception'] = 'Inscripcion incorrecto';
+                    } elseif ($result['dataset'] = $inscripcion->readOne()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'Inscripcion inexistente';
+                    }
+                    break;  
+
+
+                case 'getTipoLicencia':
+                    $result ['status'] = 1;
+                    $result ['dataset']=array(
+                        array('Liviana','Liviana'),
+                        array('Particular','Particular'),
+                        array('Motocicleta','Motocicleta'),
+                        array('Juvenil motocicleta','Juvenil motocicleta'),
+                        array('Juvenil particular','Juvenil particular'),
+                        array('Pesada','Pesada'),
+                        array('Pesada T','Pesada T')
+                       
+                    );
+
+                break;
+
+                case 'getEstadoCliente':
+                    $result ['status'] = 1;
+                    $result ['dataset']=array(
+                        array('En proceso','En proceso'),
+                        array('Pendiente','Pendiente'),
+                        array('Finalizado','Finalizado'),
+                        array('Suspendido','Suspendido') 
+                    );
+                break;
+
+                case 'create':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$inscripcion->setAnticipo($_POST['anticipo'])) {
+                        $result['exception'] = 'Anticipo incorrecto';
+                    } elseif (!$inscripcion->setFechar($_POST['fecharegistro'])) {
+                        $result['exception'] = 'Fecha registro incorrecto';
+                    }   elseif (!$inscripcion->setFechai($_POST['fechaini'])) {
+                        $result['exception'] = 'Fecha inicio incorrecto';
+                    }   elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion']) ? 1 : 0)) {
+                        $result['exception'] = 'Evaluacion incorrecto';
+                    } elseif (!$inscripcion->setTlicencia($_POST['tipodelicencia'])) {
+                        $result['exception'] = 'Tipo licencia incorrecta';
+                    } elseif (!$inscripcion->setEstado($_POST['estadoc'])) {
+                        $result['exception'] = 'Estado cliente incorrecta';
+                    } elseif (!$inscripcion->setIdcliente($_POST['cliente'])) {
+                        $result['exception'] = 'Cliente incorrecta';
+                    } elseif (!$inscripcion->setIdempleado($_POST['asesor'])) {
+                        $result['exception'] = 'Empleado incorrecta';
+                    } elseif ($inscripcion->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Inscripcion creado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
+
+                    case 'update':
+                        $_POST = Validator::validateForm($_POST);
+                        if (!$inscripcion->setId($_POST['id'])) {
+                            $result['exception'] = 'Inscripcion incorrecto';
+                        }elseif (!$inscripcion->setAnticipo($_POST['anticipo'])) {
+                                $result['exception'] = 'Anticipo incorrecto';
+                            } elseif (!$inscripcion->setFechar($_POST['fecharegistro'])) {
+                                $result['exception'] = 'Fecha registro incorrecto';
+                            }   elseif (!$inscripcion->setFechai($_POST['fechaini'])) {
+                                $result['exception'] = 'Fecha inicio incorrecto';
+                            }   elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion']) ? 1 : 0)) {
+                                $result['exception'] = 'Evaluacion incorrecto';
+                            } elseif (!$inscripcion->setTlicencia($_POST['tipodelicencia'])) {
+                                $result['exception'] = 'Tipo licencia incorrecta';
+                            } elseif (!$inscripcion->setEstado($_POST['estadoc'])) {
+                                $result['exception'] = 'Estado cliente incorrecta';
+                            } elseif (!$inscripcion->setIdcliente($_POST['cliente'])) {
+                                $result['exception'] = 'Cliente incorrecta';
+                            } elseif (!$inscripcion->setIdempleado($_POST['asesor'])) {
+                                $result['exception'] = 'Empleado incorrecta';
+                        } elseif ($inscripcion->updateRow()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Inscripcion modificado correctamente';
+                        } else {
+                            $result['exception'] = Database::getException();
+                        }
+                     break;
+
+                case 'delete':
+                    if (!$inscripcion->setId($_POST['id_inscripcion'])) {
+                        $result['exception'] = 'Inscripcion incorrecto';
+                    } elseif (!$data = $inscripcion->readOne()) {
+                        $result['exception'] = 'Inscripcion inexistente';
+                    } elseif ($inscripcion->deleteRow()) {
+                        $result['status'] = 1;
+                            $result['message'] = 'Inscripcion eliminado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                break;
+
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

@@ -22,4 +22,28 @@ class InscripcionQueries {
         return Database::getRow($sql, $params);
     }
 
+    public function createRow(){
+        $sql = 'INSERT INTO inscripcion(anticipo_paquete, fecha_registro, fecha_inicio, evaluacion, tipo_licencia, estado_cliente, id_cliente, id_empleado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->anticipo, $this->fecharegistro, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idcliente, $this->idempleado);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateRow(){
+        $sql = 'UPDATE inscripcion
+                SET anticipo_paquete = ?, fecha_registro = ?, fecha_inicio = ?, evaluacion = ?, tipo_licencia = ?, estado_cliente = ?, id_cliente = ?, id_empleado = ?
+                WHERE id_inscripcion = ?';
+        $params = array($this->anticipo, $this->fecharegistro, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idcliente, $this->idempleado, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+
+    public function deleteRow(){
+        $sql = 'DELETE FROM inscripcion
+        WHERE id_inscripcion = ?';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+
 }
