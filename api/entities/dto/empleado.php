@@ -2,7 +2,8 @@
 require_once('../../helpers/validator.php');
 require_once('../../entities/dao/empleado_queries.php');
 
-class Empleado extends EmpleadoQueries{
+class Empleado extends EmpleadoQueries
+{
 
     protected $id = null;
     protected $nombre = null;
@@ -15,8 +16,10 @@ class Empleado extends EmpleadoQueries{
     protected $AFP = null;
     protected $estado = null;
     protected $idrol = null;
-    protected $idsucursal= null;
-   
+    protected $idsucursal = null;
+
+    protected $ruta = '../../img/licencia_empleado/';
+
 
     public function setId($value)
     {
@@ -47,8 +50,7 @@ class Empleado extends EmpleadoQueries{
             return false;
         }
     }
-  
-    
+
     public function setLicencia($file)
     {
         if (Validator::validateImageFile($file, 500, 500)) {
@@ -139,12 +141,12 @@ class Empleado extends EmpleadoQueries{
         }
     }
 
-public function getId()
-{
-    return $this->id;
-}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-public function getNombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
@@ -198,6 +200,9 @@ public function getNombre()
     {
         return $this->idsucursal;
     }
-    
 
+    public function getRuta()
+    {
+        return $this->ruta;
+    }
 }
