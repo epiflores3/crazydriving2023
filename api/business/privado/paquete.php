@@ -45,9 +45,15 @@ if (isset($_GET['action'])) {
 
                 case 'search':
                     $_POST = Validator::validateForm($_POST);
-                    if ($_POST['spaquete'] == '') {
+                    if ($_POST['search'] == '') {
+                        if ($result['dataset'] = $paquete->readAll()) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                        }
+                    }
+                    elseif ($_POST['search'] == 'alias') {
                         $result['exception'] = 'Ingrese un valor para buscar';
-                    } elseif ($result['dataset'] = $paquete->searchRows($_POST['spaquete'])) {
+                    } elseif ($result['dataset'] = $paquete->searchRows($_POST['search'])) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
                     } elseif (Database::getException()) {
@@ -56,7 +62,6 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay coincidencias';
                     }
                     break;
-
                 
             case 'create':
                 $_POST = Validator::validateForm($_POST);
