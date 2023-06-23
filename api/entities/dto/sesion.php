@@ -13,7 +13,6 @@ class Sesion extends SesionQueries
     protected $asistencia = null;
     protected $estadosesion = null;
     protected $iddetalleinscripcion = null;
-    protected $dia = null;
     protected $idempleado = null;
     protected $idvehiculo = null;
 
@@ -78,15 +77,7 @@ public function setEstadoSesion($value)
     }
 }
 
-public function setDia($value)
-{
-    if (Validator::validateAlphanumeric($value, 1, 50)) {
-        $this->dia = $value;
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 public function setIdDetalleInscripcion($value)
 {
@@ -148,10 +139,7 @@ public function getEstadoSesion()
     return $this->estadosesion;
 }
 
-public function getDia()
-{
-    return $this->dia;
-}
+
 
 public function getIdDetalleInscripcion()
 {

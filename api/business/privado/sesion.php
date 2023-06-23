@@ -12,16 +12,16 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['id_usuario'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-           
+
             case 'readAll':
                 if ($result['dataset'] = $sesion->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
-                } 
+                }
                 break;
 
             case 'readOne':
@@ -34,77 +34,91 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Sesion inexistente';
                 }
-                break;    
+                break;
+            case 'readTipoClase':
+                $result['status'] = 1;
+                $result['dataset'] = array(
+                    array('Práctica', 'Práctica'),
+                    array('Teórica', 'Teórica'),
+                    array('Mecánica', 'Mecánica')
+                );
+                break;
 
-            // case 'search':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if ($_POST['search'] == '') {
-            //         $result['exception'] = 'Ingrese un valor para buscar';
-            //     } elseif ($result['dataset'] = $pedido->searchRows($_POST['search'])) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-            //     } elseif (Database::getException()) {
-            //         $result['exception'] = Database::getException();
-            //     } else {
-            //         $result['exception'] = 'No hay coincidencias';
-            //     }
-            //     break;
+            case 'readEstadoSesion':
+                $result['status'] = 1;
+                $result['dataset'] = array(
+                    array('Pendiente', 'Pendiente'),
+                    array('Incompleta', 'Incompleta'),
+                    array('Finalizada', 'Finalizada')
+                );
+                break;
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                if (!$sesion->setInicio($_POST['inicio'])) {
+                    $result['exception'] = 'Hora inicio incorrecto';
+                } elseif (!$sesion->setFin($_POST['fin'])) {
+                    $result['exception'] = 'Hora fin incorrecto';
+                } elseif (!$sesion->setEstadoSesion($_POST['estado'])) {
+                    $result['exception'] = 'Estado de la sesión incorrecta';
+                } elseif (!$sesion->setTipoClase($_POST['tipoclase'])) {
+                    $result['exception'] = 'Tipo de clase incorrecta';
+                } elseif (!$sesion->setAsistencia($_POST['asistencia'])) {
+                    $result['exception'] = 'Asistencia incorrecta';
+                } elseif (!$sesion->setIdDetalleInscripcion($_POST['detalleinscripcion'])) {
+                    $result['exception'] = 'Detalle inscripcion incorrecta';
+                } elseif (!$sesion->setIdEmpleado($_POST['empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$sesion->setIdVehiculo($_POST['vehiculo'])) {
+                    $result['exception'] = 'Vehículo incorrecto';
+                } elseif ($sesion->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesion creado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
-                
-            // case 'create':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$pedido->setEstadoPedido($_POST['estado'])) {
-            //         $result['exception'] = 'Estado del pedido incorrecto';
-            //     } elseif (!$pedido->setFechaPedido($_POST['fecha'])) {
-            //         $result['exception'] = 'Fecha del pedido incorrecto';
-            //     }   elseif (!$pedido->setDireccionPedido($_POST['direccion'])) {
-            //         $result['exception'] = 'Dirección del pedido incorrecto';
-            //     }   elseif (!$pedido->setCliente($_POST['cliente'])) {
-            //         $result['exception'] = 'Cliente incorrecto';
-            //     } elseif ($pedido->createRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Pedido creado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
-           
-            // case 'update':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$pedido->setId($_POST['id'])) {
-            //         $result['exception'] = 'Pedido incorrecto';
-            //     } elseif (!$data = $pedido->readOne()) {
-            //         $result['exception'] = 'Pedido inexistente';
-            //     } elseif (!$pedido->setEstadoPedido(isset($_POST['estado']) ? 1 : 0))  {
-            //         $result['exception'] = 'Estado del pedido incorrecto';
-                    
-            //     } elseif (!$pedido->setFechaPedido($_POST['fecha'])) {
-            //         $result['exception'] = 'Fecha del pedido incorrecto';
-                    
-            //     } elseif (!$pedido->setDireccionPedido($_POST['direccion'])) {
-            //         $result['exception'] = 'Dirección del pedido incorrecto';
-            //     }elseif (!$pedido->setCliente($_POST['cliente'])) {
-            //         $result['exception'] = 'Cliente incorrecto';
-            //     } elseif ($pedido->updateRow()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Pedido modificado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //  break;
-                
-            //   case 'delete':
-            //     if (!$pedido->setId($_POST['id_pedido'])) {
-            //         $result['exception'] = 'Pedido incorrecto';
-            //     } elseif (!$data = $pedido->readOne()) {
-            //         $result['exception'] = 'Pedido inexistente';
-            //     } elseif ($pedido->deleteRow()) {
-            //         $result['status'] = 1;
-            //             $result['message'] = 'Pedido eliminado correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+            case 'update':
+                $_POST = Validator::validateForm($_POST);
+                if (!$sesion->setId($_POST['id'])) {
+                    $result['exception'] = 'id de la sesión incorrecto';
+                } elseif (!$data = $sesion->readOne()) {
+                    $result['exception'] = 'Sesión inexistente';
+                } elseif (!$sesion->setInicio($_POST['inicio'])) {
+                    $result['exception'] = 'Hora de inicio incorrecta';
+                } elseif (!$sesion->setFin($_POST['fin'])) {
+                    $result['exception'] = 'Hora fin incorrecto';
+                } elseif (!$sesion->setEstadoSesion($_POST['estado'])) {
+                    $result['exception'] = 'Estado incorrecto';
+                } elseif (!$sesion->setTipoClase($_POST['tipoclase'])) {
+                    $result['exception'] = 'Tipo de clase incorrecta';
+                } elseif (!$sesion->setAsistencia(isset($_POST['asistencia']) ? 1 : 0)) {
+                    $result['exception'] = 'Estado de la sesión incorrecta';
+                } elseif (!$sesion->setIdDetalleInscripcion($_POST['detalleinscripcion'])) {
+                    $result['exception'] = 'Detalle inscripcion incorrecta';
+                } elseif (!$sesion->setIdEmpleado($_POST['empleado'])) {
+                    $result['exception'] = 'Empleado incorrecto';
+                } elseif (!$sesion->setIdVehiculo($_POST['vehiculo'])) {
+                    $result['exception'] = 'Vehículo incorrecto';
+                } elseif ($sesion->updateRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Modelo modificado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
+            case 'delete':
+                if (!$sesion->setId($_POST['id_sesion'])) {
+                    $result['exception'] = 'Sesión incorrecta';
+                } elseif (!$data = $sesion->readOne()) {
+                    $result['exception'] = 'Sesión inexistente';
+                } elseif ($sesion->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

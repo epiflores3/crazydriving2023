@@ -146,9 +146,9 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = Database::getException();
                     }
-                } elseif (!$licencia->setLicencia($_FILES['licencia'])) {
+                } elseif (!$empleado->setLicencia($_FILES['licencia'])) {
                     $result['exception'] = Validator::getFileError();
-                } elseif ($licencia->updateRow($data['licencia'])) {
+                } elseif ($empleado->updateRow($data['licencia'])) {
                     $result['status'] = 1;
                     if (Validator::saveFile($_FILES['licencia'], $empleado->getRuta(), $empleado->getLicencia())) {
                         $result['message'] = 'Licencia modificado correctamente';
