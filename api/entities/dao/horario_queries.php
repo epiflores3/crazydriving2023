@@ -3,6 +3,15 @@ require_once('../../helpers/database.php');
 
 class HorarioQueries{
 
+    public function searchRows($value)
+    {
+        $sql = 'SELECT id_horario, inicio, fin
+        FROM horario
+        WHERE inicio::text ILIKE ?  OR  fin::text ILIKE ?';
+        $params = array("%$value%","%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function readAll()
     {
         $sql = 'SELECT id_horario, inicio, fin

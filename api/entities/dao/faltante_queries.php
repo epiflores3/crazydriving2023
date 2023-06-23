@@ -3,6 +3,16 @@ require_once('../../helpers/database.php');
 
 class FaltanteQueries{
 
+
+    public function searchRows($value)
+    {
+        $sql = 'SELECT id_faltante, cantidad_minuto, id_sesion
+        FROM faltante
+        WHERE id_sesion::text ILIKE ?';
+        $params = array("%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function readAll()
     {
         $sql = 'SELECT id_faltante, cantidad_minuto, id_sesion
