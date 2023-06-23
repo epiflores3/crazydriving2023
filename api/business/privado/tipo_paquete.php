@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
             case 'readAll':
                 if ($result['dataset'] = $TipoPaquete->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
@@ -24,22 +24,27 @@ if (isset($_GET['action'])) {
                 break;
             case 'readOne':
                 if (!$TipoPaquete->setId($_POST['id_tipo_paquete'])) {
-                        $result['exception'] = 'tipo paquete incorrecto';
+                    $result['exception'] = 'tipo paquete incorrecto';
                 } elseif ($result['dataset'] = $TipoPaquete->readOne()) {
-                        $result['status'] = 1;
+                    $result['status'] = 1;
                 } elseif (Database::getException()) {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                        $result['exception'] = 'Tipo paquete inexistente';
+                    $result['exception'] = 'Tipo paquete inexistente';
                 }
                 break;
             case 'search':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['search'] == '') {
+                    if ($result['dataset'] = $TipoPaquete->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    }
+                } elseif ($_POST['search'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 } elseif ($result['dataset'] = $TipoPaquete->searchRows($_POST['search'])) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
@@ -51,40 +56,40 @@ if (isset($_GET['action'])) {
                 if (!$TipoPaquete->setTipoPaquete($_POST['tipo_paquete'])) {
                     $result['exception'] = 'Tipo paquete incorrecto';
                 } elseif ($TipoPaquete->createRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Tipo paquete creado correctamente';
+                    $result['status'] = 1;
+                    $result['message'] = 'Tipo paquete creado correctamente';
                 } else {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 }
-            break;
-            
+                break;
+
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$TipoPaquete->setId($_POST['id'])) {
-                        $result['exception'] = 'id de tipo paquete incorrecto';
+                    $result['exception'] = 'id de tipo paquete incorrecto';
                 } elseif (!$data = $TipoPaquete->readOne()) {
-                        $result['exception'] = 'Tipo paquete inexistente';
+                    $result['exception'] = 'Tipo paquete inexistente';
                 } elseif (!$TipoPaquete->setTipoPaquete($_POST['tipo_paquete'])) {
-                        $result['exception'] = 'Tipo paquete incorrecto';
+                    $result['exception'] = 'Tipo paquete incorrecto';
                 } elseif ($TipoPaquete->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Tipo Paquete modificado correctamente';
+                    $result['status'] = 1;
+                    $result['message'] = 'Tipo Paquete modificado correctamente';
                 } else {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 }
                 break;
-                case 'delete':
-                    if (!$TipoPaquete->setId($_POST['id_tipo_paquete'])) {
-                        $result['exception'] = 'Tipo Paquete incorrecto';
-                    } elseif (!$data = $TipoPaquete->readOne()) {
-                        $result['exception'] = 'Tipo paquete inexistente';
-                    } elseif ($TipoPaquete->deleteRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Tipo paquete eliminado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;    
+            case 'delete':
+                if (!$TipoPaquete->setId($_POST['id_tipo_paquete'])) {
+                    $result['exception'] = 'Tipo Paquete incorrecto';
+                } elseif (!$data = $TipoPaquete->readOne()) {
+                    $result['exception'] = 'Tipo paquete inexistente';
+                } elseif ($TipoPaquete->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Tipo paquete eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';

@@ -36,6 +36,11 @@ if (isset($_GET['action'])) {
             case 'search':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['search'] == '') {
+                    if ($result['dataset'] = $Sucursal->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    }
+                } elseif ($_POST['search'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 } elseif ($result['dataset'] = $Sucursal->searchRows($_POST['search'])) {
                     $result['status'] = 1;
