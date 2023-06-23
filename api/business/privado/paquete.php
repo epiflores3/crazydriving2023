@@ -43,19 +43,19 @@ if (isset($_GET['action'])) {
                 }
                 break;    
 
-            // case 'search':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if ($_POST['search'] == '') {
-            //         $result['exception'] = 'Ingrese un valor para buscar';
-            //     } elseif ($result['dataset'] = $paquete->searchRows($_POST['search'])) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-            //     } elseif (Database::getException()) {
-            //         $result['exception'] = Database::getException();
-            //     } else {
-            //         $result['exception'] = 'No hay coincidencias';
-            //     }
-            //     break;
+                case 'search':
+                    $_POST = Validator::validateForm($_POST);
+                    if ($_POST['spaquete'] == '') {
+                        $result['exception'] = 'Ingrese un valor para buscar';
+                    } elseif ($result['dataset'] = $paquete->searchRows($_POST['spaquete'])) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                    break;
 
                 
             case 'create':
