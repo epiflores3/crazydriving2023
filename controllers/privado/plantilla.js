@@ -134,6 +134,12 @@ HEADER.innerHTML = `
         <span class="text">Vehiculo</span>
     </a>
 </li>
+<li>
+    <a href="sesion.html">
+        <i class='bx bxs-user-circle' ></i>
+        <span class="text">Sesión</span>
+    </a>
+</li>
 </ul>
 <ul class="side-menu">
 <li>
