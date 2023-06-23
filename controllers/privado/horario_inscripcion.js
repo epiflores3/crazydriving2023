@@ -14,11 +14,22 @@ const CMB_DETALLE = document.getElementById('detalleinscripcion');
 
 const SEARCH_MODAL_FORM_DETALLE = document.getElementById('searchmodalDetalle');
 
+const SEARCH_FORM = document.getElementById('search-form');
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
     });
 
+    SEARCH_FORM.addEventListener('submit', (event) => {
+        // Se evita recargar la página web después de enviar el formulario.
+        event.preventDefault();
+        // Constante tipo objeto con los datos del formulario.
+        const FORM = new FormData(SEARCH_FORM);
+        // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+        fillTable(FORM);
+    });
 
     SAVE_FORM.addEventListener('submit', async (event) => {
         // Se evita recargar la página web después de enviar el formulario.
