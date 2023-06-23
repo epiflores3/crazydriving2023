@@ -10,12 +10,36 @@ const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarSesion'))
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 const SAVE_FORM = document.getElementById('save-form');
+const SEARCH_FORM = document.getElementById('search-form');
+const SEARCH_INPUT = document.getElementById('search');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
     fillTable();
 });
 
+// // Método manejador de eventos para cuando se envía el formulario de buscar.
+SEARCH_FORM.addEventListener('submit', (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Constante tipo objeto con los datos del formulario.
+    const FORM = new FormData(SEARCH_FORM);
+    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+    fillTable(FORM);
+});
+
+SEARCH_INPUT.addEventListener("keyup", (event) => {
+    let texto = event.target.value;
+    console.log(texto);
+    if (texto.value != "") {
+        // Se evita recargar la página web después de enviar el formulario.
+        event.preventDefault();
+        // Constante tipo objeto con los datos del formulario.
+        const FORM = new FormData(SEARCH_FORM);
+        // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+        fillTable(FORM);
+    }
+});
 
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.

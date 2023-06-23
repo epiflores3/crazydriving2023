@@ -25,6 +25,21 @@ class SesionQueries
         return Database::getRow($sql, $params);
     }
 
+    /*
+    *   Métodos para realizar las operaciones de buscar(search)
+    */
+    public function searchRows($value)
+    {
+        $sql = 'SELECT  id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, id_vehiculo, placa
+        FROM sesion
+        INNER JOIN empleado USING(id_empleado)
+        INNER JOIN detalle_inscripcion USING(id_detalle_inscripcion)
+        INNER JOIN vehiculo USING(id_vehiculo)
+        WHERE hora_inicio::text ILIKE ? OR  hora_fin::text ILIKE ? OR nombre_com_empleado ILIKE ? OR placa ILIKE ?';
+        $params = array("%$value%", "%$value%", "%$value%", "%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function createRow()
     {
         $sql = 'INSERT INTO sesion(hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, id_empleado, id_vehiculo)
