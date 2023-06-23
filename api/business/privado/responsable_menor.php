@@ -38,6 +38,11 @@ if (isset($_GET['action'])) {
             case 'search':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['search'] == '') {
+                    if ($result['dataset'] = $Responsable->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    }
+                } elseif ($_POST['search'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 } elseif ($result['dataset'] = $Responsable->searchRows($_POST['search'])) {
                     $result['status'] = 1;
@@ -54,9 +59,9 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen registros';
                 } elseif (Database::getException()) {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                        $result['exception'] = 'No hay datos registrados';
+                    $result['exception'] = 'No hay datos registrados';
                 }
                 break;
 
@@ -72,7 +77,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Dui incorrecto';
                 } elseif (!$Responsable->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'Parentesco incorrecto';
-                }elseif (!isset($_POST['idcliente'])) {
+                } elseif (!isset($_POST['idcliente'])) {
                     $result['exception'] = 'Seleccione un cliente';
                 } elseif (!$Responsable->setIdCliente($_POST['idcliente'])) {
                     $result['exception'] = 'Id Cliente incorrecto';
@@ -100,7 +105,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Dui incorrecto';
                 } elseif (!$Responsable->setParentesco($_POST['parentesco'])) {
                     $result['exception'] = 'Parentesco incorrecto';
-                }elseif (!isset($_POST['idcliente'])) {
+                } elseif (!isset($_POST['idcliente'])) {
                     $result['exception'] = 'Seleccione un cliente';
                 } elseif (!$Responsable->setIdCliente($_POST['idcliente'])) {
                     $result['exception'] = 'Cliente incorrecto';
