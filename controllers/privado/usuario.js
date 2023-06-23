@@ -9,6 +9,7 @@ const SEARCH_FORM = document.getElementById('search-form');
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 const SAVE_FORM = document.getElementById('save-form');
+const SEARCH_INPUT = document.getElementById('search');
 
 document.addEventListener('DOMContentLoaded', () => {
 // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -16,7 +17,7 @@ fillTable();
 });
 
 //Metodo para buscar//
-const SEARCH_INPUT = document.getElementById('search');
+
 SEARCH_INPUT.addEventListener("keyup", (event) => {
     let texto = event.target.value;
     console.log(texto);

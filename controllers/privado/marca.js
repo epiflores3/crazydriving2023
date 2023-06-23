@@ -1,7 +1,6 @@
 // Constante para completar la ruta de la API.
 const MARCA_API = 'business/privado/marca.php';
 const MODAL_TITLE = document.getElementById('modal-title');
-
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('search-form');
@@ -9,6 +8,7 @@ const SEARCH_FORM = document.getElementById('search-form');
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
 const SAVE_FORM = document.getElementById('save-form');
+const SEARCH_INPUT = document.getElementById('search');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros disponibles.
@@ -54,6 +54,18 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     fillTable(FORM);
 });
 
+SEARCH_INPUT.addEventListener("keyup", (event) => {
+    let texto = event.target.value;
+    console.log(texto);
+    if (texto.value != "") {
+      // Se evita recargar la página web después de enviar el formulario.
+      event.preventDefault();
+      // Constante tipo objeto con los datos del formulario.
+      const FORM = new FormData(SEARCH_FORM);
+      // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+      fillTable(FORM);
+    }
+  });
 
 
 
