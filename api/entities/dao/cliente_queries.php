@@ -7,11 +7,10 @@ class ClienteQueries
     *   Métodos para realizar las operaciones de buscar(search) de vehiculo
     */
     public function searchRows($value){
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo
-        FROM vehiculo ve
-        inner join modelo USING (id_modelo)
-        WHERE placa ILIKE ?';
-        $params = array("%$value%");
+        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente
+        FROM cliente
+        WHERE nombre_com_cliente ILIKE ? OR dui_cliente ILIKE ? OR correo_cliente ILIKE ?';
+        $params = array("%$value%", "%$value%","%$value%");
         return Database::getRows($sql, $params);
     }
 
