@@ -145,7 +145,7 @@ async function openUpdate(id) {
         document.getElementById('id').value = JSON.dataset.id_empleado;
         document.getElementById('nombre').value = JSON.dataset.nombre_com_empleado;
         document.getElementById('dui').value = JSON.dataset.dui_empleado;
-        // document.getElementById('licencia').value = JSON.dataset.licencia_empleado;
+        
         document.getElementById('telefono').value = JSON.dataset.telefono_empleado;
         document.getElementById('nacimiento').value = JSON.dataset.fecha_nac_empleado;
         document.getElementById('direccion').value = JSON.dataset.direccion_empleado;
@@ -158,6 +158,7 @@ async function openUpdate(id) {
         }
         fillSelect(ROL_API, 'readAll', 'rol', JSON.dataset.id_rol);
         fillSelect(SUCURSAL_API, 'readAll', 'sucursal', JSON.dataset.id_sucursal);
+        document.getElementById('licencia').value = JSON.dataset.licencia_empleado;
 
     } else {
         sweetAlert(2, JSON.exception, false);
