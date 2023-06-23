@@ -6,6 +6,7 @@ const MODAL_TITLE = document.getElementById('modal-title');
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('search-form');
+const SEARCH_INPUT = document.getElementById('search');
 // Constantes para cuerpo de la tabla
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
@@ -46,15 +47,6 @@ function openCreate() {
     fillSelect(TELEFONO_API, 'getTipos', 'tipotelefono');
 }
 
-// Método manejador de eventos para cuando se envía el formulario de buscar.
-// SEARCH_FORM.addEventListener('submit', (event) => {
-//     // Se evita recargar la página web después de enviar el formulario.
-//     event.preventDefault();
-//     // Constante tipo objeto con los datos del formulario.
-//     const FORM = new FormData(SEARCH_FORM);
-//     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-//     fillTable(FORM);
-// });
 
 // Método manejador de eventos para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -66,6 +58,18 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     fillTable(FORM);
 });
 
+SEARCH_INPUT.addEventListener("keyup", (event) => {
+    let texto = event.target.value;
+    console.log(texto);
+    if (texto.value != "") {
+        // Se evita recargar la página web después de enviar el formulario.
+        event.preventDefault();
+        // Constante tipo objeto con los datos del formulario.
+        const FORM = new FormData(SEARCH_FORM);
+        // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
+        fillTable(FORM);
+    }
+});
 
 
 async function fillTable(form = null) {
