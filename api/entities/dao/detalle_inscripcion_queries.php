@@ -3,6 +3,18 @@ require_once('../../helpers/database.php');
 
 class DetalleInscripcionQueries {
 
+    public function searchRows($value)
+    {
+        $sql = 'SELECT detalle_inscripcion.id_detalle_inscripcion, detalle_inscripcion.fecha_inicio, detalle_inscripcion.dia, paquete.descripcion, inscripcion.id_inscripcion, empleado.nombre_com_empleado
+        FROM detalle_inscripcion
+        INNER JOIN empleado USING(id_empleado)
+        INNER JOIN paquete USING(id_paquete)
+        INNER JOIN inscripcion USING(id_inscripcion)
+        WHERE detalle_inscripcion.fecha_inicio::text ILIKE ? OR detalle_inscripcion.dia::text ILIKE ? OR detalle_inscripcion.id_inscripcion::text ILIKE ? OR empleado.nombre_com_empleado ILIKE ?';
+        $params = array("%$value%", "%$value%","%$value%","%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function readAll()
     {
         $sql = 'SELECT detalle_inscripcion.id_detalle_inscripcion, detalle_inscripcion.fecha_inicio, detalle_inscripcion.dia, paquete.descripcion, inscripcion.id_inscripcion, empleado.nombre_com_empleado

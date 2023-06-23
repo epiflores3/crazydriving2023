@@ -36,19 +36,20 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Horario inscripcion inexistente';
                 }
                 break;
-                // case 'search':
-                //     $_POST = Validator::validateForm($_POST);
-                //     if ($_POST['search'] == '') {
-                //         $result['exception'] = 'Ingrese un valor para buscar';
-                //     } elseif ($result['dataset'] = $horario->searchRows($_POST['search'])) {
-                //         $result['status'] = 1;
-                //         $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
-                //     } elseif (Database::getException()) {
-                //         $result['exception'] = Database::getException();
-                //     } else {
-                //         $result['exception'] = 'No hay coincidencias';
-                //     }
-                //     break;
+
+                case 'search':
+                    $_POST = Validator::validateForm($_POST);
+                    if ($_POST['sdetalleinscripcion'] == '') {
+                        $result['exception'] = 'Ingrese un valor para buscar';
+                    } elseif ($result['dataset'] = $detalleinscripcion->searchRows($_POST['sdetalleinscripcion'])) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                    break;
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$detalleinscripcion->setFechaInicio($_POST['fechaini'])) {

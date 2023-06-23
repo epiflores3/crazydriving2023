@@ -65,10 +65,18 @@ HEADER.innerHTML = `
     </a>
 </li>
 
+
 <li>
     <a href="inscripcion.html">
         <i class='bx bxs-grou' ></i>
         <span class="text">Inscripcion</span>
+    </a>
+</li>
+
+<li>
+    <a href="rol_menu.html">
+        <i class='bx bxs-grou' ></i>
+        <span class="text">Rol menu</span>
     </a>
 </li>
 

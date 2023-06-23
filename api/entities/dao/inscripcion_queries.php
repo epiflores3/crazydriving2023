@@ -3,6 +3,18 @@ require_once('../../helpers/database.php');
 
 class InscripcionQueries {
 
+    public function searchRows($value)
+    {
+        $sql = 'SELECT inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, cliente.nombre_com_cliente, empleado.nombre_com_empleado
+        FROM inscripcion
+        INNER JOIN cliente USING(id_cliente)
+        INNER JOIN empleado USING(id_empleado)
+        WHERE  inscripcion.evaluacion::text ILIKE ? OR cliente.nombre_com_cliente ILIKE ? OR empleado.nombre_com_empleado ILIKE ? OR inscripcion.tipo_licencia::text ILIKE ? OR inscripcion.fecha_registro::text ILIKE ? OR  inscripcion.fecha_inicio::text ILIKE ? OR inscripcion.estado_cliente::text ILIKE ?';
+        $params = array("%$value%", "%$value%","%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
+        return Database::getRows($sql, $params);
+    }
+
+  
     public function readAll()
     {
         $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, cliente.nombre_com_cliente, empleado.nombre_com_empleado

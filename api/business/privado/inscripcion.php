@@ -61,6 +61,20 @@ if (isset($_GET['action'])) {
                     );
                 break;
 
+                case 'search':
+                    $_POST = Validator::validateForm($_POST);
+                    if ($_POST['sinscripcion'] == '') {
+                        $result['exception'] = 'Ingrese un valor para buscar';
+                    } elseif ($result['dataset'] = $inscripcion->searchRows($_POST['sinscripcion'])) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                    break;
+
                 case 'create':
                     $_POST = Validator::validateForm($_POST);
                     if (!$inscripcion->setAnticipo($_POST['anticipo'])) {
