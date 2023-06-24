@@ -1,9 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class UsuarioQueries
 {
-
+    //método para comprobar el usuario
     public function checkUser($alias)
     {
         $sql = 'SELECT id_usuario FROM usuario WHERE alias_usuario = ?';
@@ -17,7 +18,7 @@ class UsuarioQueries
         }
     }
 
-    //para buscar en la tabla
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = "SELECT id_usuario, correo_usuario, alias_usuario, clave_usuario, imagen_usuario, fecha_creacion, intento, estado_usuario, id_empleado
@@ -27,18 +28,20 @@ class UsuarioQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para comprobar la contraseña del usuario
     public function checkPassword($password)
     {
         $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
-        $data= Database::getRow($sql,$params);
-        if ($password==$data['clave_usuario']) {
-        return true;
-            }else{
-        return false;
+        $data = Database::getRow($sql, $params);
+        if ($password == $data['clave_usuario']) {
+            return true;
+        } else {
+            return false;
         }
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_usuario, correo_usuario, alias_usuario, clave_usuario, imagen_usuario, fecha_creacion, intento, estado_usuario, id_empleado
@@ -55,6 +58,7 @@ class UsuarioQueries
         return Database::getRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO usuario(correo_usuario, alias_usuario, clave_usuario, imagen_usuario, fecha_creacion, intento, estado_usuario, id_empleado )
@@ -63,6 +67,7 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow($current_imagen)
     {
         // Se verifica si existe una nueva imagen_usuario para borrar la actual, de lo contrario se mantiene la actual.
@@ -74,6 +79,7 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM usuario
@@ -82,10 +88,10 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para comprobar que existen empleados en la base de datos
     public function readEmpleado()
     {
         $sql = 'SELECT id_empleado, nombre_com_empleado FROM empleado';
         return Database::getRows($sql);
     }
-  
 }

@@ -1,9 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
-class FaltanteQueries{
-
-
+//Clase para poder tener acceso a todos de la entidad requerida
+class FaltanteQueries
+{
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT id_faltante, cantidad_minuto, id_sesion
@@ -13,6 +14,7 @@ class FaltanteQueries{
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_faltante, cantidad_minuto, id_sesion
@@ -20,8 +22,9 @@ class FaltanteQueries{
         return Database::getRows($sql);
     }
 
-    public function readOne(){
-        $sql='SELECT a.id_faltante, a.cantidad_minuto, x.id_sesion, d.dui_cliente
+    public function readOne()
+    {
+        $sql = 'SELECT a.id_faltante, a.cantidad_minuto, x.id_sesion, d.dui_cliente
         FROM faltante a
         Inner Join sesion x USING (id_sesion)
         Inner Join detalle_inscripcion b USING (id_detalle_inscripcion) 
@@ -34,6 +37,7 @@ class FaltanteQueries{
 
     protected $dui;
 
+    //Método para realizar el mantenimiento buscar(search) en un modal
     public function searchModal($value)
     {
         $sql = 'SELECT a.id_sesion, d.dui_cliente 
@@ -44,11 +48,9 @@ class FaltanteQueries{
         where d.dui_cliente ILIKE ?';
         $params = array("$value");
         return  Database::getRow($sql, $params);
-        
-        
     }
 
-
+    //Método para cargar la sesiones
     public function cargarSesion()
     {
         $sql = 'SELECT a.id_sesion
@@ -62,12 +64,7 @@ class FaltanteQueries{
         return Database::getRows($sql, $params);
     }
 
-    
-// select a.id_sesion from sesion a Inner Join detalle_inscripcion b USING (id_detalle_inscripcion) 
-// INNER JOIN inscripcion c USING (id_inscripcion) INNER JOIN  cliente d USING (id_cliente)
-// where d.dui_cliente='53824577-0'
-
-
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO faltante(cantidad_minuto, id_sesion)
@@ -76,6 +73,7 @@ class FaltanteQueries{
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE faltante
@@ -85,6 +83,7 @@ class FaltanteQueries{
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM faltante

@@ -1,9 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class SesionQueries
 {
-
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, placa
@@ -14,8 +15,9 @@ class SesionQueries
         return Database::getRows($sql);
     }
 
-     public function readOne(){
-        $sql='SELECT id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, id_vehiculo, placa
+    public function readOne()
+    {
+        $sql = 'SELECT id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, id_vehiculo, placa
         FROM sesion 
         INNER JOIN empleado USING(id_empleado)
         INNER JOIN detalle_inscripcion USING(id_detalle_inscripcion)
@@ -25,9 +27,7 @@ class SesionQueries
         return Database::getRow($sql, $params);
     }
 
-    /*
-    *   Métodos para realizar las operaciones de buscar(search)
-    */
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT  id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, id_vehiculo, placa
@@ -40,23 +40,26 @@ class SesionQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO sesion(hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, id_empleado, id_vehiculo)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->inicio, $this->fin, $this->asistencia,  $this->tipoclase, $this->estadosesion, $this->iddetalleinscripcion , $this->idempleado , $this->idvehiculo);
+        $params = array($this->inicio, $this->fin, $this->asistencia,  $this->tipoclase, $this->estadosesion, $this->iddetalleinscripcion, $this->idempleado, $this->idvehiculo);
         return Database::executeRow($sql, $params);
     }
-   
+
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE sesion
                 SET hora_inicio=?, hora_fin=?, asistencia=?, tipo_clase=?, estado_sesion=?, id_detalle_inscripcion=?, id_empleado=?, id_vehiculo
                 WHERE id_sesion = ?';
-        $params = array($this->inicio, $this->fin, $this->asistencia,  $this->tipoclase, $this->estadosesion, $this->iddetalleinscripcion , $this->idempleado , $this->idvehiculo, $this->id);
+        $params = array($this->inicio, $this->fin, $this->asistencia,  $this->tipoclase, $this->estadosesion, $this->iddetalleinscripcion, $this->idempleado, $this->idvehiculo, $this->id);
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM sesion
@@ -64,5 +67,4 @@ class SesionQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
 }
