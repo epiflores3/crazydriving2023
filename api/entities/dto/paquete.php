@@ -2,8 +2,10 @@
 require_once('../../helpers/validator.php');
 require_once('../../entities/dao/paquete_queries.php');
 
+//Clases que se utilizarán para poder manejar los datos de la entidad correspondiente
 class Paquete extends PaqueteQueries
 {
+    //Declarar los atributos de los campos que se encuentran en la tabla correspondiente
     protected $id = null;
     protected $descripp = null;
     protected $valorpaquete = null;
@@ -11,6 +13,7 @@ class Paquete extends PaqueteQueries
     protected $cantidadclase = null;
     protected $idtipopaquete = null;
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -21,6 +24,7 @@ class Paquete extends PaqueteQueries
         }
     }
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setDescripcion($value)
     {
         if (Validator::validateString($value, 1, 250)) {
@@ -30,7 +34,8 @@ class Paquete extends PaqueteQueries
             return false;
         }
     }
-    
+
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setValorPaquete($value)
     {
         if (Validator::validateMoney($value)) {
@@ -41,6 +46,7 @@ class Paquete extends PaqueteQueries
         }
     }
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTranmision($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 50)) {
@@ -51,6 +57,7 @@ class Paquete extends PaqueteQueries
         }
     }
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setCantidadClase($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -61,6 +68,7 @@ class Paquete extends PaqueteQueries
         }
     }
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTipoPaquete($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -71,33 +79,39 @@ class Paquete extends PaqueteQueries
         }
     }
 
+    //Método para obtener los valores de los atributos correspondientes
     public function getId()
     {
         return $this->id;
     }
 
+    //Método para obtener los valores de los atributos correspondientes
     public function getDescripcion()
     {
         return $this->descripp;
     }
 
+    //Método para obtener los valores de los atributos correspondientes
     public function getValorPaquete()
     {
         return $this->valorpaquete;
     }
 
+    //Método para obtener los valores de los atributos correspondientes
     public function getTransmision()
     {
         return $this->transmision;
     }
 
+    //Método para obtener los valores de los atributos correspondientes
     public function getCantidadClase()
     {
         return $this->cantidadclase;
     }
+
+    //Método para obtener los valores de los atributos correspondientes
     public function getTipoPaquete()
     {
         return $this->idtipopaquete;
     }
-
 }

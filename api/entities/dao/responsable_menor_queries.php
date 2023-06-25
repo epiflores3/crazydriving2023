@@ -1,11 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class ResponsableQueries
 {
-     /*
-    *   Métodos para realizar las operaciones de buscar(search) de marca
-    */
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
@@ -15,6 +14,7 @@ class ResponsableQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
@@ -31,6 +31,7 @@ class ResponsableQueries
         return Database::getRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO responsable_menor(nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente)
@@ -38,7 +39,8 @@ class ResponsableQueries
         $params = array($this->nombre, $this->telefono, $this->correo, $this->dui, $this->parentesco, $this->idcliente);
         return Database::executeRow($sql, $params);
     }
-   
+
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE responsable_menor
@@ -48,6 +50,7 @@ class ResponsableQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM responsable_menor
@@ -56,6 +59,7 @@ class ResponsableQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para leer los clientes que existe en la base de datos
     public function readCliente()
     {
         $sql = 'SELECT id_cliente, nombre_com_cliente FROM cliente';

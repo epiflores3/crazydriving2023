@@ -1,11 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class ModeloQueries
 {
-     /*
-    *   Métodos para realizar las operaciones de buscar(search) de marca
-    */
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT id_modelo, modelo, marca
@@ -16,6 +15,7 @@ class ModeloQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_modelo, modelo, marca
@@ -34,6 +34,7 @@ class ModeloQueries
         return Database::getRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO modelo(modelo, id_marca)
@@ -41,7 +42,8 @@ class ModeloQueries
         $params = array($this->modelo, $this->marca);
         return Database::executeRow($sql, $params);
     }
-   
+
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE modelo
@@ -51,6 +53,7 @@ class ModeloQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM modelo

@@ -1,62 +1,67 @@
 <?php
 require_once('../../entities/dto/horario.php');
 
+// Se comprueba si se cumplirá una acción, es decir, caso(case) a realizar, si no se llegará a cumplir ninguna acción se mostrará un mensaje de error.
 if (isset($_GET['action'])) {
-    // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
+    // Se realiza una sesión o se sigue manejando la actual.
     session_start();
-    // Se instancia la clase correspondiente.
+    // Se instancia una clase.
     $horario = new Horario;
-    // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
+    // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
-    // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
+    // Se verifica si existe hay una sesión, de lo contrario se muestra un mensaje de error.
     if (isset($_SESSION['id_usuario'])) {
-        // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
+        // Se compara la acciones que el usuario puede realizar cuando ha iniciado sesión.
         switch ($_GET['action']) {
-
+                //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $horario->readAll()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' registros';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
-
-
+                //Se comprueba que los id estén correctos y que existen
             case 'readOne':
                 if (!$horario->setId($_POST['idhorario'])) {
-                        $result['exception'] = 'Horario incorrecto';
+                    $result['exception'] = 'Horario incorrecto';
                 } elseif ($result['dataset'] = $horario->readOne()) {
-                        $result['status'] = 1;
+                    $result['status'] = 1;
                 } elseif (Database::getException()) {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                        $result['exception'] = 'Horario inexistente';
+                    $result['exception'] = 'Horario inexistente';
                 }
                 break;
-
+                //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['shorario'] == '') {
+                if ($_POST['search'] == '') {
+                    if ($result['dataset'] = $horario->readAll()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    }
+                } elseif ($_POST['search'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $horario->searchRows($_POST['shorario'])) {
+                } elseif ($result['dataset'] = $horario->searchRows($_POST['search'])) {
                     $result['status'] = 1;
-                    $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-
+                //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$horario->setInicio($_POST['inicio'])) {
                     $result['exception'] = 'Inicio del horario incorrecto';
                 } elseif (!$horario->setFin($_POST['final'])) {
-                    $result['exception'] = 'Final del horario incorrecto';                
+                    $result['exception'] = 'Final del horario incorrecto';
                 } elseif ($horario->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Horario creado correctamente';
@@ -64,38 +69,37 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
+                //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$horario->setId($_POST['id'])) {
-                        $result['exception'] = 'id de horario incorrecta';
+                    $result['exception'] = 'id de horario incorrecta';
                 } elseif (!$data = $horario->readOne()) {
-                        $result['exception'] = 'Horario inexistente';
+                    $result['exception'] = 'Horario inexistente';
                 } elseif (!$horario->setInicio($_POST['inicio'])) {
-                        $result['exception'] = 'Inicio del horario incorrecto';
+                    $result['exception'] = 'Inicio del horario incorrecto';
                 } elseif (!$horario->setFin($_POST['final'])) {
-                        $result['exception'] = 'Final del horario incorrecto';
+                    $result['exception'] = 'Final del horario incorrecto';
                 } elseif ($horario->updateRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Horario modificada correctamente';
+                    $result['status'] = 1;
+                    $result['message'] = 'Horario modificada correctamente';
                 } else {
-                        $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 }
                 break;
-
-                case 'delete':
-                    if (!$horario->setId($_POST['id_horario'])) {
-                        $result['exception'] = 'Horario incorrecta';
-                    } elseif (!$data = $horario->readOne()) {
-                        $result['exception'] = 'Horario inexistente';
-                    } elseif ($horario->deleteRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Horario eliminado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;    
-
+                //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
+            case 'delete':
+                if (!$horario->setId($_POST['id_horario'])) {
+                    $result['exception'] = 'Horario incorrecta';
+                } elseif (!$data = $horario->readOne()) {
+                    $result['exception'] = 'Horario inexistente';
+                } elseif ($horario->deleteRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Horario eliminado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

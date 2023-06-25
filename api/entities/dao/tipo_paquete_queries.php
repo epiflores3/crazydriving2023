@@ -1,11 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class TipoPaqueteQueries
 {
-     /*
-    *   Métodos para realizar las operaciones de buscar(search) de marca
-    */
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT id_tipo_paquete, tipo_paquete
@@ -15,6 +14,7 @@ class TipoPaqueteQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_tipo_paquete, tipo_paquete
@@ -31,6 +31,7 @@ class TipoPaqueteQueries
         return Database::getRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO tipo_paquete(tipo_paquete)
@@ -38,7 +39,8 @@ class TipoPaqueteQueries
         $params = array($this->tipo_paquete);
         return Database::executeRow($sql, $params);
     }
-   
+
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE tipo_paquete
@@ -48,6 +50,7 @@ class TipoPaqueteQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM tipo_paquete

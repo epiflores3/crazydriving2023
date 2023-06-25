@@ -1,11 +1,10 @@
 <?php
 require_once('../../helpers/database.php');
 
+//Clase para poder tener acceso a todos de la entidad requerida
 class MarcaQueries
 {
-     /*
-    *   Métodos para realizar las operaciones de buscar(search) de marca
-    */
+    //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
         $sql = 'SELECT id_marca, marca
@@ -15,6 +14,7 @@ class MarcaQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
         $sql = 'SELECT id_marca, marca
@@ -31,6 +31,7 @@ class MarcaQueries
         return Database::getRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
         $sql = 'INSERT INTO marca(marca)
@@ -38,7 +39,8 @@ class MarcaQueries
         $params = array($this->marca);
         return Database::executeRow($sql, $params);
     }
-   
+
+    //Método para realizar el mantenimiento actualizar(update)
     public function updateRow()
     {
         $sql = 'UPDATE marca
@@ -48,6 +50,7 @@ class MarcaQueries
         return Database::executeRow($sql, $params);
     }
 
+    //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
         $sql = 'DELETE FROM marca
