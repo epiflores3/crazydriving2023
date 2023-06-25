@@ -54,7 +54,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Usuario';
+    MODAL_TITLE.textContent = 'Crear usuario';
     fillSelect(USUARIO_API, 'readEmpleado', 'idempleado');
     fillSelect(USUARIO_API, 'readEstadousu', 'estadousu');
 }
@@ -123,7 +123,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Usuario';
+        MODAL_TITLE.textContent = 'Actualizar usuario';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_usuario;
         document.getElementById('correo').value = JSON.dataset.correo_usuario;

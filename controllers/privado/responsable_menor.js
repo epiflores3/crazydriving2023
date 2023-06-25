@@ -40,7 +40,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Responsable';
+    MODAL_TITLE.textContent = 'Crear responsable menor';
     fillSelect(RESPONSABLE_API, 'readCliente', 'idcliente');
 }
 
@@ -119,7 +119,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Responsable';
+        MODAL_TITLE.textContent = 'Actualizar responsable menor';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_responsable_menor;
         document.getElementById('nombre').value = JSON.dataset.nombre_com_responsable;
@@ -136,7 +136,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el Responsable de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el responsable menor de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();

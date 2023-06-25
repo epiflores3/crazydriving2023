@@ -139,7 +139,7 @@ async function openUpdate(id) {
 
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el cliente de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.

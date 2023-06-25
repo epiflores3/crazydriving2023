@@ -39,7 +39,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Rol';
+    MODAL_TITLE.textContent = 'Crear rol';
 }
 
 
@@ -100,7 +100,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Rol';
+        MODAL_TITLE.textContent = 'Actualizar rol';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_rol;
         document.getElementById('rol').value = JSON.dataset.rol;

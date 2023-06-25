@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,24 +9,17 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <link rel="stylesheet" href="../../resource/css/icons.css" />
-
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-
-
-    <title>Document</title>
+    <title>Inscripción</title>
 </head>
 
 <body id="bodyhorario">
-
-
     <section id="sidebar">
         <header></header>
     </section>
-
     <section id="content">
         <nav></nav>
-
         <main>
             <div class="head-title">
                 <div class="left">
@@ -41,19 +34,16 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
-
-
             <!--Main principal-->
-            
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de Inscripción</h3>
+                        <h3>Registro de inscripciones</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
-                                <input id="search" name="search" type="search" placeholder="Buscar por estado de evaluacion, estado del cliente, tipo de licencia, fecha de registro, fecha de inicio"
+                                <input id="search" name="search" type="search"
+                                    placeholder="Buscar por estado de evaluación, estado del cliente, tipo de licencia, fecha de registro y fecha de inicio"
                                     aria-label="Buscar" required />
                                 <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                             </div>
@@ -73,7 +63,6 @@
                                                 <table>
                                                     <tr id="records"></tr>
                                                     <thead>
-                                                        
                                                         <tr class="text-center">
                                                             <th>Anticipo</th>
                                                             <th>Fecha de registro</th>
@@ -98,8 +87,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregar" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -109,62 +96,52 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" id="save-form" enctype="multipart/form-data">
-
                                 <input class="invisible" type="number" id="id" name="id">
-                                
                                 <div class="mb-3">
                                     <label for="">Anticipo </label><br>
                                     <input type="text" name="anticipo" id="anticipo" class="form-control"><br>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="">Fecha de registro</label><br>
-                                    <input type="date" name="fecharegistro" id="fecharegistro" class="form-control" required><br>
+                                    <input type="date" name="fecharegistro" id="fecharegistro" class="form-control"
+                                        required><br>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="">Fecha de inicio</label><br>
                                     <input type="date" name="fechaini" id="fechaini" class="form-control" required><br>
                                 </div>
-                                
-
                                 <div class="mb-3">
                                     <label for="" class="form-label">Estado cliente</label>
                                     <select type="text" name="estadoc" id="estadoc" class="form-select" required>
                                     </select>
                                 </div>
-
                                 <div class="mb-3">
                                     <p>
-                                        <div class="switch">
-                                            <span>Cliente evaluado</span>
-                                            <label>
-                                                <input id="evaluacion" type="checkbox" name="evaluacion" >
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                                    <div class="switch">
+                                        <span>Cliente evaluado</span>
+                                        <label>
+                                            <input id="evaluacion" type="checkbox" name="evaluacion">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
                                     </p>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tipo  de licencia </label><br>
-                                    <select class="form-select" aria-label="Default select example" name="tipodelicencia" id="tipodelicencia"></select><br>
-    
+                                    <label for="" class="form-label">Tipo de licencia </label><br>
+                                    <select class="form-select" aria-label="Default select example"
+                                        name="tipodelicencia" id="tipodelicencia"></select><br>
+
                                 </div>
-                              
                                 <div class="mb-3">
                                     <label for="" class="form-label">Cliente</label>
                                     <select type="text" name="cliente" id="cliente" class="form-select" required>
                                     </select>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="" class="form-label">Asesor</label>
                                     <select type="text" name="asesor" id="asesor" class="form-select" required>
                                     </select>
                                 </div>
-
-
                                 <div>
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cerrar</button>
@@ -178,19 +155,11 @@
                     </div>
                 </div>
             </div>
-
-
-
         </main>
-
     </section>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-
     <script src="../../controllers/privado/plantilla.js"></script>
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>

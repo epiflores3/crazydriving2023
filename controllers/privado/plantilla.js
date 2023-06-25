@@ -12,71 +12,71 @@ HEADER.innerHTML = `
 
     <a href="pagina_principal.html">
         <i class='bx bxs-dashboard' ></i>
-        <span class="text">Dashboard</span>
+        <span class="text">Inicio</span>
     </a>
 </li>
 
 <li>
     <a href="marca.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-car' ></i>
         <span class="text">Marca</span>
     </a>
 </li>
 
 <li>
     <a href="responsable_menor.html">
-        <i class='bx bxs-group' ></i>
-        <span class="text">Responsable Menor</span>
+        <i class='bx bxs-user-pin' ></i>
+        <span class="text">Responsable menor</span>
     </a>
 </li>
 
 <li>
     <a href="faltante.html">
-        <i class='bx c-package' ></i>
+        <i class='bx bxs-time-five' ></i>
         <span class="text">Faltante</span>
     </a>
 </li>
 
 <li>
     <a href="horario.html">
-        <i class='bx bxs-user-circe' ></i>
+        <i class='bx bxs-time' ></i>
         <span class="text">Horario</span>
     </a>
 </li>
 
 <li>
     <a href="horario_inscripcion.html">
-        <i class='bx c-package' ></i>
-        <span class="text">Horario Inscripcion</span>
+        <i class='bx bxs-timer' ></i>
+        <span class="text">Horario inscripción</span>
     </a>
 </li>
 
 <li>
     <a href="paquete.html">
-        <i class='bx c-package' ></i>
+        <i class='bx bxs-package' ></i>
         <span class="text">Paquete</span>
     </a>
 </li>
 
 <li>
     <a href="detalle_inscripcion.html">
-        <i class='bx bxs-grou' ></i>
-        <span class="text">Detalle inscripcion</span>
+        <i class='bx bxs-folder-open' ></i>
+        <span class="text">Detalle inscripción</span>
     </a>
 </li>
 
 
 <li>
     <a href="inscripcion.html">
-        <i class='bx bxs-grou' ></i>
-        <span class="text">Inscripcion</span>
+        <i class='bx bxs-pencil' ></i>
+        <span class="text">Inscripción</span>
     </a>
 </li>
 
 <li>
     <a href="rol_menu.html">
-        <i class='bx bxs-grou' ></i>
-        <span class="text">Rol menu</span>
+        <i class='bx bxs-food-menu' ></i>
+        <span class="text">Rol menú</span>
     </a>
 </li>
 
@@ -89,44 +89,44 @@ HEADER.innerHTML = `
 
 <li>
     <a href="tipo_paquete.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-copy-alt' ></i>
         <span class="text">Tipo paquete</span>
     </a>
 </li>
 
 <li>
     <a href="sucursal.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-been-here' ></i>
         <span class="text">Sucursal</span>
     </a>
 </li>
 <li>
     <a href="rol.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-calendar-edit' ></i>
         <span class="text">Rol</span>
     </a>
 </li>
 <li>
     <a href="menu.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-calendar-event' ></i>
         <span class="text">Menú</span>
     </a>
 </li>
 <li>
     <a href="modelo.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-car' ></i>
         <span class="text">Modelo</span>
     </a>
 </li>
 <li>
     <a href="telefono.html">
-        <i class='bx bxs-group' ></i>
-        <span class="text">Telefono</span>
+        <i class='bx bxs-phone' ></i>
+        <span class="text">Teléfono</span>
     </a>
 </li>
 <li>
     <a href="empleado.html">
-        <i class='bx bxs-group' ></i>
+        <i class='bx bxs-user' ></i>
         <span class="text">Empleado</span>
     </a>
 </li>
@@ -138,13 +138,13 @@ HEADER.innerHTML = `
 </li>
 <li>
     <a href="vehiculo.html">
-        <i class='bx bxs-user-circle' ></i>
-        <span class="text">Vehiculo</span>
+        <i class='bx bxs-car' ></i>
+        <span class="text">Vehículo</span>
     </a>
 </li>
 <li>
     <a href="sesion.html">
-        <i class='bx bxs-user-circle' ></i>
+        <i class='bx bxs-analyse' ></i>
         <span class="text">Sesión</span>
     </a>
 </li>
@@ -153,13 +153,13 @@ HEADER.innerHTML = `
 <li>
     <a href="#">
         <i class='bx bxs-cog' ></i>
-        <span class="text">Settings</span>
+        <span class="text">Ajustes</span>
     </a>
 </li>
 <li>
     <a href="#" class="logout" onclick="logOut()">
         <i class='bx bxs-log-out-circle' ></i>
-        <span class="text">Logout</span>
+        <span class="text">Cerrar sesión</span>
     </a>
 </li>
 </ul>
@@ -168,10 +168,12 @@ HEADER.innerHTML = `
 
 NAV.innerHTML = `
 <i class='bx bx-menu' ></i>
-<a href="#" class="nav-link">Categories</a>
-<form action="#">
+<div class="invisible">
+<a href="#" class="nav-link" >Categories</a>
+</div>
+<form action="#" class="invisible">
     <div class="form-input">
-        <input type="search" placeholder="Search...">
+        <input type="search" placeholder="Buscar...">
         <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
     </div>
 </form>

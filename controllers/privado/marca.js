@@ -40,7 +40,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Marca';
+    MODAL_TITLE.textContent = 'Crear marca';
 }
 
 // Método que se utiliza para el formulario de buscar.

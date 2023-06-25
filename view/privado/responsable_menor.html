@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Responsable Menor</title>
+    <title>Responsable menor</title>
 </head>
 
 <body>
@@ -22,14 +22,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Responsable Menor</h1>
+                    <h1>Responsable menor</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="">Responsable Menor</a>
+                            <a href="">Responsable menor</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="#">Responsable Menor</a>
+                            <a class="active" href="#">Responsable menor</a>
                         </li>
                     </ul>
                 </div>
@@ -38,10 +38,10 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de Responsable Menor</h3>
+                        <h3>Registro de responsables menores</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar"
+                                <input id="search" type="search" name="search" placeholder="Buscar por nombre completo"
                                     aria-label="Buscar" required />
                                 <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                             </div>
@@ -62,12 +62,12 @@
                                                     <tr id="records"></tr>
                                                     <thead>
                                                         <tr class="text-center">
-                                                            <th>Nombre Responsable</th>
-                                                            <th>Telefono</th>
-                                                            <th>Correo</th>
+                                                            <th>Nombre de responsable</th>
+                                                            <th>Teléfono</th>
+                                                            <th>Correo electrónico</th>
                                                             <th>DUI</th>
                                                             <th>Parentesco</th>
-                                                            <th>Id Cliente</th>
+                                                            <th>Cliente</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -84,7 +84,8 @@
                 </div>
             </div>
             <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarResponsable" tabindex="-1" aria-labelledby="agregarResponsable" aria-hidden="true">
+            <div class="modal fade" id="agregarResponsable" tabindex="-1" aria-labelledby="agregarResponsable"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -93,44 +94,35 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" id="save-form" enctype="multipart/form-data">
-
                                 <input class="invisible" type="number" id="id" name="id">
-
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nombre Responsable</label><br>
+                                    <label for="" class="form-label">Nombre de responsable</label><br>
                                     <input type="text" name="nombre" id="nombre" class="form-control" required><br>
                                 </div>
-
-                                
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Telefono</label><br>
+                                    <label for="" class="form-label">Teléfono</label><br>
                                     <input type="text" name="telefono" id="telefono" class="form-control" required><br>
                                 </div>
-
-                                
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Correo</label><br>
+                                    <label for="" class="form-label">Correo electrónico</label><br>
                                     <input type="email" name="correo" id="correo" class="form-control" required><br>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="" class="form-label">DUI</label><br>
                                     <input type="text" name="dui" id="dui" class="form-control" required><br>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="" class="form-label">Parentesco</label><br>
-                                    <input type="text" name="parentesco" id="parentesco" class="form-control" required><br>
+                                    <input type="text" name="parentesco" id="parentesco" class="form-control"
+                                        required><br>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label>Id Cliente</label>
+                                    <label>Cliente</label>
                                     <select class="form-select" required aria-label="select example" id="idcliente"
                                         name="idcliente">
                                         <option value="">Seleccione una opcion</option>
                                     </select>
                                 </div>
-
                                 <div>
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cerrar</button>

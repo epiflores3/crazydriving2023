@@ -129,7 +129,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el pedido de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el horario de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();
