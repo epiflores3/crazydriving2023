@@ -24,7 +24,7 @@ class ClienteQueries
 
     public function readOne()
     {
-        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente
+        $sql = 'SELECT * FROM cliente
         WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);

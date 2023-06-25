@@ -1,4 +1,3 @@
-
 const LOGIN = document.getElementById('login');
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-
 LOGIN.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -27,7 +25,7 @@ LOGIN.addEventListener('submit', async (event) => {
     const FORM = new FormData(LOGIN);
     // Petición para iniciar sesión.
     const JSON = await dataFetch(USER_API, 'login', FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    // Se comprueba si la respuesta es correcta, sino muestra con la excepción.
     if (JSON.status) {
         sweetAlert(1, JSON.message, true, 'pagina_principal.html');
     } else {
