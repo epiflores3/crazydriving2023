@@ -7,12 +7,12 @@ class EmpleadoQueries
 
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
-    {
-        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.nombre_afp, empleado.estado_empleado, rol.rol, sucursal.nombre_sucursal
+    {    
+    $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.nombre_afp, empleado.estado_empleado, rol.rol, sucursal.nombre_sucursal
 	FROM empleado
     INNER JOIN rol USING(id_rol)
     INNER JOIN sucursal USING(id_sucursal)';
-        return Database::getRows($sql);
+    return Database::getRows($sql);
     }
 
     public function readOne()
