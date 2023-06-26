@@ -62,6 +62,18 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     }
 });
 
+
+// async function unicoRegistro(){
+//     const FORM = new FormData();
+//         FORM.append('cliente', row.id_cliente);
+//         const JSON = await dataFetch(INSCRIPCION_API, 'uniqueCustomerRegistration', FORM);
+//         if (JSON.dataset ===false) {
+            
+//         } else {
+            
+//         }
+// }
+
 //Función de preparación para poder insertar un nuevo registro
 function openCreate() {
     SAVE_FORM.reset();

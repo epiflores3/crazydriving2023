@@ -58,8 +58,9 @@ CMB_DETALLE.addEventListener('change', async () => {
     info.textContent = '';
     //Constante para obtener el valor selecionado del combobox
     var ValorOpcion = CMB_DETALLE.options[CMB_DETALLE.selectedIndex].value;
+    console.log(ValorOpcion);
     const FORM = new FormData();
-    FORM.append('idhorarioinscripcion', ValorOpcion);
+    FORM.append('id_detalle_inscripcion', ValorOpcion);
     const JSON = await dataFetch(DETALLEINSCRIPCION_API, 'readOne', FORM);
     if (JSON.status) {
         info.textContent =

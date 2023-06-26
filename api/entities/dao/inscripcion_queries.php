@@ -64,4 +64,13 @@ class InscripcionQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    // //Validar que no se repita
+    // public function uniqueCustomerRegistration(){
+    //     $sql = 'SELECT *
+    //     FROM inscripcion where id_cliente=?';
+    //     $params = array($this->idcliente);
+    //     return Database::getRow($sql, $params);
+    // }
 }
+

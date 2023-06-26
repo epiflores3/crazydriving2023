@@ -105,6 +105,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+
+                    //Se comprueba lo que viene del input
+            // case 'uniqueCustomerRegistration':
+            //     if (!$inscripcion->setIdcliente($_POST['cliente'])) {
+            //         $result['exception'] = 'Inscripcion incorrecto';
+            //     } elseif ($result['dataset'] = $inscripcion->uniqueCustomerRegistration()) {
+            //         $result['status'] = 1;
+            //     } else {
+            //         $result['exception'] = Database::getException();
+            //     } 
+            //     break;
+
+
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);

@@ -29,9 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
 SEARCH_FORM.addEventListener('submit', (event) => {
     event.preventDefault();
     const FORM = new FormData(SEARCH_FORM);
+
     //Llena la tabla con las respuestas de la búsqueda.
     fillTable(FORM);
+
 });
+
+// async function validarInscripcion(){
+//     const JSONVALIDAR = await dataFetch(DETALLEINSCRIPCION_API, 'BuscarInscripcion', FORM);
+
+// }
 
 // Método que se utiliza para el formulario de buscar.
 SEARCH_INPUT.addEventListener("keyup", (event) => {

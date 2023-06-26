@@ -55,6 +55,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
+
+                case 'BuscarInscripcion':
+                    $_POST = Validator::validateForm($_POST);
+                    if ($_POST['search'] == '') {
+                        $result['exception'] = 'Ingrese un valor para buscar';
+                    } elseif ($result['dataset'] = $detalleinscripcion->BuscarInscripcion($_POST['search'])) {
+                        $result['status'] = 1;
+                        // $result['message'] = 'Existen '.count($result['dataset']).' coincidencias';
+                        $detalleinscripcion->setDUI($_POST['search']);
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay coincidencias';
+                    }
+                    break;
+
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);

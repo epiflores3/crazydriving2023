@@ -13,6 +13,8 @@ class DetalleInscripcion extends DetalleInscripcionQueries
     protected $idpaquete = null;
     protected $idinscripcion = null;
     protected $idempleado = null;
+    protected $duicliente = null;
+
 
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
@@ -82,6 +84,17 @@ class DetalleInscripcion extends DetalleInscripcionQueries
         }
     }
 
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
+    public function setDUI($value)
+    {
+        if (Validator::validateDUI($value)) {
+            $this->duicliente = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Método para obtener los valores de los atributos correspondientes
     public function getId()
     {
@@ -117,4 +130,10 @@ class DetalleInscripcion extends DetalleInscripcionQueries
     {
         return $this->idempleado;
     }
+
+     //Método para obtener los valores de los atributos correspondientes
+     public function getDUI()
+     {
+         return $this->duicliente;
+     }
 }

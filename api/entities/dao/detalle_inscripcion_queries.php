@@ -68,4 +68,14 @@ class DetalleInscripcionQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function BuscarInscripcion($value){
+        $sql=
+        "SELECT a.id_inscripcion, d.dui_cliente 
+        from inscripcion a 
+        INNER JOIN  cliente d USING (id_cliente)
+        where d.dui_cliente = ? and a.estado_cliente = 'Pendiente'";
+        $params = array("$value");
+        return  Database::getRow($sql, $params);
+    }
 }
