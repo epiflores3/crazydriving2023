@@ -94,4 +94,35 @@ class UsuarioQueries
         $sql = 'SELECT id_empleado, nombre_com_empleado FROM empleado';
         return Database::getRows($sql);
     }
+
+    //Para cambiar la clave
+    public function changePassword()
+    {
+        $sql = 'UPDATE usuario
+                SET clave_usuario = ?
+                WHERE id_usuario = ?';
+        $params = array($this->clave, $_SESSION['id_usuario']);
+        return Database::executeRow($sql, $params);
+    }
+
+    // //Para leer el usuario que inicio sesion
+    public function readProfile()
+    {
+        $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado
+        FROM usuario
+        INNER JOIN empleado USING(id_empleado)
+        WHERE id_usuario = ?';
+        $params = array($_SESSION['id_usuario']);
+        return Database::getRow($sql, $params);
+    }
+
+    //Para editar el perfil del usuario
+    public function editProfile()
+    {
+        $sql = 'UPDATE usuario
+                SET correo_usuario = ?, alias_usuario = ?, fecha_creacion = ?, id_empleado = ?
+                WHERE id_usuario = ?';
+        $params = array($this->correo, $this->alias, $this->fechacreacion, $this->idempleado,  $_SESSION['id_usuario']);
+        return Database::executeRow($sql, $params);
+    }
 }

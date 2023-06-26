@@ -26,37 +26,40 @@
             <div  id="advanced-search-form">
                 <h2 class="text-center">Editar cuenta</h2>
                 <br><br><br>
-                <form class="row g-3" method="post" id="first-use" autocomplete="off">
+                <a onclick="openPassword()" class="btn waves-effect indigo tooltipped" data-tooltip="Cambiar clave">
+                    <img height="25px" width="25px"
+                    src="../../resource/img/imgtablas/agregar.png" alt="check">
+                </a>
+                <!-- <button onclick="openPassword()" type="button" class="btn" data-bs-toggle="modal"
+                data-bs-target="#agregar"><img height="25px" width="25px"
+                    src="../../resource/img/imgtablas/agregar.png" alt="check">
+            </button> -->
+                <form class="row g-3" method="post" id="profile-form" autocomplete="off">
                     
                     <div class="form-group">
-                        <label for="">Nombre completo</label>
-                        <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control"
+                        <label for="">Alias</label>
+                        <input type="text" id="alias" name="alias" class="form-control"
                             placeholder="Nombre completo" id="first-name">
                     </div>
+                    
                     <div class="form-group">
-                        <label for="">DUI</label>
-                        <input type="text" id="DUI_cliente" name="DUI_cliente" class="form-control" placeholder="DUI"
-                            id="last-name">
+                        <label for="">Fecha de creacion</label>
+                        <input type="date" id="fechacreacion" name="fechacreacion" class="form-control"
+                            placeholder="Fecha de creacion">
                     </div>
-                    <div class="form-group">
-                        <label for="">Fecha de nacimiento</label>
-                        <input type="date" id="fecha_cliente" name="fecha_cliente" class="form-control"
-                            placeholder="Fecha de nacimiento" id="country">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Dirección</label>
-                        <input type="text" id="direccion_cliente" name="direccion_cliente" class="form-control"
-                            placeholder="Dirección" id="number">
-                    </div>
+                
                     <div class="form-group">
                         <label for="">Correo electrónico</label>
-                        <input type="email" id="correo_cliente" name="correo_cliente" class="form-control"
+                        <input type="email" id="correo" name="correo" class="form-control"
                             placeholder="Correo electrónico" id="age">
                     </div>
-                    <div class="form-group">
-                        <label for="">Clave</label>
-                        <input type="password" class="form-control" placeholder="Clave" id="email">
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Empleado</label>
+                        <select type="text" name="idempleado" id="idempleado" class="form-select" required>
+                        </select>
                     </div>
+                    
                     <div class="clearfix"></div>
                     <button type="submit" class="btn btn-info btn-lg btn-responsive" id="contra_primer"
                         name="contra_primer">
@@ -64,6 +67,48 @@
                 </form>
             </div>
            
+
+            <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregar" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="password-form" enctype="multipart/form-data">
+                                <!-- <input class="invisible" type="number" id="id" name="id">
+                                -->
+                                <div class="mb-3">
+                                    <label for="">Clave actual </label><br>
+                                    <input type="text" name="actual" id="actual" class="form-control"><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Clave </label><br>
+                                    <input type="text" name="nueva" id="nueva" class="form-control"><br>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Confirmar</label><br>
+                                    <input type="text" name="confirmar" id="confirmar" class="form-control"><br>
+                                </div>
+                              
+
+                                <div>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fa-solid fa-floppy-disk"></i>
+                                        Agregar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </main>
        
 
@@ -74,7 +119,8 @@
         <script src="../../controllers/privado/account.js"></script>
         <script src="../../resource/js/sweetalert.min.js"></script>
         <script src="../../controllers/components.js"></script>
-        <script src="../../controllers/privado/cliente.js"></script>
+        <script src="../../controllers/privado/profile.js"></script>
+
 </body>
 
 </html>
