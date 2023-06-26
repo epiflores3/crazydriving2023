@@ -17,9 +17,16 @@ HEADER.innerHTML = `
 </li>
 
 <li>
-    <a href="marca.html">
-        <i class='bx bxs-car' ></i>
-        <span class="text">Marca</span>
+    <a href="cliente.html">
+        <i class='bx bxs-group' ></i>
+        <span class="text">Cliente</span>
+    </a>
+</li>
+
+<li>
+    <a href="telefono.html">
+        <i class='bx bxs-phone' ></i>
+        <span class="text">Teléfono</span>
     </a>
 </li>
 
@@ -31,23 +38,9 @@ HEADER.innerHTML = `
 </li>
 
 <li>
-    <a href="faltante.html">
-        <i class='bx bxs-time-five' ></i>
-        <span class="text">Faltante</span>
-    </a>
-</li>
-
-<li>
-    <a href="horario.html">
-        <i class='bx bxs-time' ></i>
-        <span class="text">Horario</span>
-    </a>
-</li>
-
-<li>
-    <a href="horario_inscripcion.html">
-        <i class='bx bxs-timer' ></i>
-        <span class="text">Horario inscripción</span>
+    <a href="inscripcion.html">
+        <i class='bx bxs-pencil' ></i>
+        <span class="text">Inscripción</span>
     </a>
 </li>
 
@@ -59,17 +52,100 @@ HEADER.innerHTML = `
 </li>
 
 <li>
+    <a href="tipo_paquete.html">
+        <i class='bx bxs-copy-alt' ></i>
+        <span class="text">Tipo paquete</span>
+    </a>
+</li>
+
+<li>
     <a href="detalle_inscripcion.html">
         <i class='bx bxs-folder-open' ></i>
         <span class="text">Detalle inscripción</span>
     </a>
 </li>
 
+<li>
+    <a href="horario_inscripcion.html">
+        <i class='bx bxs-timer' ></i>
+        <span class="text">Horario inscripción</span>
+    </a>
+</li>
 
 <li>
-    <a href="inscripcion.html">
-        <i class='bx bxs-pencil' ></i>
-        <span class="text">Inscripción</span>
+    <a href="horario.html">
+        <i class='bx bxs-time' ></i>
+        <span class="text">Horario</span>
+    </a>
+</li>
+
+<li>
+    <a href="sesion.html">
+        <i class='bx bxs-analyse' ></i>
+        <span class="text">Sesión</span>
+    </a>
+</li>
+
+<li>
+    <a href="faltante.html">
+        <i class='bx bxs-time-five' ></i>
+        <span class="text">Faltante</span>
+    </a>
+</li>
+
+<li>
+    <a href="marca.html">
+        <i class='bx bxs-car' ></i>
+        <span class="text">Marca</span>
+    </a>
+</li>
+
+<li>
+    <a href="modelo.html">
+        <i class='bx bxs-car' ></i>
+        <span class="text">Modelo</span>
+    </a>
+</li>
+
+<li>
+    <a href="vehiculo.html">
+        <i class='bx bxs-car' ></i>
+        <span class="text">Vehículo</span>
+    </a>
+</li>
+
+<li>
+    <a href="empleado.html">
+        <i class='bx bxs-user' ></i>
+        <span class="text">Empleado</span>
+    </a>
+</li>
+
+<li>
+    <a href="sucursal.html">
+        <i class='bx bxs-been-here' ></i>
+        <span class="text">Sucursal</span>
+    </a>
+</li>
+
+<li>
+    <a href="usuario.html">
+        <i class='bx bxs-user-circle' ></i>
+        <span class="text">Usuario</span>
+    </a>
+</li>
+
+<li>
+    <a href="rol.html">
+        <i class='bx bxs-calendar-edit' ></i>
+        <span class="text">Rol</span>
+    </a>
+</li>
+
+<li>
+    <a href="menu.html">
+        <i class='bx bxs-calendar-event' ></i>
+        <span class="text">Menú</span>
     </a>
 </li>
 
@@ -80,78 +156,10 @@ HEADER.innerHTML = `
     </a>
 </li>
 
-<li>
-    <a href="cliente.html">
-        <i class='bx bxs-group' ></i>
-        <span class="text">Cliente</span>
-    </a>
-</li>
-
-<li>
-    <a href="tipo_paquete.html">
-        <i class='bx bxs-copy-alt' ></i>
-        <span class="text">Tipo paquete</span>
-    </a>
-</li>
-
-<li>
-    <a href="sucursal.html">
-        <i class='bx bxs-been-here' ></i>
-        <span class="text">Sucursal</span>
-    </a>
-</li>
-<li>
-    <a href="rol.html">
-        <i class='bx bxs-calendar-edit' ></i>
-        <span class="text">Rol</span>
-    </a>
-</li>
-<li>
-    <a href="menu.html">
-        <i class='bx bxs-calendar-event' ></i>
-        <span class="text">Menú</span>
-    </a>
-</li>
-<li>
-    <a href="modelo.html">
-        <i class='bx bxs-car' ></i>
-        <span class="text">Modelo</span>
-    </a>
-</li>
-<li>
-    <a href="telefono.html">
-        <i class='bx bxs-phone' ></i>
-        <span class="text">Teléfono</span>
-    </a>
-</li>
-<li>
-    <a href="empleado.html">
-        <i class='bx bxs-user' ></i>
-        <span class="text">Empleado</span>
-    </a>
-</li>
-<li>
-    <a href="usuario.html">
-        <i class='bx bxs-user-circle' ></i>
-        <span class="text">Usuario</span>
-    </a>
-</li>
-<li>
-    <a href="vehiculo.html">
-        <i class='bx bxs-car' ></i>
-        <span class="text">Vehículo</span>
-    </a>
-</li>
-<li>
-    <a href="sesion.html">
-        <i class='bx bxs-analyse' ></i>
-        <span class="text">Sesión</span>
-    </a>
-</li>
 </ul>
 <ul class="side-menu">
 <li>
-    <a href="#">
+    <a href="editar_perfil.html">
         <i class='bx bxs-cog' ></i>
         <span class="text">Ajustes</span>
     </a>
