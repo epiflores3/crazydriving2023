@@ -97,13 +97,13 @@ async function fillTable(form = null) {
     if (JSON.status) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
-            // (row.estado_cliente) ? icon = 'visibility' : icon = 'visibility_off';
+            (row.evaluacion) ? icon = 'visibility' : icon = 'visibility_off';
             TBODY_ROWS.innerHTML += `
         <tr>
             <td>${row.anticipo_paquete}</td>
             <td>${row.fecha_registro}</td>
             <td>${row.fecha_inicio}</td>
-            <td>${row.evaluacion}</td>
+            <td><i class="material-icons">${icon}</i></td>
             <td>${row.tipo_licencia}</td>
             <td>${row.estado_cliente}</td>
             <td>${row.nombre_com_cliente}</td>
@@ -165,7 +165,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar la inscripción de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Petición para realizar el proceso de eliminar del registro seleccionado.

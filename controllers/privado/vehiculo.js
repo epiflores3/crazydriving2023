@@ -42,7 +42,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear vehiculo';
+    MODAL_TITLE.textContent = 'Crear vehículo';
     fillSelect(MODELO_API, 'readAll', 'modelo');
     fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo');
 }
@@ -82,7 +82,6 @@ async function fillTable(form = null) {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
     <tr>
-    <td>${row.id_vehiculo}</td>
     <td>${row.placa}</td>
     <td>${row.tipo_vehiculo}</td>
     <td>${row.modelo}</td>
@@ -121,7 +120,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se asigna título para la caja de diálogo.
-        MODAL_TITLE.textContent = 'Actualizar marca';
+        MODAL_TITLE.textContent = 'Actualizar vehículo';
         // Se inicializan los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_vehiculo;
         document.getElementById('placa').value = JSON.dataset.placa;
@@ -135,7 +134,7 @@ async function openUpdate(id) {
 
 async function openDelete(id) {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el vehículo de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.

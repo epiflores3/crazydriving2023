@@ -88,7 +88,7 @@ SEARCH_MODAL_FORM_DETALLE.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear horario inscripcion';
+    MODAL_TITLE.textContent = 'Crear horario inscripción';
     fillSelect2(DETALLEINSCRIPCION_API, 'readAll', 'detalleinscripcion');
     fillSelect2(HORARIO_API, 'readAll', 'horario');
 }
@@ -142,7 +142,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar horario inscripcion';
+        MODAL_TITLE.textContent = 'Actualizar horario inscripción';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_horario_inscripcion;
         fillSelect2(HORARIOINCRIPCION_API, 'cargarSelectDetalle', 'detalleinscripcion', JSON.dataset.dui_cliente, JSON.dataset.id_detalle_inscripcion);
@@ -167,7 +167,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el producto de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el horario de la inscripción de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();

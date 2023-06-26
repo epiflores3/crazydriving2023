@@ -42,8 +42,8 @@
                         <h3>Registro de empleados</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar por nombre o sucursal" aria-label="Buscar"
-                                    required />
+                                <input id="search" type="search" name="search"
+                                    placeholder="Buscar por nombre o sucursal" aria-label="Buscar" required />
                                 <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                             </div>
                         </form>
@@ -69,7 +69,7 @@
                                                             <th>Teléfono</th>
                                                             <th>Fecha de nacimiento</th>
                                                             <th>Dirección</th>
-                                                            <th>Correo</th>
+                                                            <th>Correo electrónico</th>
                                                             <th>AFP</th>
                                                             <th>Estado</th>
                                                             <th>Rol</th>
@@ -119,10 +119,9 @@
                                         <div class="btn waves-effect tooltipped"
                                             data-tooltip="Elegir imagen de al menos 700x700 px">
                                             <i class="bi bi-imagen"></i>
-                                            <input id="licencia" type="file" name="licencia"
-                                                accept=".jpg, .png">
+                                            <input id="licencia" type="file" name="licencia" accept=".jpg, .png">
                                         </div>
-                                      
+
                                     </div>
                                 </div>
 
@@ -132,15 +131,17 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nacimiento</label><br>
-                                    <input type="date" name="nacimiento" id="nacimiento" class="form-control" required><br>
+                                    <label for="" class="form-label">Fecha de nacimiento</label><br>
+                                    <input type="date" name="nacimiento" id="nacimiento" class="form-control"
+                                        required><br>
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label">Dirección</label><br>
-                                    <input type="text" name="direccion" id="direccion" class="form-control" required><br>
+                                    <input type="text" name="direccion" id="direccion" class="form-control"
+                                        required><br>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Correo</label><br>
+                                    <label for="" class="form-label">Correo electrónico</label><br>
                                     <input type="email" name="correo" id="correo" class="form-control" required><br>
                                 </div>
 
@@ -160,8 +161,6 @@
                                     </div>
                                     </p>
                                 </div>
-
-
                                 <div class="mb-3">
                                     <label>Rol</label>
                                     <select class="form-select" required aria-label="select example" id="rol"
@@ -169,7 +168,6 @@
                                         <option value="">Seleccione una opcion</option>
                                     </select>
                                 </div>
-
                                 <div class="mb-3">
                                     <label>Sucursal</label>
                                     <select class="form-select" required aria-label="select example" id="sucursal"
@@ -177,7 +175,6 @@
                                         <option value="">Seleccione una opcion</option>
                                     </select>
                                 </div>
-
                                 <div>
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cerrar</button>

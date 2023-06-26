@@ -41,7 +41,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear permisos para menus';
+    MODAL_TITLE.textContent = 'Crear permisos para menús';
     fillSelect(ROL_API, 'readAll', 'rol');
     fillSelect(MENU_API, 'readAll', 'menu');
 }
@@ -90,7 +90,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Rol menu';
+        MODAL_TITLE.textContent = 'Actualizar rol menú';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_rol_menu;
         fillSelect(ROL_API, 'readAll', 'rol', JSON.dataset.id_rol);
@@ -105,7 +105,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el permiso de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el rol menú de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();

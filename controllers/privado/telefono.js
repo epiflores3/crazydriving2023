@@ -42,7 +42,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear telefono';
+    MODAL_TITLE.textContent = 'Crear teléfono';
     fillSelect(CLIENTE_API, 'readAll', 'cliente');
     fillSelect(TELEFONO_API, 'getTipos', 'tipotelefono');
 }
@@ -83,7 +83,6 @@ async function fillTable(form = null) {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TBODY_ROWS.innerHTML += `
     <tr>
-        <td>${row.id_telefono}</td>
         <td>${row.telefono}</td>
         <td>${row.tipo_telefono}</td>
         <td>${row.nombre_com_cliente}</td>
@@ -119,7 +118,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Telefono';
+        MODAL_TITLE.textContent = 'Actualizar teléfono';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_telefono;
         document.getElementById('telefono').value = JSON.dataset.telefono;
@@ -134,7 +133,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el telefono de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el teléfono de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();

@@ -119,7 +119,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Paquete';
+        MODAL_TITLE.textContent = 'Actualizar paquete';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_vehiculo;
         document.getElementById('descripcion').value = JSON.dataset.descripcion;
@@ -136,7 +136,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el paquete de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         const FORM = new FormData();

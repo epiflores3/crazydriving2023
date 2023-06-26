@@ -40,7 +40,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Tipo Paquete';
+    MODAL_TITLE.textContent = 'Crear tipo paquete';
 }
 
 
@@ -111,7 +111,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Tipo Paquete';
+        MODAL_TITLE.textContent = 'Actualizar tipo paquete';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_tipo_paquete;
         document.getElementById('tipo_paquete').value = JSON.dataset.tipo_paquete;

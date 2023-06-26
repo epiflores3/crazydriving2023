@@ -40,7 +40,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Sucursal';
+    MODAL_TITLE.textContent = 'Crear sucursal';
 }
 
 
@@ -112,7 +112,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Sucursal';
+        MODAL_TITLE.textContent = 'Actualizar sucursal';
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_sucursal;
         document.getElementById('nombre_sucursal').value = JSON.dataset.nombre_sucursal;

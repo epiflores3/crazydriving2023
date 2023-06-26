@@ -73,7 +73,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear detalle inscripcion';
+    MODAL_TITLE.textContent = 'Crear detalle inscripción';
     fillSelect2(INSCRIPCION_API, 'readAll', 'inscripcion');
     fillSelect(PAQUETE_API, 'readAll', 'paquete');
     fillSelect(EMPLEADO_API, 'readAll', 'empleado');
@@ -129,7 +129,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se escriben los campos del formulario.
-        MODAL_TITLE.textContent = 'Actualizar Detalle inscripcion';
+        MODAL_TITLE.textContent = 'Actualizar detalle inscripción';
         // Se inicializan los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_detalle_inscripcion;
         document.getElementById('fechaini').value = JSON.dataset.fecha_inicio;
@@ -148,7 +148,7 @@ async function openUpdate(id) {
 //Función de preparación para poder eliminar cualquier registro
 async function openDelete(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
-    const RESPONSE = await confirmAction('¿Desea eliminar el vehiculo de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el detalle de la inscripción de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.

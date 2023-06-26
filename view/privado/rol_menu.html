@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Rol menu</title>
+    <title>Rol menú</title>
 </head>
 
 <body>
@@ -22,14 +22,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Rol menu</h1>
+                    <h1>Rol menú</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="">Rol menu</a>
+                            <a href="">Rol menú</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="#">Permisos de roles con menus</a>
+                            <a class="active" href="#">Rol menú </a>
                         </li>
                     </ul>
                 </div>
@@ -38,10 +38,10 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Registro de permisos</h3>
+                        <h3>Registro de permisos de roles con menús</h3>
                         <form method="post" id="search-form">
                             <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar"
+                                <input id="search" type="search" name="search" placeholder="Buscar por rol y menú"
                                     aria-label="Buscar" required />
                                 <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                             </div>
@@ -61,10 +61,9 @@
                                                 <table>
                                                     <tr id="records"></tr>
                                                     <thead>
-
                                                         <tr class="text-center">
                                                             <th>Rol</th>
-                                                            <th>Menu</th>
+                                                            <th>Menú</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -90,21 +89,17 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" id="save-form" enctype="multipart/form-data">
-
                                 <input class="invisible" type="number" id="id" name="id">
-
                                 <div class="mb-3">
                                     <label for="" class="form-label">Rol</label>
                                     <select type="text" name="rol" id="rol" class="form-select" required>
                                     </select>
                                 </div>
-                            
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Menu</label>
+                                    <label for="" class="form-label">Menú</label>
                                     <select type="text" name="menu" id="menu" class="form-select" required>
                                     </select>
                                 </div>
-
                                 <div>
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cerrar</button>
@@ -118,7 +113,6 @@
                 </div>
             </div>
         </main>
-
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
