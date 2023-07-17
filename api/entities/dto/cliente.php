@@ -12,7 +12,6 @@ class Cliente extends ClienteQueries
     protected $fechaN = null;
     protected $direccion = null;
     protected $correo = null;
-    protected $clave = null;
     protected $estado = null;
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
@@ -82,17 +81,6 @@ class Cliente extends ClienteQueries
     }
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
-    public function setClave($value)
-    {
-        if (Validator::validatePassword($value)) {
-            $this->clave = password_hash($value, PASSWORD_DEFAULT);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstado($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 50)) {
@@ -137,12 +125,6 @@ class Cliente extends ClienteQueries
     public function getCorreo()
     {
         return $this->correo;
-    }
-
-    //Método para obtener los valores de los atributos correspondientes
-    public function getClave()
-    {
-        return $this->clave;
     }
 
     //Método para obtener los valores de los atributos correspondientes

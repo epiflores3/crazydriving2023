@@ -86,6 +86,8 @@ async function fillTable(form = null) {
     <td>${row.nombre_com_cliente}</td>
     <td>${row.dui_cliente}</td>
     <td>${row.fecha_nac_cliente}</td>
+    <td>${row.direccion_cliente}</td>
+    <td>${row.correo_cliente}</td>
     <td>${row.estado_cliente}</td>
         <td>
             <button onclick="openReport(${row.id_cliente})" type="button" class="btn ">
@@ -130,7 +132,6 @@ async function openUpdate(id) {
         document.getElementById('fechanacc').value = JSON.dataset.fecha_nac_cliente; //No lee
         document.getElementById('direccionc').value = JSON.dataset.direccion_cliente;
         document.getElementById('correoc').value = JSON.dataset.correo_cliente;
-        document.getElementById('clavec').value = JSON.dataset.clave_cliente; //No lee
         fillSelect(CLIENTE_API, 'getTipos', 'tipoestado', JSON.dataset.estado_cliente);
     } else {
         sweetAlert(2, JSON.exception, false);

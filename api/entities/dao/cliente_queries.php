@@ -7,7 +7,7 @@ class ClienteQueries
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente
+        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, estado_cliente
         FROM cliente
         WHERE nombre_com_cliente ILIKE ? OR dui_cliente ILIKE ? OR correo_cliente ILIKE ?';
         $params = array("%$value%", "%$value%", "%$value%");
@@ -17,7 +17,7 @@ class ClienteQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente
+        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, estado_cliente
         FROM cliente';
         return Database::getRows($sql);
     }
@@ -33,9 +33,9 @@ class ClienteQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
-        $sql = 'INSERT INTO cliente(nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, clave_cliente, estado_cliente)
-            VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo, $this->clave, $this->estado);
+        $sql = 'INSERT INTO cliente(nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, estado_cliente)
+            VALUES (?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo,  $this->estado);
         return Database::executeRow($sql, $params);
     }
 
@@ -43,9 +43,9 @@ class ClienteQueries
     public function updateRow()
     {
         $sql = 'UPDATE cliente
-                SET nombre_com_cliente = ?, dui_cliente = ?, fecha_nac_cliente = ?, direccion_cliente = ?, correo_cliente = ?, clave_cliente = ?, estado_cliente = ?
+                SET nombre_com_cliente = ?, dui_cliente = ?, fecha_nac_cliente = ?, direccion_cliente = ?, correo_cliente = ?, estado_cliente = ?
                 WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo, $this->clave, $this->estado, $this->id);
+        $params = array($this->nombre, $this->dui, $this->fechaN, $this->direccion, $this->correo, $this->estado, $this->id);
         return Database::executeRow($sql, $params);
     }
 
