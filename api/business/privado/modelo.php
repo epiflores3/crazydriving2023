@@ -24,6 +24,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
+            case 'getTipos':
+                $result['status'] = 1;
+                $result['dataset'] = array(
+                    array('Carro', 'Carro'),
+                    array('Pick up', 'Pick up'),
+                    array('Motocicleta', 'Motocicleta')
+                );
+                break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
                 if (!$modelo->setId($_POST['id_modelo'])) {
@@ -56,20 +65,21 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
-            case 'create':
-                $_POST = Validator::validateForm($_POST);
-                if (!$modelo->setModelo($_POST['modelo'])) {
-                    $result['exception'] = 'Modelo incorrecto';
-                }
-                if (!$modelo->setMarca($_POST['marca'])) {
-                    $result['exception'] = 'Marca incorrecta';
-                } elseif ($modelo->createRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Modelo creado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+                case 'create':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$modelo->setModelo($_POST['modelo'])) {
+                        $result['exception'] = 'Modelo incorrecta';
+                    } elseif (!$modelo->setTipoVehiculo($_POST['tipovehiculo'])) {
+                        $result['exception'] = 'Tipo de vehiculo incorrecta';
+                    } elseif (!$modelo->setMarca($_POST['marca'])) {
+                        $result['exception'] = 'Marca incorrecto';
+                    } elseif ($modelo->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Modelo agregado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
@@ -79,6 +89,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Modelo inexistente';
                 } elseif (!$modelo->setModelo($_POST['modelo'])) {
                     $result['exception'] = 'Modelo incorrecto';
+                } elseif (!$modelo->setTipoVehiculo($_POST['tipovehiculo'])) {
+                    $result['exception'] = 'Tipo de vehiculo incorrecto';
                 } elseif (!$modelo->setMarca($_POST['marca'])) {
                     $result['exception'] = 'Marca incorrecta';
                 } elseif ($modelo->updateRow()) {

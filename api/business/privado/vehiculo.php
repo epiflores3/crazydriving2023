@@ -55,21 +55,12 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-                //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
-            case 'getTipos':
-                $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Carro', 'Carro'),
-                    array('Pick up', 'Pick up'),
-                    array('Motocicleta', 'Motocicleta')
-                );
-                break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecta';
-                }  elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
                     $result['exception'] = 'Modelo incorrecta';
                 } elseif ($vehiculo->createRow()) {
                     $result['status'] = 1;
@@ -87,7 +78,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Vehiculo inexistente';
                 } elseif (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecto';
-                }  elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
                     $result['exception'] = 'Modelo incorrecto';
                 } elseif ($vehiculo->updateRow()) {
                     $result['status'] = 1;

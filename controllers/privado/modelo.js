@@ -45,6 +45,7 @@ function openCreate() {
     // Se da un título que se mostrará en el modal.
     MODAL_TITLE.textContent = 'Crear modelo';
     fillSelect(MARCA_API, 'readAll', 'marca');
+    fillSelect(MODELO_API, 'getTipos', 'tipovehiculo');
 }
 
 // Método que se utiliza para el formulario de buscar.
@@ -83,6 +84,7 @@ async function fillTable(form = null) {
             TBODY_ROWS.innerHTML += `
     <tr>
         <td>${row.modelo}</td>
+        <td>${row.tipo_vehiculo}</td>
         <td>${row.marca}</td>
         <td>
             <button onclick="openReport(${row.id_modelo})" type="button" class="btn ">
@@ -119,6 +121,7 @@ async function openUpdate(id) {
         // Se escriben los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_modelo;
         document.getElementById('modelo').value = JSON.dataset.modelo;
+        fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo', JSON.dataset.tipo_vehiculo);
         fillSelect(MARCA_API, 'readAll', 'marca', JSON.dataset.id_marca);
     } else {
         sweetAlert(2, JSON.exception, false);

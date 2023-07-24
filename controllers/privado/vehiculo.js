@@ -44,7 +44,6 @@ function openCreate() {
     // Se da un título que se mostrará en el modal.
     MODAL_TITLE.textContent = 'Crear vehículo';
     fillSelect(MODELO_API, 'readAll', 'modelo');
-    fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo');
 }
 
 
