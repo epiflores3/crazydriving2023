@@ -83,7 +83,6 @@ async function fillTable(form = null) {
             TBODY_ROWS.innerHTML += `
     <tr>
     <td>${row.placa}</td>
-    <td>${row.tipo_vehiculo}</td>
     <td>${row.modelo}</td>
         <td>
             <button onclick="openReport(${row.id_vehiculo})" type="button" class="btn ">
@@ -124,7 +123,6 @@ async function openUpdate(id) {
         // Se inicializan los campos del formulario.
         document.getElementById('id').value = JSON.dataset.id_vehiculo;
         document.getElementById('placa').value = JSON.dataset.placa;
-        fillSelect(VEHICULO_API, 'getTipos', 'tipovehiculo', JSON.dataset.tipo_vehiculo);
         fillSelect(MODELO_API, 'readAll', 'modelo', JSON.dataset.id_modelo);
         ;
     } else {

@@ -69,9 +69,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecta';
-                } elseif (!$vehiculo->setTipoVehiuclo($_POST['tipovehiculo'])) {
-                    $result['exception'] = 'Tipo de vehiculo incorrecta';
-                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                }  elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
                     $result['exception'] = 'Modelo incorrecta';
                 } elseif ($vehiculo->createRow()) {
                     $result['status'] = 1;
@@ -89,9 +87,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Vehiculo inexistente';
                 } elseif (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecto';
-                } elseif (!$vehiculo->setTipoVehiuclo($_POST['tipovehiculo'])) {
-                    $result['exception'] = 'Tipo de vehiculo incorrecto';
-                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                }  elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
                     $result['exception'] = 'Modelo incorrecto';
                 } elseif ($vehiculo->updateRow()) {
                     $result['status'] = 1;

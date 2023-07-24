@@ -7,7 +7,7 @@ class VehiculoQueries
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo
+        $sql = 'SELECT ve.id_vehiculo, ve.placa, modelo
         FROM vehiculo ve
         inner join modelo USING (id_modelo)
         WHERE placa ILIKE ?';
@@ -18,7 +18,7 @@ class VehiculoQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo
+        $sql = 'SELECT ve.id_vehiculo, ve.placa, modelo
         FROM vehiculo ve
         inner join modelo USING (id_modelo)';
         return Database::getRows($sql);
@@ -26,7 +26,7 @@ class VehiculoQueries
 
     public function readOne()
     {
-        $sql = 'SELECT ve.id_vehiculo, ve.placa, ve.tipo_vehiculo, modelo, id_modelo
+        $sql = 'SELECT ve.id_vehiculo, ve.placa, modelo, id_modelo
         FROM vehiculo ve
         inner join modelo USING (id_modelo)
         WHERE id_vehiculo = ?';
@@ -37,9 +37,9 @@ class VehiculoQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
-        $sql = 'INSERT INTO vehiculo(placa, tipo_vehiculo, id_modelo)
-            VALUES (?, ?, ?)';
-        $params = array($this->placa, $this->tipo_vehiculo, $this->id_modelo);
+        $sql = 'INSERT INTO vehiculo(placa, id_modelo)
+            VALUES (?, ?)';
+        $params = array($this->placa, $this->id_modelo);
         return Database::executeRow($sql, $params);
     }
 
@@ -47,9 +47,9 @@ class VehiculoQueries
     public function updateRow()
     {
         $sql = 'UPDATE vehiculo
-                SET placa = ?, tipo_vehiculo = ?, id_modelo = ?
+                SET placa = ?, id_modelo = ?
                 WHERE id_vehiculo = ?';
-        $params = array($this->placa, $this->tipo_vehiculo, $this->id_modelo, $this->id);
+        $params = array($this->placa, $this->id_modelo, $this->id);
         return Database::executeRow($sql, $params);
     }
 
