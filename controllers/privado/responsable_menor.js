@@ -42,6 +42,7 @@ function openCreate() {
     // Se da un título que se mostrará en el modal.
     MODAL_TITLE.textContent = 'Crear responsable menor';
     fillSelect(RESPONSABLE_API, 'readCliente', 'idcliente');
+    fillSelect(RESPONSABLE_API, 'getParentesco', 'parentesco');
 }
 
 
@@ -85,7 +86,7 @@ async function fillTable(form = null) {
         <td>${row.correo_responsable}</td>
         <td>${row.dui_responsable}</td>
         <td>${row.parentesco}</td>
-        <td>${row.id_cliente}</td>
+        <td>${row.nombre_com_cliente}</td>
         <td>
             <button onclick="openReport(${row.id_responsable_menor})" type="button" class="btn ">
                 <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
@@ -126,7 +127,7 @@ async function openUpdate(id) {
         document.getElementById('telefono').value = JSON.dataset.telefono_responsable;
         document.getElementById('correo').value = JSON.dataset.correo_responsable;
         document.getElementById('dui').value = JSON.dataset.dui_responsable;
-        document.getElementById('parentesco').value = JSON.dataset.parentesco;
+        fillSelect(PAQUETE_API, 'getParentesco', 'parentesco', JSON.dataset.parentesco);
         fillSelect(RESPONSABLE_API, 'readCliente', 'idcliente', JSON.dataset.id_cliente);
     } else {
         sweetAlert(2, JSON.exception, false);

@@ -9,6 +9,7 @@ class ResponsableQueries
     {
         $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
         FROM responsable_menor
+        INNER JOIN cliente USING (id_cliente)
         WHERE nombre_com_responsable ::text ILIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
@@ -17,15 +18,17 @@ class ResponsableQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
-        FROM responsable_menor';
+        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, nombre_com_cliente
+        FROM responsable_menor
+        INNER JOIN cliente USING (id_cliente)';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
+        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, nombre_com_cliente
         FROM responsable_menor
+        INNER JOIN cliente USING (id_cliente)
         WHERE id_responsable_menor = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);

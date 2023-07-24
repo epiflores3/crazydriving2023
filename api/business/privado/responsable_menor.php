@@ -24,6 +24,26 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+                //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
+            case 'getParentesco':
+                $result['status'] = 1;
+                $result['dataset'] = array(
+                    array('Madre', 'Madre'),
+                    array('Padre', 'Padre'),
+                    array('Hermano', 'Hermano'),
+                    array('Hermana', 'Hermana'),
+                    array('Abuelo', 'Abuelo'),
+                    array('Abuela', 'Abuela'),
+                    array('Tío', 'Tío'),
+                    array('Tía', 'Tía'),
+                    array('Madrastra', 'Madrastra'),
+                    array('Padrastro', 'Padrastro'),
+                    array('Primo', 'Primo'),
+                    array('Prima', 'Prima'),
+                    array('Cuñado', 'Cuñado'),
+                    array('Cuñada', 'Cuñada')
+                );
+                break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
                 if (!$Responsable->setId($_POST['id_responsable_menor'])) {
