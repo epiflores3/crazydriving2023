@@ -126,6 +126,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                break;
+                // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica de pastel
+            case 'cantidadEstadoCliente':
+                if ($result['dataset'] = $cliente->CantidadEstadoCliente()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
