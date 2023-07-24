@@ -149,7 +149,7 @@ async function openUpdate(id) {
         }
         fillSelect(ROL_API, 'readAll', 'rol', JSON.dataset.id_rol);
         fillSelect(SUCURSAL_API, 'readAll', 'sucursal', JSON.dataset.id_sucursal);
-        document.getElementById('licencia').value = JSON.dataset.licencia_empleado;
+        // document.getElementById('licencia').value = JSON.dataset.licencia_empleado;
 
     } else {
         sweetAlert(2, JSON.exception, false);

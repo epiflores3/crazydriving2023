@@ -120,27 +120,24 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Rol del empleado incorrecto';
                 } elseif (!$empleado->setSucursal($_POST['sucursal'])) {
                     $result['exception'] = 'Sucursal del empleado incorrecta';
-                } elseif (!is_uploaded_file($_FILES['licencia']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!is_uploaded_file($_FILES['licencia']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!is_uploaded_file($_FILES['licencia']['tmp_name'])) {
-                    if ($empleado->updateRow($data['licencia'])) {
+                }  elseif (!is_uploaded_file($_FILES['licencia']['tmp_name'])) {
+                    if ($empleado->updateRow($data['licencia_empleado'])) {
                         $result['status'] = 1;
-                        $result['message'] = 'Licencia modificado correctamente';
+                        $result['message'] = 'Empleado modificado correctamente';
                     } else {
                         $result['exception'] = Database::getException();
                     }
                 } elseif (!$empleado->setLicencia($_FILES['licencia'])) {
                     $result['exception'] = Validator::getFileError();
-                } elseif ($empleado->updateRow($data['licencia'])) {
+
+                } elseif ($empleado->updateRow($data['licencia_empleado'])) {
                     $result['status'] = 1;
                     if (Validator::saveFile($_FILES['licencia'], $empleado->getRuta(), $empleado->getLicencia())) {
-                        $result['message'] = 'Licencia modificado correctamente';
+                        $result['message'] = 'Empleado modificado correctamente';
                     } else {
-                        $result['message'] = 'Licencia modificado pero no se guardó la imagen';
+                        $result['message'] = 'Empleado modificado pero no se guardó la imagen';
                     }
-                } elseif ($empleado->updateRow()) {
+                } elseif ($empleado->updateRow($data['licencia_empleado'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Empleado modificado correctamente';
                 } else {
