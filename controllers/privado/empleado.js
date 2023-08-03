@@ -45,6 +45,9 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     fillTable(FORM);
 });
 
+
+
+
 // Método que sirve para el formulario se envía para ser guardado
 SAVE_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -176,4 +179,12 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+//Método para abrir el reporte 
+function openReportEmpleadoPorAfp() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/empleado_afp.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }

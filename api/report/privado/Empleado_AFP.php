@@ -3,16 +3,16 @@
 require_once('../../helpers/report.php');
 //Se mandan a traer las clases donde se encuentran los gets y los sets que usaremos en el reporte
 require_once('../../entities/dto/empleado.php');
-require_once('../../entities/dto/detalle_producto.php');
+//require_once('../../entities/dto/detalle_producto.php');
 
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Productos por tallas');
+$pdf->startReport('Empleados por AFP');
 // Se crea un objeto de la clase producto ya que estos sera por lo que se filtrara.
-$producto = new Producto;
+$empleado = new Empleado;
 // Verifica si exiten registros a mostrar.
-if ($dataProducto = $producto->readAll()) {
+if ($dataEmpledado = $empleado->readAll()) {
     // Se pone un color al encabezado.
     $pdf->setFillColor(175);
     // Se pone una fuente.
@@ -29,8 +29,8 @@ if ($dataProducto = $producto->readAll()) {
         
 
 
-    $pdf->cell(93, 10, 'Talla', 1, 0, 'C', 1);
-    $pdf->cell(93, 10, 'Existencias', 1, 1, 'C', 1);
+    $pdf->cell(93, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
+    //$pdf->cell(93, 10, 'Existencias', 1, 1, 'C', 1);
 
 
     // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
@@ -42,31 +42,31 @@ if ($dataProducto = $producto->readAll()) {
     $pdf->setFont('Times', '', 11);
 
     // Recorre filas una por una.
-    foreach ($dataProducto as $rowProducto) {
+    foreach ($dataEmpledado as $rowEmpleado) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre del producto: ' . $rowProducto['nombre_producto']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Nombre del Empleado: ' . $rowEmpleado['nombre_com_empleado']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
-        $detalle_producto = new DetalleProducto;
+        //$empleadoAfp = new Empleado;
         // Se establece por el id que tiene que capturar.
-        if ($detalle_producto->setProducto($rowProducto['id_producto'])) {
+        if ($empleado->setNombre($rowEmpleado['id_empleado'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataDetalleProducto = $detalle_producto->productoTalla()) {
+            if ($empleado = $empleado->EmpleadosPorAfp()) {
                 // Recorre filas una por una.
-                foreach ($dataDetalleProducto as $rowProducto) {
+                foreach ($dataEmpledado as $rowEmpleado2) {
                     // Se rellenan las celdas de las tallas deacuerdo a un producto en especifico.
-                    $pdf->cell(93, 10, $pdf->encodeString($rowProducto['talla']), 1, 0);
-                    $pdf->cell(93, 10, $rowProducto['suma'], 1, 1);
+                    $pdf->cell(93, 10, $pdf->encodeString($rowEmpleado2['nombre_com_empleado']), 1, 0);
+                    //$pdf->cell(93, 10, $rowEmpleado2['suma'], 1, 1);
                  
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay tallas para productos'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados con esa AFP'), 1, 1);
             }
         } else {
-            $pdf->cell(0, 10, $pdf->encodeString('Producto incorrecto o inexistente'), 1, 1);
+            $pdf->cell(0, 10, $pdf->encodeString('Empleado incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay tallas por productos para mostrar'), 1, 1);
+    $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados por AFP para mostrar'), 1, 1);
 }
 
 // Se pone el nombre del archivo cuando se descarga y envía el documento a un destino determinado.
@@ -76,4 +76,4 @@ if ($dataProducto = $producto->readAll()) {
 // F: guarde en un archivo local con el nombre dado por name(puede incluir una ruta).
 // S: devuelve el documento como una cadena.
 
-$pdf->output('I', 'Producto-tallas.pdf');
+$pdf->output('I', 'Empleados-AFP.pdf');

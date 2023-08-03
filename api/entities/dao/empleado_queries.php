@@ -67,4 +67,15 @@ class EmpleadoQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    //Método para hacer reporte general de Empleados por AFP
+    public function EmpleadosPorAfp()
+    {
+        $sql = 'SELECT nombre_com_empleado, nombre_afp
+        FROM empleado
+        WHERE nombre_afp = ?';
+        $params = array($this->nombre, $this->AFP);
+        return Database::getRows($sql, $params);
+    }
+
 }
