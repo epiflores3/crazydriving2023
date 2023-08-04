@@ -106,16 +106,16 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                    //Se comprueba lo que viene del input
-            // case 'uniqueCustomerRegistration':
-            //     if (!$inscripcion->setIdcliente($_POST['cliente'])) {
-            //         $result['exception'] = 'Inscripcion incorrecto';
-            //     } elseif ($result['dataset'] = $inscripcion->uniqueCustomerRegistration()) {
-            //         $result['status'] = 1;
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     } 
-            //     break;
+                //Se comprueba lo que viene del input
+                // case 'uniqueCustomerRegistration':
+                //     if (!$inscripcion->setIdcliente($_POST['cliente'])) {
+                //         $result['exception'] = 'Inscripcion incorrecto';
+                //     } elseif ($result['dataset'] = $inscripcion->uniqueCustomerRegistration()) {
+                //         $result['status'] = 1;
+                //     } else {
+                //         $result['exception'] = Database::getException();
+                //     } 
+                //     break;
 
 
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
@@ -157,6 +157,15 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Inscripcion eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
+                }
+                break;
+                //Se manda a llamar el método que trae los datos de la base de datos, que se convertran en grafico lineal
+            case 'cantidadDeFechasInicio':
+                if ($result['dataset'] = $inscripcion->cantidadFechasInicio($_POST['fecha_inicial'], $_POST['fecha_final'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Top 5 encontrado correctamente';
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
                 }
                 break;
             default:

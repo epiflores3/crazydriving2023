@@ -72,5 +72,15 @@ class InscripcionQueries
     //     $params = array($this->idcliente);
     //     return Database::getRow($sql, $params);
     // }
-}
 
+    //Consulta para grafico lineal top 5 fechas con más fechas de inicio, se crean 2 variables de uso, feha inicio, y fecha final para que funcione
+    public function cantidadFechasInicio($fecha_inicial, $fecha_final)
+    {
+        $sql = 'SELECT count(id_inscripcion) as cantidad, fecha_inicio from inscripcion
+            where fecha_inicio between ? and ?
+            group by fecha_inicio
+            order by cantidad desc limit 5';
+        $params = array($fecha_inicial, $fecha_final);
+        return Database::getRows($sql, $params);
+    }
+}
