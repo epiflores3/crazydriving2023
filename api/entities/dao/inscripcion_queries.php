@@ -83,4 +83,18 @@ class InscripcionQueries
         $params = array($fecha_inicial, $fecha_final);
         return Database::getRows($sql, $params);
     }
+
+
+    public function cantidadHorariosMasSolicitados($hora_inicial, $hora_final)
+    {
+        $sql = 'SELECT count(id_inscripcion) as cantidad, inicio from inscripcion
+        INNER JOIN horario USING(id_horario)
+        where inicio between ? and ?
+        group by inicio
+        order by cantidad desc limit 5';
+        $params = array($hora_inicial, $hora_final);
+        return Database::getRows($sql, $params);
+    }
+
+    
 }
