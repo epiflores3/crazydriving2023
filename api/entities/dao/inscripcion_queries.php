@@ -96,5 +96,13 @@ class InscripcionQueries
         return Database::getRows($sql, $params);
     }
 
-    
+
+     //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
+    public function CantidadEvaluacionInscripcion()
+    {
+        $sql = 'SELECT inscripcion.evaluacion, ROUND((COUNT(id_inscripcion) * 100.0 / (SELECT COUNT(id_inscripcion) FROM inscripcion)), 2) porcentaje
+        FROM inscripcion
+        GROUP BY inscripcion.evaluacion ORDER BY porcentaje DESC';
+        return Database::getRows($sql);
+    }
 }
