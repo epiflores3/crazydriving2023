@@ -105,6 +105,17 @@ class InscripcionQueries
         return Database::getRows($sql);
     }
 
+
+    public function cantidadPaquetesMasVendidos()
+    {
+        $sql = 'SELECT valor_paquete, ROUND((COUNT(id_inscripcion) * 100.0 / (SELECT COUNT(id_inscripcion) FROM inscripcion)), 2) porcentaje
+        FROM inscripcion
+		INNER JOIN paquete USING (id_paquete) 
+        GROUP BY valor_paquete ORDER BY porcentaje DESC limit 5';
+        return Database::getRows($sql);
+    }
+
+
     // Filtra todas las tallas que le pertenecen a un producto en específico
     public function inscripcionLicencia()
     {

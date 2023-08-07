@@ -198,6 +198,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+            
             case 'reportTL':
                 $_POST = Validator::validateForm($_POST);
 
@@ -209,6 +210,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+
+                case 'cantidadPaquetesMasVendidos':
+                    if ($result['dataset'] = $inscripcion->cantidadPaquetesMasVendidos()) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                break;
+
+
+
+
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
