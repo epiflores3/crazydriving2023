@@ -120,4 +120,18 @@ class InscripcionQueries
         $params = array($this->tipolicencia);
         return Database::getRows($sql, $params);
     }
+
+    public function inscripcionesMasFechas($inicial, $final)
+    {
+        $sql = 'SELECT count(id_inscripcion) as cantidad, fecha_registro from inscripcion
+        where fecha_registro between ? and ?
+        group by fecha_registro
+        order by cantidad desc limit 5';
+        $params = array($inicial, $final);
+        return Database::getRows($sql, $params);
+    }
+
+
+
 }
+

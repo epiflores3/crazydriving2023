@@ -170,33 +170,45 @@ if (isset($_GET['action'])) {
                 break;
 
             case 'cantidadHorariosMasSolicitados':
-                    if ($result['dataset'] = $inscripcion->cantidadHorariosMasSolicitados($_POST['hora_inicial'], $_POST['hora_final'])) {
+                if ($result['dataset'] = $inscripcion->cantidadHorariosMasSolicitados($_POST['hora_inicial'], $_POST['hora_final'])) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Top 5 encontrado correctamente';
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+
+
+                case 'inscripcionesMasFechas':
+                    if ($result['dataset'] = $inscripcion->inscripcionesMasFechas($_POST['inicial'], $_POST['final'])) {
                         $result['status'] = 1;
                         $result['message'] = 'Top 5 encontrado correctamente';
                     } else {
                         $result['exception'] = 'No hay datos disponibles';
                     }
-                    break;
-            
-                  // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica de pastel
-                  case 'CantidadEvaluacionInscripcion':
-                    if ($result['dataset'] = $inscripcion->CantidadEvaluacionInscripcion()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = 'No hay datos disponibles';
-                    }
-                    break;
-                    case 'reportTL':
-                        $_POST = Validator::validateForm($_POST);
-                       
-                     if (!$inscripcion->setTlicencia($_POST['tipodelicenciacmb'])) {
-                            $result['exception'] = 'Tipo licencia incorrecta';
-                        } elseif ($result['dataset'] = $inscripcion->inscripcionLicencia()) {
-                            $result['status'] = 1;
-                        } else {
-                            $result['exception'] = Database::getException();
-                        }
-                        break;
+                break;
+
+
+                // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica de pastel
+            case 'CantidadEvaluacionInscripcion':
+                if ($result['dataset'] = $inscripcion->CantidadEvaluacionInscripcion()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+                break;
+
+            case 'reportTL':
+                $_POST = Validator::validateForm($_POST);
+
+                if (!$inscripcion->setTlicencia($_POST['tipodelicenciacmb'])) {
+                    $result['exception'] = 'Tipo licencia incorrecta';
+                } elseif ($result['dataset'] = $inscripcion->inscripcionLicencia()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
