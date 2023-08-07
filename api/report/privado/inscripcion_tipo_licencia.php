@@ -17,7 +17,7 @@ if (isset($_GET['tipo_licencia'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
       
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Comprobante: ');
+            $pdf->startReport('Inscripciones por tipo de licencia');
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataInscripcion = $ins->inscripcionLicencia()) {
                 // Se establece un color de relleno para los encabezados.
@@ -26,11 +26,15 @@ if (isset($_GET['tipo_licencia'])) {
                 $pdf->setFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
                
-                $pdf->cell(80, 10, 'Anticipo', 1, 0, 'C', 1);
-                $pdf->cell(40, 10, 'Fecha de registro', 1, 0, 'C', 1);
-                $pdf->cell(40, 10, 'Fecha de inicio', 1, 0, 'C', 1);
-                $pdf->cell(26, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
-                $pdf->cell(26, 10, 'Estado de cliente', 1, 1, 'C', 1);
+                $pdf->cell(21, 10, 'Anticipo', 1, 0, 'C', 1);
+                $pdf->cell(21, 10, 'Fecha de registro', 1, 0, 'C', 1);
+                $pdf->cell(21, 10, 'Fecha de inicio', 1, 0, 'C', 1);
+                $pdf->cell(21, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
+                $pdf->cell(20.4, 10, 'Descripción del paquete', 1, 0, 'C', 1);
+                $pdf->cell(20.4, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+                $pdf->cell(20.4, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+                $pdf->cell(20.4, 10, 'Hora de incio', 1, 0, 'C', 1);
+                $pdf->cell(20.4, 10, 'Hora de fin', 1, 1, 'C', 1);
             
                 // // Se establece la fuente para los datos de los productos.
                 // $pdf->setFont('Times', '', 11);
@@ -40,16 +44,20 @@ if (isset($_GET['tipo_licencia'])) {
 
                 // Se recorren los registros fila por fila.
                 foreach ($dataInscripcion as $rowInscripcion) {
-                    ($rowInscripcion['evaluacion'])?$evaluacion='si':$evaluacion='no';
+                    ($rowInscripcion['evaluacion'])?$evaluacion='Sí':$evaluacion='No';
                   
                     // ($rowProducto['estado_producto']) ? $estado = 'Activo' : $estado = 'Inactivo';
                     // Se imprimen las celdas con los datos de los productos.
                   
-                    $pdf->cell(36, 10, $pdf->encodeString($rowInscripcion['anticipo_paquete']), 1, 0);
-                    $pdf->cell(38, 10, $pdf->encodeString($rowInscripcion['fecha_registro']), 1, 0);
-                    $pdf->cell(38, 10, $pdf->encodeString($rowInscripcion['fecha_inicio']), 1, 0);
-                    $pdf->cell(38, 10, $pdf->encodeString($evaluacion), 1, 0);
-                    $pdf->cell(36, 10, $pdf->encodeString($rowInscripcion['estado_cliente']), 1, 1);
+                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['anticipo_paquete']), 1, 0);
+                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['fecha_registro']), 1, 0);
+                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['fecha_inicio']), 1, 0);
+                    $pdf->cell(21, 10, $pdf->encodeString($evaluacion), 1, 0);
+                    $pdf->cell(2, 10, $pdf->encodeString($rowInscripcion['descripcion']), 1, 0);
+                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['nombre_com_cliente']), 1, 0);
+                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['inicio']), 1, 0);
+                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['fin']), 1, 1);
 
                 }
               
