@@ -17,10 +17,12 @@ const RECORDS = document.getElementById('records');
 const SEARCH_FORM = document.getElementById('search-form');
 const SEARCH_INPUT = document.getElementById('search');
 
+
 //Método que se utiliza cuando el mantenimiento leer ha cargado
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
     fillTable();
+    fillSelect(INSCRIPCION_API, 'getTipoLicencia', 'tipodelicenciacmb');
 });
 
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -63,14 +65,25 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 });
 
 
+document.getElementById('tipodelicenciacmb').addEventListener('change', () => {
+     
+     const PATH = new URL(`${SERVER_URL}report/privado/inscripcion_tipo_licencia.php`);
+     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+     PATH.searchParams.append('tipo_licencia',  document.getElementById('tipodelicenciacmb').value);
+     // Se abre el reporte en una nueva pestaña del navegador web.
+     window.open(PATH.href);
+});
+
+
+
 // async function unicoRegistro(){
 //     const FORM = new FormData();
 //         FORM.append('cliente', row.id_cliente);
 //         const JSON = await dataFetch(INSCRIPCION_API, 'uniqueCustomerRegistration', FORM);
 //         if (JSON.dataset ===false) {
-            
+
 //         } else {
-            
+
 //         }
 // }
 
@@ -183,4 +196,30 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+// async function openTip1() {
+//     // Muestra un mensaje de confirmación, capturando la respuesta.
+//     const RESPONSE = await confirmAction('¿Desea geberar el reporte?');
+//     // Se verifica la respuesta del mensaje.
+//     if (RESPONSE) {
+//         // Petición para eliminar el registro seleccionado.
+//         const JSON = await dataFetch(INSCRIPCION_API, 'capTipoLicencia');
+//         // Se comprueba si la respuesta es correcta, sino muestra con la excepción.
+//         if (JSON.status) {
+//             openIns(JSON.dataset.tipo_licencia);
+//             sweetAlert(1, JSON.message, true);
+//         } else {
+//             sweetAlert(2, JSON.exception, false);
+//         }
+//     }
+// }
+
+function openIns() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/inscripcion_tipo_licencia.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('tipo_licencia', tipo_licencia);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }

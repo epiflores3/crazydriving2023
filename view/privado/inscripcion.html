@@ -40,6 +40,16 @@
                 <div class="order">
                     <div class="head">
                         <h3>Registro de inscripciones</h3>
+                        <form class="row" method="post"   >
+                            
+                                <label for="tipodelicenciacmb" class="form-label">Reporte por tipo de licencia </label><br>
+                                <select class="form-select" aria-label="Default select example" name="tipodelicenciacmb"
+                                    id="tipodelicenciacmb"></select><br>
+                               
+                          
+                        </form>
+
+
                         <form method="post" id="search-form">
                             <div class="input-field">
                                 <input id="search" name="search" type="search"
@@ -52,6 +62,17 @@
                             data-bs-target="#agregar"><img height="25px" width="25px"
                                 src="../../resource/img/imgtablas/agregar.png" alt="check">
                         </button>
+
+
+                        <!-- <button onclick="openIns()" type="button" class="btn" data-bs-toggle="modal"
+                        data-bs-target="#agregar"><img height="25px" width="25px"
+                            src="../../resource/img/imgtablas/ojo.png" alt="check">
+                    </button> -->
+
+
+
+
+
                     </div>
                     <div class="row">
                         <main class="container">
@@ -88,7 +109,7 @@
                 </div>
             </div>
 
-            
+
             <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregar" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -132,7 +153,6 @@
                                     <label for="" class="form-label">Tipo de licencia </label><br>
                                     <select class="form-select" aria-label="Default select example"
                                         name="tipodelicencia" id="tipodelicencia"></select><br>
-
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label">Cliente</label>

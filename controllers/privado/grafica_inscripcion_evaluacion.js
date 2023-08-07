@@ -18,8 +18,9 @@ async function graficoPastelEvaluacionInscripcion() {
         let porcentaje = [];
         // Se recorre el conjunto de registro dato a dato a través row.
         JSON.dataset.forEach(row => {
+            (row.evaluacion) ? eva = 'Evaluado' : eva = 'No evaluado';
             // Se agregan los datos a los arreglos, que tienen que ir como están en la base.
-            evaluacion.push(row.evaluacion);
+            evaluacion.push(eva);
             porcentaje.push(row.porcentaje);
         });
         // Llamada a la función que genera gráfico de pastel. Se encuentra en el archivo components.js

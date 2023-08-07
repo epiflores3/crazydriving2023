@@ -96,7 +96,6 @@ class InscripcionQueries
         return Database::getRows($sql, $params);
     }
 
-
      //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
     public function CantidadEvaluacionInscripcion()
     {
@@ -104,5 +103,21 @@ class InscripcionQueries
         FROM inscripcion
         GROUP BY inscripcion.evaluacion ORDER BY porcentaje DESC';
         return Database::getRows($sql);
+    }
+
+    // Filtra todas las tallas que le pertenecen a un producto en específico
+    public function inscripcionLicencia()
+    {
+        $sql = 'SELECT ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
+        FROM inscripcion ins
+        INNER JOIN paquete paq USING(id_paquete)
+		INNER JOIN cliente cli USING(id_cliente)
+		INNER JOIN empleado emp USING(id_empleado)
+		INNER JOIN horario hor USING(id_horario)
+        WHERE tipo_licencia = ? 
+		GROUP BY ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
+        ORDER BY nombre_com_cliente';
+        $params = array($this->tipolicencia);
+        return Database::getRows($sql, $params);
     }
 }

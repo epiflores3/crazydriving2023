@@ -186,6 +186,17 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
+                    case 'reportTL':
+                        $_POST = Validator::validateForm($_POST);
+                       
+                     if (!$inscripcion->setTlicencia($_POST['tipodelicenciacmb'])) {
+                            $result['exception'] = 'Tipo licencia incorrecta';
+                        } elseif ($result['dataset'] = $inscripcion->inscripcionLicencia()) {
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = Database::getException();
+                        }
+                        break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

@@ -86,7 +86,7 @@ class Inscripcion extends InscripcionQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTlicencia($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (Validator::validateAlphabetic($value, 1, 50)) {
             $this->tipolicencia = $value;
             return true;
         } else {
