@@ -127,6 +127,16 @@ if (isset($_GET['action'])) {
                         $result['exception'] = 'No hay datos disponibles';
                     }
                     break;
+
+
+                    case 'cantidadPaquetePrecio':
+                        if ($result['dataset'] = $paquete->cantidadPaquetePrecio($_POST['precio_incial'], $_POST['precio_final'])) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Top 5 encontrado correctamente';
+                        } else {
+                            $result['exception'] = 'No hay datos disponibles';
+                        }
+                        break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

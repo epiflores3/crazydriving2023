@@ -70,4 +70,16 @@ class PaqueteQueries
         GROUP BY paquete.transmision ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
+
+    public function cantidadPaquetePrecio($precio_incial, $precio_final)
+    {
+        $sql = 'SELECT count(id_paquete) as cantidad, valor_paquete from inscripcion
+        INNER JOIN paquete USING (id_paquete) 
+        WHERE valor_paquete between ? and ?
+        GROUP BY valor_paquete';
+        $params = array($precio_incial, $precio_final);
+        return Database::getRows($sql, $params);
+    }
+
+    
 }
