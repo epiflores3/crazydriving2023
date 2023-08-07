@@ -61,4 +61,13 @@ class PaqueteQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    //Método para realizar el grafico de pastel de cantidad de paquetes por transmisiones 
+    public function CantidadPaquetesPorTransmision()
+    {
+        $sql = 'SELECT paquete.transmision, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
+        FROM paquete
+        GROUP BY paquete.transmision ORDER BY porcentaje DESC';
+        return Database::getRows($sql);
+    }
 }
