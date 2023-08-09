@@ -15,6 +15,7 @@ class Empleado extends EmpleadoQueries
     protected $direccion = null;
     protected $correo = null;
     protected $AFP = null;
+    protected $asesor = null;
     protected $estado = null;
     protected $idrol = null;
     protected $idsucursal = null;
@@ -111,13 +112,25 @@ class Empleado extends EmpleadoQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setAFP($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (Validator::validateNaturalNumber($value)) {
             $this->AFP = $value;
             return true;
         } else {
             return false;
         }
     }
+
+      //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
+    public function setAsesor($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->asesor = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstado($value)
@@ -204,6 +217,12 @@ class Empleado extends EmpleadoQueries
     public function getAFP()
     {
         return $this->AFP;
+    }
+
+       //Método para obtener los valores de los atributos correspondientes
+    public function getAsesor()
+    {
+        return $this->asesor;
     }
 
     //Método para obtener los valores de los atributos correspondientes
