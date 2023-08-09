@@ -1,8 +1,9 @@
 <?php
 // Se manda a traer el archivo que actua como plantilla para los reportes
-require_once('../../helpers/report.php');
+require_once('../../helpers/report2.php');
 //Se mandan a traer las clases donde se encuentran los gets y los sets que usaremos en el reporte
 require_once('../../entities/dto/empleado.php');
+require_once('../../entities/dto/afp.php');
 //require_once('../../entities/dto/detalle_producto.php');
 
 // Se crea un objeto de la clase reporte.
@@ -10,9 +11,9 @@ $pdf = new Report;
 // Se coloca un titulo al documento.
 $pdf->startReport('Empleados por AFP');
 // Se crea un objeto de la clase producto ya que estos sera por lo que se filtrara.
-$empleado = new Empleado;
+$afp = new AFP;
 // Verifica si exiten registros a mostrar.
-if ($dataEmpledado = $empleado->readAll()) {
+if ($datafp = $afp->readAll()) {
     // Se pone un color al encabezado.
     $pdf->setFillColor(175);
     // Se pone una fuente.
@@ -29,8 +30,10 @@ if ($dataEmpledado = $empleado->readAll()) {
         
 
 
-    $pdf->cell(93, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
-    //$pdf->cell(93, 10, 'Existencias', 1, 1, 'C', 1);
+    $pdf->cell(67, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
+    $pdf->cell(57, 10, 'DUI', 1, 0, 'C', 1);
+    $pdf->cell(62, 10, 'Sucursal', 1, 1, 'C', 1);
+
 
 
     // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
@@ -42,20 +45,21 @@ if ($dataEmpledado = $empleado->readAll()) {
     $pdf->setFont('Times', '', 11);
 
     // Recorre filas una por una.
-    foreach ($dataEmpledado as $rowEmpleado) {
+    foreach ($datafp as $rowAFP) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre del Empleado: ' . $rowEmpleado['nombre_com_empleado']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Nombre AFP: ' . $rowAFP['nombre_afp']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
-        //$empleadoAfp = new Empleado;
+        $em = new Empleado;
         // Se establece por el id que tiene que capturar.
-        if ($empleado->setNombre($rowEmpleado['id_empleado'])) {
+        if ($em->setAFP($rowAFP['id_afp'])) {
             // Verifica si exiten registros a mostrar.
-            if ($empleado = $empleado->EmpleadosPorAfp()) {
+            if ($dataE = $em->EmpleadosPorAfp()) {
                 // Recorre filas una por una.
-                foreach ($dataEmpledado as $rowEmpleado2) {
+                foreach ($dataE as $rowAFP) {
                     // Se rellenan las celdas de las tallas deacuerdo a un producto en especifico.
-                    $pdf->cell(93, 10, $pdf->encodeString($rowEmpleado2['nombre_com_empleado']), 1, 0);
-                    //$pdf->cell(93, 10, $rowEmpleado2['suma'], 1, 1);
+                    $pdf->cell(67, 10, $pdf->encodeString($rowAFP['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(57, 10,  $pdf->encodeString($rowAFP['dui_empleado']), 1, 0);
+                    $pdf->cell(62, 10,  $pdf->encodeString($rowAFP['nombre_sucursal']), 1, 1);
                  
                 }
             } else {

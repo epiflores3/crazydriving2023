@@ -1,13 +1,13 @@
 <?php
 require_once('../../helpers/validator.php');
-require_once('../../entities/dao/roles_queries.php');
+require_once('../../entities/dao/afp_queries.php');
 
 //Clases que se utilizarán para poder manejar los datos de la entidad correspondiente
-class Roles extends RolesQueries
+class AFP extends AfpQueries
 {
     //Declarar los atributos de los campos que se encuentran en la tabla correspondiente
     protected $id = null;
-    protected $rol = null;
+    protected $afp = null;
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
@@ -21,10 +21,10 @@ class Roles extends RolesQueries
     }
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
-    public function setRol($value)
+    public function setAfp($value)
     {
         if (Validator::validateAlphanumeric($value, 1, 50)) {
-            $this->rol = $value;
+            $this->afp = $value;
             return true;
         } else {
             return false;
@@ -38,8 +38,8 @@ class Roles extends RolesQueries
     }
 
     //Método para obtener los valores de los atributos correspondientes
-    public function getRol()
+    public function getAfp()
     {
-        return $this->rol;
+        return $this->afp;
     }
 }
