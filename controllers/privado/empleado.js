@@ -181,7 +181,6 @@ async function openDelete(id) {
     }
 }
 
-//Método para abrir el reporte 
 function openReportEmpleadoPorAfp() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}report/privado/empleado_afp.php`);

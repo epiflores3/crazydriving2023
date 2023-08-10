@@ -1,12 +1,12 @@
 <?php
-require_once('../../entities/dto/roles.php');
+require_once('../../entities/dto/afp.php');
 
 // Se comprueba si se cumplirá una acción, es decir, caso(case) a realizar, si no se llegará a cumplir ninguna acción se mostrará un mensaje de error.
 if (isset($_GET['action'])) {
     // Se realiza una sesión o se sigue manejando la actual.
     session_start();
     // Se instancia una clase.
-    $Roles = new Roles;
+    $Afp = new Afp;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
     // Se verifica si existe una sesión, de lo contrario se muestra un mensaje de error.
@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
         switch ($_GET['action']) {
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
-                if ($result['dataset'] = $Roles->readAll()) {
+                if ($result['dataset'] = $Afp->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } elseif (Database::getException()) {
