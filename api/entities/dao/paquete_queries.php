@@ -92,4 +92,17 @@ class PaqueteQueries
         $params = array($this->idtipopaquete);
         return Database::getRows($sql, $params);
     }
+
+      // Filtra todas las tallas que le pertenecen a un producto en específico
+      public function paquetesTransmision()
+      {
+          $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, tipo_paquete
+          FROM paquete 
+          INNER JOIN tipo_paquete paq USING(id_tipo_paquete)
+          WHERE transmision = ? 
+          GROUP BY descripcion, valor_paquete, cantidad_clase, tipo_paquete
+          ORDER BY valor_paquete';
+          $params = array($this->transmision);
+          return Database::getRows($sql, $params);
+      }
 }
