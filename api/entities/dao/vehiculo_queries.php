@@ -61,4 +61,14 @@ class VehiculoQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function Cantidadvehiculopormodelo()
+    {
+        $sql = 'SELECT modelo, count(id_vehiculo) cantidad
+        FROM vehiculo
+        INNER JOIN modelo USING (id_modelo)
+        GROUP BY modelo
+        ORDER BY cantidad desc';
+        return Database::getRows($sql);
+    }
 }
