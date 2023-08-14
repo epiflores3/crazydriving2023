@@ -23,6 +23,7 @@ const SEARCH_INPUT = document.getElementById('search');
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
     fillTable();
+    fillSelect(SESION_API, 'readTipoClase', 'tipodeclasecmb');
 });
 
 // Método que se utiliza para el formulario de buscar.
@@ -43,6 +44,17 @@ SEARCH_INPUT.addEventListener("keyup", (event) => {
         //Llena la tabla con las respuestas de la búsqueda.
         fillTable(FORM);
     }
+});
+
+
+
+document.getElementById('tipodeclasecmb').addEventListener('change', () => {
+     
+    const PATH = new URL(`${SERVER_URL}report/privado/sesion_tipo_clase.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('tipo_clase',  document.getElementById('tipodeclasecmb').value);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 });
 
 // Método que sirve para el formulario se envía para ser guardado
@@ -168,4 +180,15 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+
+
+function openIns() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/sesion_tipo_clase.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('tipo_clase', tipo_clase);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }

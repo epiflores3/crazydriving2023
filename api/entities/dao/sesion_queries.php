@@ -7,10 +7,9 @@ class SesionQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, id_detalle_inscripcion, nombre_com_empleado, placa
+        $sql = 'SELECT id_sesion, hora_inicio, hora_fin, asistencia, tipo_clase, estado_sesion, nombre_com_empleado, placa
         FROM sesion
         INNER JOIN empleado USING(id_empleado)
-        INNER JOIN detalle_inscripcion USING(id_detalle_inscripcion)
         INNER JOIN vehiculo USING(id_vehiculo)';
         return Database::getRows($sql);
     }
@@ -66,5 +65,18 @@ class SesionQueries
         WHERE id_sesion = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    //Método para realizar el reporte parametrizado de sesiones por un tipo de clase
+    public function sesiontipoclase()
+    {
+        $sql = 'SELECT ses.id_sesion, ses.fecha_sesion, ses.hora_inicio, ses.hora_fin, emp.nombre_com_empleado
+        FROM sesion ses
+		INNER JOIN empleado emp USING(id_empleado)
+        WHERE tipo_clase = ? 
+		GROUP BY ses.id_sesion, ses.fecha_sesion, ses.hora_inicio, ses.hora_fin, emp.nombre_com_empleado
+        ORDER BY nombre_com_empleado';
+        $params = array($this->tipoclase);
+        return Database::getRows($sql, $params);
     }
 }
