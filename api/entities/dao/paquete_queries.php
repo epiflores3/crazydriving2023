@@ -81,5 +81,15 @@ class PaqueteQueries
         return Database::getRows($sql, $params);
     }
 
-    
+    public function tipoPaquete()
+    {
+        $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, transmision
+        FROM paquete 
+        INNER JOIN tipo_paquete USING (id_tipo_paquete) 
+        WHERE id_tipo_paquete = ?
+        GROUP BY descripcion, valor_paquete, cantidad_clase, transmision
+        ORDER BY valor_paquete';
+        $params = array($this->idtipopaquete);
+        return Database::getRows($sql, $params);
+    }
 }

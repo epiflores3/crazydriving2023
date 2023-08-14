@@ -80,7 +80,7 @@ async function fillTable(form = null) {
     <tr>
         <td>${row.tipo_paquete}</td>
         <td>
-            <button onclick="openReport(${row.id_tipo_paquete})" type="button" class="btn ">
+            <button onclick="openTipoPaquete(${row.id_tipo_paquete})" type="button" class="btn ">
                 <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
             </button>
 
@@ -139,4 +139,13 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+function openTipoPaquete(id) {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/tipo_paquete.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_tipo_paquete', id);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }
