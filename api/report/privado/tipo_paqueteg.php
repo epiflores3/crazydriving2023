@@ -30,9 +30,9 @@ if ($datatp = $tipo_paquete->readAll()) {
         
 
 
-    $pdf->cell(50, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
+    $pdf->cell(70, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
     $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
-    $pdf->cell(50, 10, 'Cantidad clase', 1, 0, 'C', 1);
+    $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
     $pdf->cell(50, 10, 'Transmision', 1, 1, 'C', 1);
 
 
