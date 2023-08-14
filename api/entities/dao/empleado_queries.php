@@ -69,6 +69,8 @@ class EmpleadoQueries
         return Database::executeRow($sql, $params);
     }
 
+
+    // Reporte que filtre empleados que pertenecen por AFP//
     public function EmpleadosPorAfp()
     {
         $sql = 'SELECT nombre_com_empleado, dui_empleado, nombre_sucursal
@@ -79,6 +81,19 @@ class EmpleadoQueries
         group by  nombre_com_empleado, dui_empleado, nombre_sucursal
          ORDER BY nombre_com_empleado';
         $params = array($this->AFP);
+        return Database::getRows($sql, $params);
+    }
+
+    // Reporte que filtre empleados por sucursal//
+    public function EmpleadosPorSucu()
+    {
+        $sql = 'SELECT nombre_com_empleado, nombre_sucursal
+        FROM empleado 
+        INNER JOIN sucursal USING (id_sucursal)
+        WHERE id_sucursal = ?
+        group by  nombre_com_empleado, nombre_sucursal
+        ORDER BY nombre_com_empleado';
+        $params = array($this->idsucursal);
         return Database::getRows($sql, $params);
     }
 }

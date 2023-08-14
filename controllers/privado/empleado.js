@@ -187,3 +187,18 @@ function openReportEmpleadoPorAfp() {
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
+
+function openReportEmpleadosPorSucu() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/Empleado_Sucursal.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+
+function openReportEmpSucuEspecifico() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/Empleado_Sucursal.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+
