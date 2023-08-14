@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Gráfica de fecha de inicio</title>
+    <title>Gráfico de fechas con mas inscripciones</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Gráfica de fecha de inicio</h1>
+                    <h1>Gráfico de fechas con mas incripciones</h1>
                     <!--Main principal-->
                 </div>
                 <div class="table-data">
@@ -34,28 +34,26 @@
                                     <form method="post" id="save-form">
                                         <div class="mb-3">
                                             <label for="fecha_inicial">Fecha inicial:</label><br>
-                                            <input type="date" name="fecha_inicial" id="fecha_inicial"
-                                                class="form-control" >
-                                            
-                                            <br>
+                                            <input type="date" name="inicial" id="inicial"
+                                                class="form-control" required><br>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="fecha_final">Fecha final:</label><br>
-                                            <input type="date" name="fecha_final" id="fecha_final" class="form-control">
-                                        
-                                            <br>
+                                            <input type="date" name="final" id="final" class="form-control"
+                                                required><br>
                                         </div>
 
                                         <div>
-                                            <button id="enviardatos" type="submit" class="btn btn-primary"><i
+
+                                            <button type="submit" class="btn btn-primary"><i
                                                     class="fa-solid fa-floppy-disk"></i>
                                                 Enviar</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-8" id="grafico">
-                                    <!-- Se muestra un gráfico linal con el top 5 de fechas con más estudiantes -->
+                                    <!-- Se muestra un gráfico lineal con el top 5 de fechas con más estudiantes -->
                                 </div>
                             </div>
                         </div>
@@ -73,7 +71,7 @@
     <script src="../../controllers/privado/account.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
     <script src="../../controllers/components.js"></script>
-    <script src="../../controllers/privado/grafica_fecha_inicio.js"></script>
+    <script src="../../controllers/privado/grafico_Fechas_mas_inscripciones.js"></script>
 </body>
 
 </html>

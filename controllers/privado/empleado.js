@@ -93,9 +93,8 @@ async function fillTable(form = null) {
                 <td>${row.rol}</td>
                 <td>${row.nombre_sucursal}</td>
                 <td>
-                <button onclick="openReport(${row.id_empleado})" type="button" class="btn ">
-                <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
-                </button>
+
+               
 
                  <button type="button" class="btn " onclick="openUpdate(${row.id_empleado})">
                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
@@ -181,10 +180,17 @@ async function openDelete(id) {
     }
 }
 
-//Método para abrir el reporte 
 function openReportEmpleadoPorAfp() {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
     const PATH = new URL(`${SERVER_URL}report/privado/empleado_afp.php`);
     // Se abre el reporte en una nueva pestaña del navegador web.
     window.open(PATH.href);
 }
+
+function openReportEmpleadosPorSucu() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/Empleado_Sucursal.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+

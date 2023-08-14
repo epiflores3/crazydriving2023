@@ -2,18 +2,18 @@
 // Se manda a traer el archivo que actua como plantilla para los reportes
 require_once('../../helpers/report2.php');
 //Se mandan a traer las clases donde se encuentran los gets y los sets que usaremos en el reporte
-require_once('../../entities/dto/empleado.php');
-require_once('../../entities/dto/afp.php');
+require_once('../../entities/dto/tipo_paquete.php');
+require_once('../../entities/dto/paquete.php');
 //require_once('../../entities/dto/detalle_producto.php');
 
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Empleados por AFP');
+$pdf->startReport('Paquete por tipo paquete');
 // Se crea un objeto de la clase producto ya que estos sera por lo que se filtrara.
-$afp = new AFP;
+$tipo_paquete = new TipoPaquete;
 // Verifica si exiten registros a mostrar.
-if ($datafp = $afp->readAll()) {
+if ($datatp = $tipo_paquete->readAll()) {
     // Se pone un color al encabezado.
     $pdf->setFillColor(175);
     // Se pone una fuente.
@@ -30,9 +30,10 @@ if ($datafp = $afp->readAll()) {
         
 
 
-    $pdf->cell(67, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
-    $pdf->cell(57, 10, 'DUI', 1, 0, 'C', 1);
-    $pdf->cell(62, 10, 'Sucursal', 1, 1, 'C', 1);
+    $pdf->cell(70, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
+    $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
+    $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
+    $pdf->cell(50, 10, 'Transmision', 1, 1, 'C', 1);
 
 
 
@@ -45,32 +46,33 @@ if ($datafp = $afp->readAll()) {
     $pdf->setFont('Times', '', 11);
 
     // Recorre filas una por una.
-    foreach ($datafp as $rowAFP) {
+    foreach ($datatp as $rowTP) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre AFP: ' . $rowAFP['nombre_afp']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Nombre Tipo Paquete: ' . $rowTP['tipo_paquete']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
-        $em = new Empleado;
+        $paquete = new Paquete;
         // Se establece por el id que tiene que capturar.
-        if ($em->setAFP($rowAFP['id_afp'])) {
+        if ($paquete->setTipoPaquete($rowTP['id_tipo_paquete'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataE = $em->EmpleadosPorAfp()) {
+            if ($dataP1 = $paquete->tipoPaquete()) {
                 // Recorre filas una por una.
-                foreach ($dataE as $rowAFP) {
+                foreach ($dataP1 as $rowPaquete) {
                     // Se rellenan las celdas de las tallas deacuerdo a un producto en especifico.
-                    $pdf->cell(67, 10, $pdf->encodeString($rowAFP['nombre_com_empleado']), 1, 0);
-                    $pdf->cell(57, 10,  $pdf->encodeString($rowAFP['dui_empleado']), 1, 0);
-                    $pdf->cell(62, 10,  $pdf->encodeString($rowAFP['nombre_sucursal']), 1, 1);
+                    $pdf->cell(70, 10, $pdf->encodeString($rowPaquete['descripcion']), 1, 0);
+                    $pdf->cell(36, 10,  $pdf->encodeString($rowPaquete['valor_paquete']), 1, 0);
+                    $pdf->cell(30, 10,  $pdf->encodeString($rowPaquete['cantidad_clase']), 1, 0);
+                    $pdf->cell(50, 10,  $pdf->encodeString($rowPaquete['transmision']), 1, 1);
                  
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados con esa AFP'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No hay paquete con ese tipo paquete'), 1, 1);
             }
         } else {
-            $pdf->cell(0, 10, $pdf->encodeString('Empleado incorrecto o inexistente'), 1, 1);
+            $pdf->cell(0, 10, $pdf->encodeString('Paquete incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados por AFP para mostrar'), 1, 1);
+    $pdf->cell(0, 10, $pdf->encodeString('No hay Paquete por tipo paquete para mostrar'), 1, 1);
 }
 
 // Se pone el nombre del archivo cuando se descarga y envía el documento a un destino determinado.

@@ -3,17 +3,17 @@
 require_once('../../helpers/report2.php');
 //Se mandan a traer las clases donde se encuentran los gets y los sets que usaremos en el reporte
 require_once('../../entities/dto/empleado.php');
-require_once('../../entities/dto/afp.php');
+require_once('../../entities/dto/sucursal.php');
 //require_once('../../entities/dto/detalle_producto.php');
 
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Empleados por AFP');
+$pdf->startReport('Empleados por Sucursal');
 // Se crea un objeto de la clase producto ya que estos sera por lo que se filtrara.
-$afp = new AFP;
+$sucursal = new Sucursal;
 // Verifica si exiten registros a mostrar.
-if ($datafp = $afp->readAll()) {
+if ($dataSucursal = $sucursal->readAll()) {
     // Se pone un color al encabezado.
     $pdf->setFillColor(175);
     // Se pone una fuente.
@@ -30,9 +30,8 @@ if ($datafp = $afp->readAll()) {
         
 
 
-    $pdf->cell(67, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
-    $pdf->cell(57, 10, 'DUI', 1, 0, 'C', 1);
-    $pdf->cell(62, 10, 'Sucursal', 1, 1, 'C', 1);
+    $pdf->cell(93, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
+    $pdf->cell(93, 10, 'Sucursal', 1, 1, 'C', 1);
 
 
 
@@ -45,32 +44,31 @@ if ($datafp = $afp->readAll()) {
     $pdf->setFont('Times', '', 11);
 
     // Recorre filas una por una.
-    foreach ($datafp as $rowAFP) {
+    foreach ($dataSucursal as $rowSucursal) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre AFP: ' . $rowAFP['nombre_afp']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Nombre Sucursal: ' . $rowSucursal['nombre_sucursal']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
         $em = new Empleado;
         // Se establece por el id que tiene que capturar.
-        if ($em->setAFP($rowAFP['id_afp'])) {
+        if ($em->setSucursal($rowSucursal['id_sucursal'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataE = $em->EmpleadosPorAfp()) {
+            if ($dataE = $em->EmpleadosPorSucu()) {
                 // Recorre filas una por una.
-                foreach ($dataE as $rowAFP) {
+                foreach ($dataE as $rowSucursal) {
                     // Se rellenan las celdas de las tallas deacuerdo a un producto en especifico.
-                    $pdf->cell(67, 10, $pdf->encodeString($rowAFP['nombre_com_empleado']), 1, 0);
-                    $pdf->cell(57, 10,  $pdf->encodeString($rowAFP['dui_empleado']), 1, 0);
-                    $pdf->cell(62, 10,  $pdf->encodeString($rowAFP['nombre_sucursal']), 1, 1);
+                    $pdf->cell(93, 10, $pdf->encodeString($rowSucursal['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(93, 10,  $pdf->encodeString($rowSucursal['nombre_sucursal']), 1, 1);
                  
                 }
             } else {
-                $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados con esa AFP'), 1, 1);
+                $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados con esa Sucursal'), 1, 1);
             }
         } else {
             $pdf->cell(0, 10, $pdf->encodeString('Empleado incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
-    $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados por AFP para mostrar'), 1, 1);
+    $pdf->cell(0, 10, $pdf->encodeString('No hay Empleados por Sucursal para mostrar'), 1, 1);
 }
 
 // Se pone el nombre del archivo cuando se descarga y envía el documento a un destino determinado.
@@ -80,4 +78,4 @@ if ($datafp = $afp->readAll()) {
 // F: guarde en un archivo local con el nombre dado por name(puede incluir una ruta).
 // S: devuelve el documento como una cadena.
 
-$pdf->output('I', 'Empleados-AFP.pdf');
+$pdf->output('I', 'Empleados-Sucursal.pdf');

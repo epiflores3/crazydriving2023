@@ -70,4 +70,39 @@ class PaqueteQueries
         GROUP BY paquete.transmision ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
+
+    public function cantidadPaquetePrecio($precio_incial, $precio_final)
+    {
+        $sql = 'SELECT count(id_paquete) as cantidad, valor_paquete from inscripcion
+        INNER JOIN paquete USING (id_paquete) 
+        WHERE valor_paquete between ? and ?
+        GROUP BY valor_paquete';
+        $params = array($precio_incial, $precio_final);
+        return Database::getRows($sql, $params);
+    }
+
+    public function tipoPaquete()
+    {
+        $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, transmision
+        FROM paquete 
+        INNER JOIN tipo_paquete USING (id_tipo_paquete) 
+        WHERE id_tipo_paquete = ?
+        GROUP BY descripcion, valor_paquete, cantidad_clase, transmision
+        ORDER BY valor_paquete';
+        $params = array($this->idtipopaquete);
+        return Database::getRows($sql, $params);
+    }
+
+      // Filtra todas las tallas que le pertenecen a un producto en específico
+      public function paquetesTransmision()
+      {
+          $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, tipo_paquete
+          FROM paquete 
+          INNER JOIN tipo_paquete paq USING(id_tipo_paquete)
+          WHERE transmision = ? 
+          GROUP BY descripcion, valor_paquete, cantidad_clase, tipo_paquete
+          ORDER BY valor_paquete';
+          $params = array($this->transmision);
+          return Database::getRows($sql, $params);
+      }
 }

@@ -128,6 +128,7 @@ HEADER.innerHTML = `
     </a>
 </li>
 
+
 <li>
     <a href="usuario.html">
         <i class='bx bxs-user-circle' ></i>
@@ -146,6 +147,13 @@ HEADER.innerHTML = `
     <a href="menu.html">
         <i class='bx bxs-calendar-event' ></i>
         <span class="text">Menú</span>
+    </a>
+</li>
+
+<li>
+    <a href="afp.html">
+        <i class='bx bxs-calendar-event' ></i>
+        <span class="text">AFP</span>
     </a>
 </li>
 

@@ -7,12 +7,13 @@ class EmpleadoQueries
 
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
-    {    
-    $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.nombre_afp, empleado.estado_empleado, rol.rol, sucursal.nombre_sucursal
+    {
+        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
 	FROM empleado
     INNER JOIN rol USING(id_rol)
-    INNER JOIN sucursal USING(id_sucursal)';
-    return Database::getRows($sql);
+    INNER JOIN sucursal USING(id_sucursal)
+    INNER JOIN afp USING(id_afp)';
+        return Database::getRows($sql);
     }
 
     public function readOne()
@@ -68,14 +69,44 @@ class EmpleadoQueries
         return Database::executeRow($sql, $params);
     }
 
-    //Método para hacer reporte general de Empleados por AFP
+
+    // Reporte que filtre empleados que pertenecen por AFP//
     public function EmpleadosPorAfp()
     {
-        $sql = 'SELECT nombre_com_empleado, nombre_afp
-        FROM empleado
-        WHERE nombre_afp = ?';
-        $params = array($this->nombre, $this->AFP);
+        $sql = 'SELECT nombre_com_empleado, dui_empleado, nombre_sucursal
+        FROM empleado 
+        INNER JOIN afp USING (id_afp)
+         INNER JOIN sucursal USING (id_sucursal)
+        WHERE id_afp = ?
+        group by  nombre_com_empleado, dui_empleado, nombre_sucursal
+         ORDER BY nombre_com_empleado';
+        $params = array($this->AFP);
         return Database::getRows($sql, $params);
     }
 
+    // Reporte que filtre empleados por sucursal//
+    public function EmpleadosPorSucu()
+    {
+        $sql = 'SELECT nombre_com_empleado, nombre_sucursal
+        FROM empleado 
+        INNER JOIN sucursal USING (id_sucursal)
+        WHERE id_sucursal = ?
+        group by  nombre_com_empleado, nombre_sucursal
+        ORDER BY nombre_com_empleado';
+        $params = array($this->idsucursal);
+        return Database::getRows($sql, $params);
+    }
+
+    // Reporte que filtre empleados por sucursal en especifico//
+    public function EmpPorSucuEspecifico()
+    {
+        $sql = 'SELECT nombre_com_empleado, nombre_sucursal
+        FROM empleado 
+        INNER JOIN sucursal USING (id_sucursal)
+        WHERE id_sucursal = ?
+        group by  nombre_com_empleado, nombre_sucursal
+        ORDER BY nombre_com_empleado';
+        $params = array($this->idsucursal);
+        return Database::getRows($sql, $params);
+    }
 }

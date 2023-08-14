@@ -19,6 +19,7 @@ const SEARCH_INPUT = document.getElementById('search');
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
     fillTable();
+    fillSelect(PAQUETE_API, 'getTransmision', 'transmisionr');
 });
 
 // Método que se utiliza para el formulario de buscar.
@@ -27,6 +28,15 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     const FORM = new FormData(SEARCH_FORM);
     //Llena la tabla con las respuestas de la búsqueda.
     fillTable(FORM);
+});
+
+document.getElementById('transmisionr').addEventListener('change', () => {
+     
+    const PATH = new URL(`${SERVER_URL}report/privado/transmision_paquete.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('transmision',  document.getElementById('transmisionr').value);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 });
 
 // Método que se utiliza para el formulario de buscar.
@@ -88,12 +98,9 @@ async function fillTable(form = null) {
             <td>${row.cantidad_clase}</td>
             <td>${row.transmision}</td>
             <td>${row.tipo_paquete}</td>
-            <td>
-                <button onclick="openReport(${row.id_paquete})" type="button" class="btn ">
-                    <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
-                </button>
-        
-                <button type="button" class="btn " onclick="openUpdate(${row.id_paquete})">
+            <td>    
+
+               <button type="button" class="btn " onclick="openUpdate(${row.id_paquete})">
                     <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
                 </button>
         
@@ -152,4 +159,23 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+function openTipoPaqueteG(id) {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/tipo_paqueteg.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('id_tipo_paquete', id);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+}
+
+
+function openTransmision() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/tansmision_paquete.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('transmision', transmision);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }

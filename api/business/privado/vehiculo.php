@@ -100,6 +100,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+            case 'Cantidadvehiculopormodelo':
+                    if ($result['dataset'] = $vehiculo->Cantidadvehiculopormodelo()) {
+                        $result['status'] = 1;
+                   
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
