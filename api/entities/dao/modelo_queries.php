@@ -61,4 +61,17 @@ class ModeloQueries
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+     //Método para realizar el reporte parametrizado de vehiculos por modelos
+     public function vehiculosmodelos()
+     {
+         $sql = 'SELECT ve.id_vehiculo, mo.modelo, ve.placa
+         FROM vehiculo ve
+         INNER JOIN modelo mo USING(id_modelo)
+         WHERE tipo_vehiculo = ? 
+         GROUP BY ve.id_vehiculo, mo.modelo, ve.placa
+         ORDER BY mo.modelo';
+         $params = array($this->tipo_vehiculo);
+         return Database::getRows($sql, $params);
+     }
 }

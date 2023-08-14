@@ -19,6 +19,7 @@ const SAVE_FORM = document.getElementById('save-form');
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
     fillTable();
+    fillSelect(MODELO_API, 'getTipos', 'tipodevehiculocmb');
 });
 
 // Método que sirve para el formulario se envía para ser guardado
@@ -37,6 +38,17 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         sweetAlert(2, JSON.exception, false);
     }
 });
+
+
+document.getElementById('tipodevehiculocmb').addEventListener('change', () => {
+     
+    const PATH = new URL(`${SERVER_URL}report/privado/vehiculo_tipo_vehiculo.php`);
+    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+    PATH.searchParams.append('tipo_vehiculo',  document.getElementById('tipodevehiculocmb').value);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
+});
+
 
 
 //Función de preparación para poder insertar un nuevo registro
@@ -146,5 +158,15 @@ async function openDelete(id) {
         } else {
             sweetAlert(2, JSON.exception, false);
         }
+    }
+
+
+    function openIns() {
+        // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+        const PATH = new URL(`${SERVER_URL}report/privado/vehiculo_tipo_vehiculo.php`);
+        // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
+        PATH.searchParams.append('tipo_vehiculo', tipo_vehiculo);
+        // Se abre el reporte en una nueva pestaña del navegador web.
+        window.open(PATH.href);
     }
 }
