@@ -90,10 +90,7 @@ async function fillTable(form = null) {
             <td>${row.tipo_paquete}</td>
             <td>    
 
-            >
-
-        
-                <button type="button" class="btn " onclick="openUpdate(${row.id_paquete})">
+               <button type="button" class="btn " onclick="openUpdate(${row.id_paquete})">
                     <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
                 </button>
         
