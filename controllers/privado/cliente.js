@@ -90,6 +90,7 @@ async function fillTable(form = null) {
     <td>${row.correo_cliente}</td>
     <td>${row.estado_cliente}</td>
         <td>
+
             <button onclick="openReport(${row.id_cliente})" type="button" class="btn ">
                 <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
             </button>
@@ -158,4 +159,11 @@ async function openDelete(id) {
             sweetAlert(2, JSON.exception, false);
         }
     }
+}
+
+function openReportInscripcionEstadoCliente() {
+    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
+    const PATH = new URL(`${SERVER_URL}report/privado/inscripcion_estado_cliente.php`);
+    // Se abre el reporte en una nueva pestaña del navegador web.
+    window.open(PATH.href);
 }

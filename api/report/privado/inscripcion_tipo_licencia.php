@@ -25,16 +25,16 @@ if (isset($_GET['tipo_licencia'])) {
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
+                $pdf->cell(70, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+                $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
+                // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
+                $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
+                $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
+                // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
                
-                $pdf->cell(21, 10, 'Anticipo', 1, 0, 'C', 1);
-                $pdf->cell(21, 10, 'Fecha de registro', 1, 0, 'C', 1);
-                $pdf->cell(21, 10, 'Fecha de inicio', 1, 0, 'C', 1);
-                $pdf->cell(21, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
-                $pdf->cell(20.4, 10, 'Descripción del paquete', 1, 0, 'C', 1);
-                $pdf->cell(20.4, 10, 'Nombre del cliente', 1, 0, 'C', 1);
-                $pdf->cell(20.4, 10, 'Nombre del empleado', 1, 0, 'C', 1);
-                $pdf->cell(20.4, 10, 'Hora de incio', 1, 0, 'C', 1);
-                $pdf->cell(20.4, 10, 'Hora de fin', 1, 1, 'C', 1);
+                $pdf->cell(62, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+                $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
+                $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
             
                 // // Se establece la fuente para los datos de los productos.
                 // $pdf->setFont('Times', '', 11);
@@ -48,16 +48,16 @@ if (isset($_GET['tipo_licencia'])) {
                   
                     // ($rowProducto['estado_producto']) ? $estado = 'Activo' : $estado = 'Inactivo';
                     // Se imprimen las celdas con los datos de los productos.
+                    $pdf->cell(70, 10, $pdf->encodeString($rowInscripcion['nombre_com_cliente']), 1, 0);
+                    $pdf->cell(20, 10, $pdf->encodeString($rowInscripcion['anticipo_paquete']), 1, 0);
+                    // $pdf->cell(30, 10, $pdf->encodeString($rowInscripcion['fecha_registro']), 1, 0);
+                    $pdf->cell(28, 10, $pdf->encodeString($rowInscripcion['fecha_inicio']), 1, 0);
+                    $pdf->cell(20, 10, $pdf->encodeString($evaluacion), 1, 0);
+                    // $pdf->cell(25, 10, $pdf->encodeString($rowInscripcion['descripcion']), 1, 0);
                   
-                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['anticipo_paquete']), 1, 0);
-                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['fecha_registro']), 1, 0);
-                    $pdf->cell(21, 10, $pdf->encodeString($rowInscripcion['fecha_inicio']), 1, 0);
-                    $pdf->cell(21, 10, $pdf->encodeString($evaluacion), 1, 0);
-                    $pdf->cell(2, 10, $pdf->encodeString($rowInscripcion['descripcion']), 1, 0);
-                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['nombre_com_cliente']), 1, 0);
-                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['nombre_com_empleado']), 1, 0);
-                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['inicio']), 1, 0);
-                    $pdf->cell(20.4, 10, $pdf->encodeString($rowInscripcion['fin']), 1, 1);
+                    $pdf->cell(62, 10, $pdf->encodeString($rowInscripcion['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(18, 10, $pdf->encodeString($rowInscripcion['inicio']), 1, 0);
+                    $pdf->cell(18, 10, $pdf->encodeString($rowInscripcion['fin']), 1, 1);
 
                 }
               

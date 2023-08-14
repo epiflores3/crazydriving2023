@@ -66,4 +66,20 @@ class ClienteQueries
         GROUP BY cliente.estado_cliente ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
+
+    //Para hacer reporte general de inscripciones por estado del cliente
+    public function inscripcionEstadoCliente()
+    {
+        $sql = '	SELECT ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
+        FROM inscripcion ins
+        INNER JOIN paquete paq USING(id_paquete)
+		INNER JOIN cliente cli USING(id_cliente)
+		INNER JOIN empleado emp USING(id_empleado)
+		INNER JOIN horario hor USING(id_horario)
+        WHERE ins.estado_cliente = ?
+		GROUP BY ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
+        ORDER BY nombre_com_cliente';
+        $params = array($this->estado);
+        return Database::getRows($sql, $params);
+    }
 }
