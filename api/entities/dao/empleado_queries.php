@@ -96,4 +96,17 @@ class EmpleadoQueries
         $params = array($this->idsucursal);
         return Database::getRows($sql, $params);
     }
+
+    // Reporte que filtre empleados por sucursal en especifico//
+    public function EmpPorSucuEspecifico()
+    {
+        $sql = 'SELECT nombre_com_empleado, nombre_sucursal
+        FROM empleado 
+        INNER JOIN sucursal USING (id_sucursal)
+        WHERE id_sucursal = ?
+        group by  nombre_com_empleado, nombre_sucursal
+        ORDER BY nombre_com_empleado';
+        $params = array($this->idsucursal);
+        return Database::getRows($sql, $params);
+    }
 }
