@@ -41,18 +41,17 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 });
 
 
-
+// ----------------------------------------- VALIDACIONES ----------------------------------------------
 
 const fecha1 = document.getElementById("fecha_inicial");
 const fecha2 = document.getElementById("fecha_final");
-
-
 
 
 function desHabilitarBotonCamposEnBlanco(){
  text_1 = document.getElementById("fecha_inicial").value;
  text_2= document.getElementById("fecha_final").value;
  val = 0;
+
  if(text_1 == "" ){
     val++;
  }if(text_2 == ""){
@@ -63,6 +62,7 @@ function desHabilitarBotonCamposEnBlanco(){
     document.getElementById("enviardatos").disabled = true;
 }
 };
+
 // Trae el valor en tiempo real de los text que ya no estan vacios y hace que se habilite el boton
 document.getElementById("fecha_inicial").addEventListener("keyup", desHabilitarBotonCamposEnBlanco);
 document.getElementById("fecha_final").addEventListener("keyup", desHabilitarBotonCamposEnBlanco);
@@ -86,6 +86,7 @@ fecha2.addEventListener('keyup', (event) =>{
 function mostrarValoresEnTiempoReal(texto1, texto2) {
     validarFechas(texto1, texto2);
 };
+
 
 // Valida que lo que se capture de los date sea en su formato correcto
 function validarFechas(texto1, texto2) {

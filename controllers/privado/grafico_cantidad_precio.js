@@ -28,7 +28,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         });
         document.getElementById('grafico').innerHTML = '<canvas id="chart2"></canvas>';
         // Llamada a la función que genera gráfico linrsl. Se encuentra en el archivo components.js
-        barGraph('chart2', valor, cantidad, 'Cantidad de paquetes', 'Top 5 paquetes entre rango de precios');
+        barGraph('chart2', valor, cantidad, 'Cantidad de paquetes', 'Top 5 paquetes más solicitados');
         sweetAlert(1, JSON.message, true);
 
     } else {

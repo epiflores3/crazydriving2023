@@ -157,6 +157,25 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+            // case 'validarAsesorEmpleado':
+            //     if ($result['dataset'] = $empleado->validarAsesorEmpleado()) {
+            //         $result['status'] = 1;
+            //     } elseif (Database::getException()) {
+            //         $result['exception'] = Database::getException();
+            //     } else {
+            //         $result['exception'] = 'No hay datos registrados';
+            //     } 
+            // break;
+
+            case 'validarAsesorEmpleado':
+                if (!$empleado->setAsesor($_POST['asesor'])) {
+                   $result['exception'] = 'Asesor incorrecto';
+               } elseif ($result['dataset'] = $empleado->validarAsesorEmpleado()) {
+                   $result['status'] = 1;
+               } else  {
+                   $result['exception'] = Database::getException();
+               } 
+               break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

@@ -76,7 +76,8 @@ class PaqueteQueries
         $sql = 'SELECT count(id_paquete) as cantidad, valor_paquete from inscripcion
         INNER JOIN paquete USING (id_paquete) 
         WHERE valor_paquete between ? and ?
-        GROUP BY valor_paquete';
+        GROUP BY valor_paquete
+        ORDER BY cantidad desc limit 5';
         $params = array($precio_incial, $precio_final);
         return Database::getRows($sql, $params);
     }

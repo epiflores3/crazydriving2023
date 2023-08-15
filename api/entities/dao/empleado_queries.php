@@ -8,11 +8,11 @@ class EmpleadoQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
-	FROM empleado
-    INNER JOIN rol USING(id_rol)
-    INNER JOIN sucursal USING(id_sucursal)
-    INNER JOIN afp USING(id_afp)';
+        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
+        FROM empleado
+        INNER JOIN rol USING(id_rol)
+        INNER JOIN sucursal USING(id_sucursal)
+        INNER JOIN afp USING(id_afp)';
         return Database::getRows($sql);
     }
 
@@ -108,5 +108,19 @@ class EmpleadoQueries
         ORDER BY nombre_com_empleado';
         $params = array($this->idsucursal);
         return Database::getRows($sql, $params);
+    }
+
+    public function validarAsesorEmpleado()
+    {
+        $sql = 'SELECT empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
+        FROM empleado
+        INNER JOIN rol USING(id_rol)
+        INNER JOIN sucursal USING(id_sucursal)
+        INNER JOIN afp USING(id_afp)
+        where asesor = ?
+        group by  empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
+        order by nombre_com_empleado';
+        $params = array($this->asesor);
+        return Database::getRows($sql);
     }
 }

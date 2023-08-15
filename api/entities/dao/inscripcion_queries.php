@@ -121,9 +121,9 @@ class InscripcionQueries
       //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
       public function cantidadPaquetesMasVendidos()
       {
-          $sql = 'SELECT inscripcion.evaluacion, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
-          FROM inscripcion
-          GROUP BY paquete ORDER BY porcentaje DESC';
+          $sql = 'SELECT paquete.valor_paquete, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
+          FROM paquete
+          GROUP BY paquete.valor_paquete ORDER BY porcentaje DESC Limit 5';
           return Database::getRows($sql);
       }
 

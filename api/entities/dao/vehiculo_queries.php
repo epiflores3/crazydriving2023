@@ -68,7 +68,7 @@ class VehiculoQueries
         FROM vehiculo
         INNER JOIN modelo USING (id_modelo)
         GROUP BY modelo
-        ORDER BY cantidad desc';
+        ORDER BY cantidad desc limit 5';
         return Database::getRows($sql);
     }
 }
