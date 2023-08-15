@@ -9,7 +9,7 @@ require_once('../../entities/dto/paquete.php');
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Paquete por tipo paquete');
+$pdf->startReport('Paquetes por tipo');
 // Se crea un objeto de la clase producto ya que estos sera por lo que se filtrara.
 $tipo_paquete = new TipoPaquete;
 // Verifica si exiten registros a mostrar.
@@ -30,10 +30,10 @@ if ($datatp = $tipo_paquete->readAll()) {
         
 
 
-    $pdf->cell(70, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
+    $pdf->cell(70, 10,  $pdf->encodeString('Descripción'), 1, 0, 'C', 1);
     $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
     $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
-    $pdf->cell(50, 10, 'Transmision', 1, 1, 'C', 1);
+    $pdf->cell(50, 10, $pdf->encodeString('Transmisión'), 1, 1, 'C', 1);
 
 
 
@@ -48,7 +48,7 @@ if ($datatp = $tipo_paquete->readAll()) {
     // Recorre filas una por una.
     foreach ($datatp as $rowTP) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre Tipo Paquete: ' . $rowTP['tipo_paquete']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Nombre tipo paquete: ' . $rowTP['tipo_paquete']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
         $paquete = new Paquete;
         // Se establece por el id que tiene que capturar.

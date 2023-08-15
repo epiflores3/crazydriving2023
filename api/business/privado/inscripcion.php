@@ -53,12 +53,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getEstadoCliente':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('En proceso', 'En proceso'),
-                    array('Pendiente', 'Pendiente'),
-                    array('Finalizado', 'Finalizado'),
-                    array('Suspendido', 'Suspendido')
-                );
+                $result['dataset'] = $inscripcion::ESTADOS;
                 break;
                 //Acción para poder buscar dentro de la interfaz
             case 'search':

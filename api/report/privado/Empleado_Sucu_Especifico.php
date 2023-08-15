@@ -17,7 +17,7 @@ if (isset($_GET['id_sucursal'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
         if ($rowSu = $Sucursal->readOne()) {
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Nombre de la sucursal ' . $rowSu['nombre_sucursal']);
+            $pdf->startReport('Empleado de la sucursal: ' . $rowSu['nombre_sucursal']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataEmp = $Empleado->EmpPorSucuEspecifico()) {
                 // Se establece un color de relleno para los encabezados.
@@ -36,6 +36,7 @@ if (isset($_GET['id_sucursal'])) {
                     // Se imprimen las celdas con los datos de los productos.
                     $pdf->cell(93, 10, $pdf->encodeString($rowSucursal['nombre_com_empleado']), 1, 0);
                     $pdf->cell(93, 10,  $pdf->encodeString($rowSucursal['nombre_sucursal']), 1, 1);  
+                    // QUITAR
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay paquetes por tipo paquete'), 1, 1);

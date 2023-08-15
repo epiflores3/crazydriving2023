@@ -17,7 +17,7 @@ if (isset($_GET['tipo_vehiculo'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
       
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Vehiculos por tipo vehiculo');
+            $pdf->startReport('Vehículos por tipo: '. $_GET['tipo_vehiculo']);
 
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataVehiculo = $veh->vehiculosmodelos()) {
