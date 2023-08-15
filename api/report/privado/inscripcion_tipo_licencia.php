@@ -17,7 +17,7 @@ if (isset($_GET['tipo_licencia'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
       
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Inscripciones por tipo de licencia');
+            $pdf->startReport('Inscripciones por tipo de licencia: ' . $_GET['tipo_licencia']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataInscripcion = $ins->inscripcionLicencia()) {
                 // Se establece un color de relleno para los encabezados.

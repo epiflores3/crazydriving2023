@@ -16,6 +16,12 @@ class Inscripcion extends InscripcionQueries
     protected $estadocliente = null;
     protected $idcliente = null;
     protected $idempleado = null;
+    const ESTADOS = array(
+        array('En proceso', 'En proceso'),
+        array('Pendiente', 'Pendiente'),
+        array('Finalizado', 'Finalizado'),
+        array('Suspendido', 'Suspendido')
+    );
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)

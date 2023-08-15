@@ -17,7 +17,7 @@ if (isset($_GET['transmision'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
       
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Inscripciones por tipo de licencia');
+            $pdf->startReport('Inscripciones por transmisión: '.$_GET['transmision']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataPaquete = $Paquete->paquetesTransmision()) {
                 // Se establece un color de relleno para los encabezados.
