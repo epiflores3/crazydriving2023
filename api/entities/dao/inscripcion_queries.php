@@ -85,6 +85,17 @@ class InscripcionQueries
     }
 
 
+    public function inscripcionesMasFechas($inicial, $final)
+    {
+        $sql = 'SELECT count(id_inscripcion) as cantidad, fecha_registro from inscripcion
+            where fecha_registro between ? and ?
+            group by fecha_registro
+            order by cantidad desc limit 5';
+        $params = array($inicial, $final);
+        return Database::getRows($sql, $params);
+    }
+
+
     public function cantidadHorariosMasSolicitados($hora_inicial, $hora_final)
     {
         $sql = 'SELECT count(id_inscripcion) as cantidad, inicio from inscripcion
@@ -104,6 +115,18 @@ class InscripcionQueries
         GROUP BY inscripcion.evaluacion ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
+
+
+
+      //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
+      public function cantidadPaquetesMasVendidos()
+      {
+          $sql = 'SELECT inscripcion.evaluacion, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
+          FROM inscripcion
+          GROUP BY paquete ORDER BY porcentaje DESC';
+          return Database::getRows($sql);
+      }
+
 
     // Filtra todas las inscripciones que le pertenecen a una licencia en específico
     public function inscripcionLicencia()
