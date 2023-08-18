@@ -142,19 +142,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
+                // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente el reporte
             case 'reportTL':
-                    $_POST = Validator::validateForm($_POST);
-    
-                    if (!$sesion->setTipoClase($_POST['tipodeclasecmb'])) {
-                        $result['exception'] = 'Tipo clase incorrecto';
-                    } elseif ($result['dataset'] = $sesion->sesiontipoclase()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
-    
+                $_POST = Validator::validateForm($_POST);
+
+                if (!$sesion->setTipoClase($_POST['tipodeclasecmb'])) {
+                    $result['exception'] = 'Tipo clase incorrecto';
+                } elseif ($result['dataset'] = $sesion->sesiontipoclase()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

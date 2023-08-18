@@ -124,7 +124,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

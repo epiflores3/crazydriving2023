@@ -78,7 +78,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Dirección del cliente incorrecto';
                 } elseif (!$cliente->setCorreo($_POST['correoc'])) {
                     $result['exception'] = 'Correo del cliente incorrecto';
-                }  elseif (!$cliente->setEstado($_POST['tipoestado'])) {
+                } elseif (!$cliente->setEstado($_POST['tipoestado'])) {
                     $result['exception'] = 'Estado del cliente incorrecto';
                 } elseif ($cliente->createRow()) {
                     $result['status'] = 1;
@@ -104,7 +104,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Dirección del cliente incorrecto';
                 } elseif (!$cliente->setCorreo($_POST['correoc'])) {
                     $result['exception'] = 'Correo del cliente incorrecto';
-                }  elseif (!$cliente->setEstado($_POST['tipoestado'])) {
+                } elseif (!$cliente->setEstado($_POST['tipoestado'])) {
                     $result['exception'] = 'Estado del cliente incorrecto';
                 } elseif ($cliente->updateRow()) {
                     $result['status'] = 1;
@@ -127,7 +127,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 break;
-                // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica de pastel
+                // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica 
             case 'cantidadEstadoCliente':
                 if ($result['dataset'] = $cliente->CantidadEstadoCliente()) {
                     $result['status'] = 1;

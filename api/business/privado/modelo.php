@@ -65,21 +65,21 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
-                case 'create':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$modelo->setModelo($_POST['modelo'])) {
-                        $result['exception'] = 'Modelo incorrecta';
-                    } elseif (!$modelo->setTipoVehiculo($_POST['tipovehiculo'])) {
-                        $result['exception'] = 'Tipo de vehiculo incorrecta';
-                    } elseif (!$modelo->setMarca($_POST['marca'])) {
-                        $result['exception'] = 'Marca incorrecto';
-                    } elseif ($modelo->createRow()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Modelo agregado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
+            case 'create':
+                $_POST = Validator::validateForm($_POST);
+                if (!$modelo->setModelo($_POST['modelo'])) {
+                    $result['exception'] = 'Modelo incorrecta';
+                } elseif (!$modelo->setTipoVehiculo($_POST['tipovehiculo'])) {
+                    $result['exception'] = 'Tipo de vehiculo incorrecta';
+                } elseif (!$modelo->setMarca($_POST['marca'])) {
+                    $result['exception'] = 'Marca incorrecto';
+                } elseif ($modelo->createRow()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Modelo agregado correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);

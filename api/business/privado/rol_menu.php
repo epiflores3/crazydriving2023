@@ -13,6 +13,7 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['id_usuario'])) {
         // Se compara la acciones que el usuario puede realizar cuando ha iniciado sesión.
         switch ($_GET['action']) {
+                //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $rolmenu->readAll()) {
                     $result['status'] = 1;
@@ -35,7 +36,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Rol menu inexistente';
                 }
                 break;
-
                 // case 'search':
                 //     $_POST = Validator::validateForm($_POST);
                 //     if ($_POST['search'] == '') {
@@ -49,7 +49,6 @@ if (isset($_GET['action'])) {
                 //         $result['exception'] = 'No hay coincidencias';
                 //     }
                 //     break;
-
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
