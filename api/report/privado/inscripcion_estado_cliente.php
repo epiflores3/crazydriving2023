@@ -16,58 +16,57 @@ $estado = new Cliente;
 if ($dataCliente = $estado->readAll()) {
     // Se pone un color al encabezado.
     $pdf->setFillColor(175);
-     // Se pone una fuente.
+    // Se pone una fuente.
     $pdf->setFont('Times', 'B', 11);
     // Se rellenan las celdas del encabezado.
 
     // Significado de los numeros de cell: 
-        // Primero es el ancho de la celda
-        // Segundo el alto de la celda
-        // Tercero El valor que tendra la celda: TEXTO
-        // Cuarto Indica si se dibujan los bordes alrededor de la celda: 0 Sin bordes, 1 Marco, o tambien L izquierda, T arriba, R derecha, B abajo
-        // Quinto indica donde puede ir la posición: 0 A la derecha, 1 Al comienzo de la siguiente línea, 2 Abajo
-        // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
-        //
-       
-        $pdf->cell(70, 10, 'Nombre del cliente', 1, 0, 'C', 1);
-        $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
-        // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
-        $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
-        $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
-        // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
-        $pdf->cell(62, 10, 'Nombre del empleado', 1, 0, 'C', 1);
-        $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
-        $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
+    // Primero es el ancho de la celda
+    // Segundo el alto de la celda
+    // Tercero El valor que tendra la celda: TEXTO
+    // Cuarto Indica si se dibujan los bordes alrededor de la celda: 0 Sin bordes, 1 Marco, o tambien L izquierda, T arriba, R derecha, B abajo
+    // Quinto indica donde puede ir la posición: 0 A la derecha, 1 Al comienzo de la siguiente línea, 2 Abajo
+    // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
+    // Septimo indica si se muestra el color: 0 Es que no se mostrará el color, 1 Es que si se mostrará el color del setfillcolor
 
-     // Se estabelce un color para la celda que muestra por lo que se filtra.
+    $pdf->cell(70, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+    $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
+    // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
+    $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
+    $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
+    // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
+    $pdf->cell(62, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+    $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
+    $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
+
+    // Se estabelce un color para la celda que muestra por lo que se filtra.
     $pdf->setFillColor(225);
     // Se establece una fuente para las celdas que muestran resultados.
     $pdf->setFont('Times', '', 11);
 
     // Recorre filas una por una.
     foreach ($dataCliente as $rowEstado) {
-       // Se muestra la celda que tendra el dato por el que se filtra.
+        // Se muestra la celda que tendra el dato por el que se filtra.
         $pdf->cell(0, 10, $pdf->encodeString('Estado: ' . $rowEstado['estado_cliente']), 1, 1, 'C', 1);
-         // Se crea un objeto de la clase ya que esto sera lo que se filtrara .
+        // Se crea un objeto de la clase ya que esto sera lo que se filtrara .
         $inscripcion = new Inscripcion;
         // Se establece por el id que tiene que capturar.
         if ($inscripcion->setEstado($rowEstado['estado_cliente'])) {
-               // Verifica si exiten registros a mostrar.
+            // Verifica si exiten registros a mostrar.
             if ($dataCliente = $dataCliente->inscripcionEstadoCliente()) {
-                 // Recorre filas una por una.
+                // Recorre filas una por una.
                 foreach ($dataCliente as $rowEstado2) {
-                      // Se rellenan las celdas de acuerdo a un producto en especifico.
-                      $pdf->cell(70, 10, $pdf->encodeString($rowEstado2['nombre_com_cliente']), 1, 0);
-                      $pdf->cell(20, 10, $pdf->encodeString($rowEstado2['anticipo_paquete']), 1, 0);
-                      // $pdf->cell(30, 10, $pdf->encodeString($rowEstado2['fecha_registro']), 1, 0);
-                      $pdf->cell(28, 10, $pdf->encodeString($rowEstado2['fecha_inicio']), 1, 0);
-                      $pdf->cell(20, 10, $pdf->encodeString($evaluacion), 1, 0);
-                      // $pdf->cell(25, 10, $pdf->encodeString($rowEstado2['descripcion']), 1, 0);
-                    
-                      $pdf->cell(62, 10, $pdf->encodeString($rowEstado2['nombre_com_empleado']), 1, 0);
-                      $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['inicio']), 1, 0);
-                      $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['fin']), 1, 1);
-                 
+                    // Se rellenan las celdas de acuerdo a algo en especifico.
+                    $pdf->cell(70, 10, $pdf->encodeString($rowEstado2['nombre_com_cliente']), 1, 0);
+                    $pdf->cell(20, 10, $pdf->encodeString($rowEstado2['anticipo_paquete']), 1, 0);
+                    // $pdf->cell(30, 10, $pdf->encodeString($rowEstado2['fecha_registro']), 1, 0);
+                    $pdf->cell(28, 10, $pdf->encodeString($rowEstado2['fecha_inicio']), 1, 0);
+                    $pdf->cell(20, 10, $pdf->encodeString($evaluacion), 1, 0);
+                    // $pdf->cell(25, 10, $pdf->encodeString($rowEstado2['descripcion']), 1, 0);
+
+                    $pdf->cell(62, 10, $pdf->encodeString($rowEstado2['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['inicio']), 1, 0);
+                    $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['fin']), 1, 1);
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay inscripciones por estado'), 1, 1);

@@ -29,18 +29,17 @@ if (isset($_GET['id_tipo_paquete'])) {
                 $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
                 $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
                 $pdf->cell(50, 10, 'Transmision', 1, 1, 'C', 1);
-            
-                // Se establece la fuente para los datos de los productos.
+
+                // Se establece la fuente para los datos.
                 $pdf->setFont('Times', '', 11);
                 // Se recorren los registros fila por fila.
                 foreach ($dataP as $rowPaquete) {
-           
-                    // Se imprimen las celdas con los datos de los productos.
+
+                    // Se imprimen las celdas con los datos.
                     $pdf->cell(70, 10, $pdf->encodeString($rowPaquete['descripcion']), 1, 0);
                     $pdf->cell(36, 10,  $pdf->encodeString($rowPaquete['valor_paquete']), 1, 0);
                     $pdf->cell(30, 10,  $pdf->encodeString($rowPaquete['cantidad_clase']), 1, 0);
                     $pdf->cell(50, 10,  $pdf->encodeString($rowPaquete['transmision']), 1, 1);
-                    
                 }
             } else {
                 $pdf->cell(0, 10, $pdf->encodeString('No hay paquetes por tipo paquete'), 1, 1);
