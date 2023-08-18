@@ -84,7 +84,7 @@ class InscripcionQueries
         return Database::getRows($sql, $params);
     }
 
-
+    //Consulta para grafico lineal top 5 fechas con más fechas de inicio, se crean 2 variables de uso, inicial, y final para que funcione
     public function inscripcionesMasFechas($inicial, $final)
     {
         $sql = 'SELECT count(id_inscripcion) as cantidad, fecha_registro from inscripcion
@@ -95,7 +95,7 @@ class InscripcionQueries
         return Database::getRows($sql, $params);
     }
 
-
+    //Consulta para grafico lineal top 5 fechas con más fechas de inicio, se crean 2 variables de uso, hora inicial, y hora final para que funcione
     public function cantidadHorariosMasSolicitados($hora_inicial, $hora_final)
     {
         $sql = 'SELECT count(id_inscripcion) as cantidad, inicio from inscripcion
@@ -116,17 +116,14 @@ class InscripcionQueries
         return Database::getRows($sql);
     }
 
-
-
-      //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
-      public function cantidadPaquetesMasVendidos()
-      {
-          $sql = 'SELECT paquete.valor_paquete, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
+    //Para hacer grafico, donde se muestra los paquetes más vendidos.
+    public function cantidadPaquetesMasVendidos()
+    {
+        $sql = 'SELECT paquete.valor_paquete, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
           FROM paquete
           GROUP BY paquete.valor_paquete ORDER BY porcentaje DESC Limit 5';
-          return Database::getRows($sql);
-      }
-
+        return Database::getRows($sql);
+    }
 
     // Filtra todas las inscripciones que le pertenecen a una licencia en específico
     public function inscripcionLicencia()
@@ -144,10 +141,10 @@ class InscripcionQueries
         return Database::getRows($sql, $params);
     }
 
-        //Para hacer reporte general de inscripciones por estado del cliente
-        public function inscripcionEstadoCliente()
-        {
-            $sql = 'SELECT ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
+    //Para hacer reporte general de inscripciones por estado del cliente
+    public function inscripcionEstadoCliente()
+    {
+        $sql = 'SELECT ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
             FROM inscripcion ins
             INNER JOIN paquete paq USING(id_paquete)
             INNER JOIN cliente cli USING(id_cliente)
@@ -156,7 +153,7 @@ class InscripcionQueries
             WHERE ins.estado_cliente = ?
             GROUP BY ins.anticipo_paquete, ins.fecha_registro, ins.fecha_inicio, ins.evaluacion, ins.estado_cliente, paq.descripcion, cli.nombre_com_cliente, emp.nombre_com_empleado, hor.inicio, hor.fin
             ORDER BY nombre_com_cliente';
-            $params = array($this->estadocliente);
-            return Database::getRows($sql, $params);
-        }
+        $params = array($this->estadocliente);
+        return Database::getRows($sql, $params);
+    }
 }

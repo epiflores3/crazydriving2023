@@ -66,6 +66,4 @@ class ClienteQueries
         GROUP BY cliente.estado_cliente ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
-
-
 }

@@ -71,6 +71,7 @@ class PaqueteQueries
         return Database::getRows($sql);
     }
 
+    //Método para realizar el grafico de paquetes por precios
     public function cantidadPaquetePrecio($precio_incial, $precio_final)
     {
         $sql = 'SELECT count(id_paquete) as cantidad, valor_paquete from inscripcion
@@ -82,6 +83,7 @@ class PaqueteQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar el reporte de los tipo de paquete
     public function tipoPaquete()
     {
         $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, transmision
@@ -94,16 +96,16 @@ class PaqueteQueries
         return Database::getRows($sql, $params);
     }
 
-      // Filtra todas las tallas que le pertenecen a un producto en específico
-      public function paquetesTransmision()
-      {
-          $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, tipo_paquete
+    // Filtra todos los paquetes que le pertenecen a una transmisión en específico
+    public function paquetesTransmision()
+    {
+        $sql = 'SELECT descripcion, valor_paquete, cantidad_clase, tipo_paquete
           FROM paquete 
           INNER JOIN tipo_paquete paq USING(id_tipo_paquete)
           WHERE transmision = ? 
           GROUP BY descripcion, valor_paquete, cantidad_clase, tipo_paquete
           ORDER BY valor_paquete';
-          $params = array($this->transmision);
-          return Database::getRows($sql, $params);
-      }
+        $params = array($this->transmision);
+        return Database::getRows($sql, $params);
+    }
 }

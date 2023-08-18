@@ -4,7 +4,6 @@ require_once('../../helpers/database.php');
 //Clase para poder tener acceso a todos de la entidad requerida
 class EmpleadoQueries
 {
-
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
@@ -69,8 +68,7 @@ class EmpleadoQueries
         return Database::executeRow($sql, $params);
     }
 
-
-    // Reporte que filtre empleados que pertenecen por AFP//
+    // Reporte que filtre empleados que pertenecen por AFP
     public function EmpleadosPorAfp()
     {
         $sql = 'SELECT nombre_com_empleado, dui_empleado, nombre_sucursal
@@ -84,7 +82,7 @@ class EmpleadoQueries
         return Database::getRows($sql, $params);
     }
 
-    // Reporte que filtre empleados por sucursal//
+    // Reporte que filtre empleados por sucursal
     public function EmpleadosPorSucu()
     {
         $sql = 'SELECT nombre_com_empleado, nombre_sucursal
@@ -97,7 +95,7 @@ class EmpleadoQueries
         return Database::getRows($sql, $params);
     }
 
-    // Reporte que filtre empleados por sucursal en especifico//
+    // Reporte que filtre empleados por sucursal en especifico
     public function EmpPorSucuEspecifico()
     {
         $sql = 'SELECT nombre_com_empleado, nombre_sucursal
@@ -110,6 +108,7 @@ class EmpleadoQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para realizar una validación en específico
     public function validarAsesorEmpleado()
     {
         $sql = 'SELECT empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp

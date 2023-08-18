@@ -4,7 +4,7 @@ require_once('../../helpers/database.php');
 //Clase para poder tener acceso a todos de la entidad requerida
 class UsuarioQueries
 {
-    //método para comprobar el usuario
+    //Método para comprobar el usuario
     public function checkUser($alias)
     {
         $sql = 'SELECT id_usuario FROM usuario WHERE alias_usuario = ?';
@@ -105,7 +105,7 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
-    // //Para leer el usuario que inicio sesion
+    //Para leer el usuario que inicio sesion
     public function readProfile()
     {
         $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado

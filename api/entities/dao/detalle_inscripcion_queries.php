@@ -4,7 +4,6 @@ require_once('../../helpers/database.php');
 //Clase para poder tener acceso a todos de la entidad requerida
 class DetalleInscripcionQueries
 {
-
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
@@ -22,10 +21,10 @@ class DetalleInscripcionQueries
     public function readAll()
     {
         $sql = 'SELECT detalle_inscripcion.id_detalle_inscripcion, detalle_inscripcion.fecha_inicio, detalle_inscripcion.dia, paquete.descripcion, inscripcion.id_inscripcion, empleado.nombre_com_empleado
-	FROM detalle_inscripcion
-    INNER JOIN empleado USING(id_empleado)
-    INNER JOIN paquete USING(id_paquete)
-    INNER JOIN inscripcion USING(id_inscripcion)';
+        FROM detalle_inscripcion
+        INNER JOIN empleado USING(id_empleado)
+        INNER JOIN paquete USING(id_paquete)
+        INNER JOIN inscripcion USING(id_inscripcion)';
         return Database::getRows($sql);
     }
 
@@ -69,9 +68,11 @@ class DetalleInscripcionQueries
         return Database::executeRow($sql, $params);
     }
 
-    public function BuscarInscripcion($value){
-        $sql=
-        "SELECT a.id_inscripcion, d.dui_cliente 
+    //Método para realizar el mantenimiento buscar(search) un dato en específico
+    public function BuscarInscripcion($value)
+    {
+        $sql =
+            "SELECT a.id_inscripcion, d.dui_cliente 
         from inscripcion a 
         INNER JOIN  cliente d USING (id_cliente)
         where d.dui_cliente = ? and a.estado_cliente = 'Pendiente'";
