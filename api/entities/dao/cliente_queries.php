@@ -66,4 +66,19 @@ class ClienteQueries
         GROUP BY cliente.estado_cliente ORDER BY porcentaje DESC';
         return Database::getRows($sql);
     }
+<<<<<<< Updated upstream
+=======
+
+    public function cantidaddeclienteporedades($anios_incial, $anios_final)
+    {
+        $sql = 'SELECT count(id_inscripcion) as cantidad, inicio from inscripcion
+        INNER JOIN horario USING(id_horario)
+        where inicio between ? and ?
+        group by inicio
+        order by cantidad desc limit 5';
+        $params = array($anios_incial, $anios_final);
+        return Database::getRows($sql, $params);
+    }
+
+>>>>>>> Stashed changes
 }
