@@ -25,14 +25,13 @@ if (isset($_GET['tipo_licencia'])) {
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.
-            $pdf->cell(70, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+            $pdf->cell(73, 10, 'Nombre del cliente', 1, 0, 'C', 1);
             $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
             // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
             $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
             $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
             // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
-
-            $pdf->cell(62, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+            $pdf->cell(73, 10, 'Nombre del empleado', 1, 0, 'C', 1);
             $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
             $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
 
@@ -44,14 +43,13 @@ if (isset($_GET['tipo_licencia'])) {
             foreach ($dataInscripcion as $rowInscripcion) {
                 ($rowInscripcion['evaluacion']) ? $evaluacion = 'Sí' : $evaluacion = 'No';
                 // Se imprimen las celdas con los datos.
-                $pdf->cell(70, 10, $pdf->encodeString($rowInscripcion['nombre_com_cliente']), 1, 0);
+                $pdf->cell(73, 10, $pdf->encodeString($rowInscripcion['nombre_com_cliente']), 1, 0);
                 $pdf->cell(20, 10, $pdf->encodeString($rowInscripcion['anticipo_paquete']), 1, 0);
                 // $pdf->cell(30, 10, $pdf->encodeString($rowInscripcion['fecha_registro']), 1, 0);
                 $pdf->cell(28, 10, $pdf->encodeString($rowInscripcion['fecha_inicio']), 1, 0);
                 $pdf->cell(20, 10, $pdf->encodeString($evaluacion), 1, 0);
                 // $pdf->cell(25, 10, $pdf->encodeString($rowInscripcion['descripcion']), 1, 0);
-
-                $pdf->cell(62, 10, $pdf->encodeString($rowInscripcion['nombre_com_empleado']), 1, 0);
+                $pdf->cell(73, 10, $pdf->encodeString($rowInscripcion['nombre_com_empleado']), 1, 0);
                 $pdf->cell(18, 10, $pdf->encodeString($rowInscripcion['inicio']), 1, 0);
                 $pdf->cell(18, 10, $pdf->encodeString($rowInscripcion['fin']), 1, 1);
             }

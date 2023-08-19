@@ -29,13 +29,13 @@ if ($dataCliente = $estado->readAll()) {
     // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
     // Septimo indica si se muestra el color: 0 Es que no se mostrará el color, 1 Es que si se mostrará el color del setfillcolor
 
-    $pdf->cell(70, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+    $pdf->cell(73, 10, 'Nombre del cliente', 1, 0, 'C', 1);
     $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
     // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
     $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
     $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
     // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
-    $pdf->cell(62, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+    $pdf->cell(73, 10, 'Nombre del empleado', 1, 0, 'C', 1);
     $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
     $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
 
@@ -53,18 +53,20 @@ if ($dataCliente = $estado->readAll()) {
         // Se establece por el id que tiene que capturar.
         if ($inscripcion->setEstado($rowEstado['estado_cliente'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataCliente = $dataCliente->inscripcionEstadoCliente()) {
+            if ($dataCliente = $inscripcion->inscripcionEstadoCliente()) {
                 // Recorre filas una por una.
+                
                 foreach ($dataCliente as $rowEstado2) {
+                    ($rowEstado2['evaluacion']) ? $evaluacion = 'Evaluado' : $evaluacion = 'No evaluado';
+                    
                     // Se rellenan las celdas de acuerdo a algo en especifico.
-                    $pdf->cell(70, 10, $pdf->encodeString($rowEstado2['nombre_com_cliente']), 1, 0);
+                    $pdf->cell(72, 10, $pdf->encodeString($rowEstado2['nombre_com_cliente']), 1, 0);
                     $pdf->cell(20, 10, $pdf->encodeString($rowEstado2['anticipo_paquete']), 1, 0);
                     // $pdf->cell(30, 10, $pdf->encodeString($rowEstado2['fecha_registro']), 1, 0);
                     $pdf->cell(28, 10, $pdf->encodeString($rowEstado2['fecha_inicio']), 1, 0);
-                    $pdf->cell(20, 10, $pdf->encodeString($evaluacion), 1, 0);
+                    $pdf->cell(22, 10, $pdf->encodeString($evaluacion), 1, 0);
                     // $pdf->cell(25, 10, $pdf->encodeString($rowEstado2['descripcion']), 1, 0);
-
-                    $pdf->cell(62, 10, $pdf->encodeString($rowEstado2['nombre_com_empleado']), 1, 0);
+                    $pdf->cell(72, 10, $pdf->encodeString($rowEstado2['nombre_com_empleado']), 1, 0);
                     $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['inicio']), 1, 0);
                     $pdf->cell(18, 10, $pdf->encodeString($rowEstado2['fin']), 1, 1);
                 }
