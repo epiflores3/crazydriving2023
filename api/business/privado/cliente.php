@@ -136,7 +136,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 case 'cantidaddeclienteporedades':
-                    if ($result['dataset'] = $cliente->cantidaddeclienteporedades($_POST['anios_incial'], $_POST['anios_final'])) {
+                    if ($result['dataset'] = $cliente->cantidaddeclienteporedades($_POST['anios_inicial'], $_POST['anios_final'])) {
                         $result['status'] = 1;
                         $result['message'] = 'Top 5 encontrado correctamente';
                     } else {
