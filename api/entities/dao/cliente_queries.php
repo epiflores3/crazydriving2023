@@ -67,9 +67,8 @@ class ClienteQueries
         return Database::getRows($sql);
     }
 
-
-    public function cantidaddeclienteporedades($anios_inicial, $anios_final)
- 
+    //Para hacer grafico de pastel, donde se muestra rango de nacimiento de los clientes.
+    public function cantidadClientePorEdades($anios_inicial, $anios_final)
     {
         $sql = 'SELECT count(id_cliente) as cantidad, extract (year from fecha_nac_cliente) as nacimiento 
         FROM cliente

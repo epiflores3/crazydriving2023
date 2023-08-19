@@ -28,7 +28,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         });
         document.getElementById('grafico').innerHTML = '<canvas id="chart2"></canvas>';
         // Llamada a la función que genera gráfico linrsl. Se encuentra en el archivo components.js
-        lineGraph('chart2', horas, cantidad, 'Cantidad de horarios', 'Top horarioss más solicitados');
+        lineGraph('chart2', horas, cantidad, 'Cantidad de horarios', 'Top 5 de horarios más solicitados');
         sweetAlert(1, JSON.message, true);
 
     } else {

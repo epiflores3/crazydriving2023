@@ -23,7 +23,7 @@ async function graficoBarrasVehiculos() {
             cantidad.push(row.cantidad);
         });
         // Llamada a la función que genera gráfico de bsrrs. Se encuentra en el archivo components.js
-        barGraph('chartVM', modelo, cantidad, 'Cantidad de vehiculo', 'Top 5 de modelos con más vehículos');
+        barGraph('chartVM', modelo, cantidad, 'Cantidad de vehiculo', 'Top 5 modelos con más vehículos');
     } else {
         document.getElementById('chartVM').remove();
         console.log(JSON.exception);

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Gráfico de paquetes por rango de precios</title>
+    <title>Gráfico de clientes por año de nacimiento</title>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
                             <div class="row">
                                 <!--  Empieza el forms que ayuda a poner la fecha de inicio y fecha final -->
                                 <div class="col-4">
-                                    <form method="post" id="save-form">
+                                    <!-- <form method="post" id="save-form">
 
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Año Inicial</span>
@@ -54,6 +54,25 @@
                                         <div>
 
                                             <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Enviar</button>
+                                        </div>
+                                    </form> -->
+                                    <form method="post" id="save-form" >
+                                        <div class="mb-3">
+                                            <label for="anios_inicial">Fecha inicial:</label><br>
+                                            <input type="date" name="anios_inicial" id="anios_inicial" class="form-control" >
+                                            <br>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="anios_final">Fecha final:</label><br>
+                                            <input type="date" name="anios_final" id="anios_final" class="form-control">
+                                           
+                                        </div>
+
+                                        <div>
+                                            <button id="enviardatos" type="submit" class="btn btn-primary"><i
                                                     class="fa-solid fa-floppy-disk"></i>
                                                 Enviar</button>
                                         </div>
