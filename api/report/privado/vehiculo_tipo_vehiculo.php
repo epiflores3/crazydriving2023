@@ -26,9 +26,8 @@ if (isset($_GET['tipo_vehiculo'])) {
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.  
-            $pdf->cell(62, 10, 'Id', 1, 0, 'C', 1);
-            $pdf->cell(62, 10, 'Modelo', 1, 0, 'C', 1);
-            $pdf->cell(62, 10, 'Placa', 1, 1, 'C', 1);
+            $pdf->cell(93, 10, 'Modelo', 1, 0, 'C', 1);
+            $pdf->cell(93, 10, 'Placa', 1, 1, 'C', 1);
 
             // // Se establece la fuente para los datos.
             $pdf->setFont('Times', '', 11);
@@ -37,9 +36,8 @@ if (isset($_GET['tipo_vehiculo'])) {
             // Se recorren los registros fila por fila.
             foreach ($dataVehiculo as $rowVehiculo) {
                 // Se imprimen las celdas con los datos .
-                $pdf->cell(62, 10, $pdf->encodeString($rowVehiculo['id_vehiculo']), 1, 0);
-                $pdf->cell(62, 10, $pdf->encodeString($rowVehiculo['modelo']), 1, 0);
-                $pdf->cell(62, 10, $pdf->encodeString($rowVehiculo['placa']), 1, 1);
+                $pdf->cell(93, 10, $pdf->encodeString($rowVehiculo['modelo']), 1, 0);
+                $pdf->cell(93, 10, $pdf->encodeString($rowVehiculo['placa']), 1, 1);
             }
         } else {
             $pdf->cell(0, 10, $pdf->encodeString('No hay vehiculos para el modelo'), 1, 1);

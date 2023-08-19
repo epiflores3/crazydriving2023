@@ -26,11 +26,10 @@ if (isset($_GET['tipo_clase'])) {
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.
-            $pdf->cell(17.6, 10, 'ID', 1, 0, 'C', 1);
-            $pdf->cell(37.2, 10, 'Fecha registro', 1, 0, 'C', 1);
-            $pdf->cell(33.5, 10, 'Hora de inicio', 1, 0, 'C', 1);
-            $pdf->cell(33.5, 10, 'Hora fin', 1, 0, 'C', 1);
-            $pdf->cell(64.2, 10, 'Nombre del empleado', 1, 1, 'C', 1);
+            $pdf->cell(43, 10, 'Fecha registro', 1, 0, 'C', 1);
+            $pdf->cell(35, 10, 'Hora de inicio', 1, 0, 'C', 1);
+            $pdf->cell(35, 10, 'Hora fin', 1, 0, 'C', 1);
+            $pdf->cell(73, 10, 'Nombre del empleado', 1, 1, 'C', 1);
 
             // // Se establece la fuente para los datos.
             $pdf->setFont('Times', '', 11);
@@ -39,11 +38,10 @@ if (isset($_GET['tipo_clase'])) {
             // Se recorren los registros fila por fila.
             foreach ($dataSesion as $rowSesion) {
                 // Se imprimen las celdas con los datos.
-                $pdf->cell(17.6, 10, $pdf->encodeString($rowSesion['id_sesion']), 1, 0);
-                $pdf->cell(37.2, 10, $pdf->encodeString($rowSesion['fecha_sesion']), 1, 0);
-                $pdf->cell(33.5, 10, $pdf->encodeString($rowSesion['hora_inicio']), 1, 0);
-                $pdf->cell(33.5, 10, $pdf->encodeString($rowSesion['hora_fin']), 1, 0);
-                $pdf->cell(64.2, 10, $pdf->encodeString($rowSesion['nombre_com_empleado']), 1, 1);
+                $pdf->cell(43, 10, $pdf->encodeString($rowSesion['fecha_sesion']), 1, 0);
+                $pdf->cell(35, 10, $pdf->encodeString($rowSesion['hora_inicio']), 1, 0);
+                $pdf->cell(35, 10, $pdf->encodeString($rowSesion['hora_fin']), 1, 0);
+                $pdf->cell(73, 10, $pdf->encodeString($rowSesion['nombre_com_empleado']), 1, 1);
             }
         } else {
             $pdf->cell(0, 10, $pdf->encodeString('No hay sesiones para el tipo clase'), 1, 1);
