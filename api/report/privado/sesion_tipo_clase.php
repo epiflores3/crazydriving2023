@@ -17,7 +17,7 @@ if (isset($_GET['tipo_clase'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
 
         // Se inicia el reporte con el encabezado del documento.
-        $pdf->startReport('Sesiones  por tipo de clase');
+        $pdf->startReport('Sesiones por tipo de clase');
 
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataSesion = $ses->sesiontipoclase()) {
@@ -26,10 +26,10 @@ if (isset($_GET['tipo_clase'])) {
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.
-            $pdf->cell(43, 10, 'Fecha registro', 1, 0, 'C', 1);
+            $pdf->cell(43, 10, 'Fecha de registro', 1, 0, 'C', 1);
             $pdf->cell(35, 10, 'Hora de inicio', 1, 0, 'C', 1);
-            $pdf->cell(35, 10, 'Hora fin', 1, 0, 'C', 1);
-            $pdf->cell(73, 10, 'Nombre del empleado', 1, 1, 'C', 1);
+            $pdf->cell(35, 10, 'Hora de fin', 1, 0, 'C', 1);
+            $pdf->cell(73, 10, 'Nombre completo', 1, 1, 'C', 1);
 
             // // Se establece la fuente para los datos.
             $pdf->setFont('Times', '', 11);

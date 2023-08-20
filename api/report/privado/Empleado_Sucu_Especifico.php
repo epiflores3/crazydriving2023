@@ -17,7 +17,7 @@ if (isset($_GET['id_sucursal'])) {
         // Se verifica si la información existe, de lo contrario se muestra un mensaje.
         if ($rowSu = $Sucursal->readOne()) {
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Empleado de la sucursal: ' . $rowSu['nombre_sucursal']);
+            $pdf->startReport('Empleados de la sucursal: ' . $rowSu['nombre_sucursal']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataEmp = $Empleado->EmpPorSucuEspecifico()) {
                 // Se establece un color de relleno para los encabezados.
@@ -25,8 +25,8 @@ if (isset($_GET['id_sucursal'])) {
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
-                $pdf->cell(93, 10, 'Nombre Empleado ', 1, 0, 'C', 1);
-                $pdf->cell(93, 10, 'Nombre Sucursal', 1, 1, 'C', 1);
+                $pdf->cell(93, 10, 'Nombre completo ', 1, 0, 'C', 1);
+                $pdf->cell(93, 10, 'Sucursal', 1, 1, 'C', 1);
 
                 // Se establece la fuente para los datos.
                 $pdf->setFont('Times', '', 11);

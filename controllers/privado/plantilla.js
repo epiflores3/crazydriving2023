@@ -59,20 +59,6 @@ HEADER.innerHTML = `
 </li>
 
 <li>
-    <a href="detalle_inscripcion.html">
-        <i class='bx bxs-folder-open' ></i>
-        <span class="text">Detalle inscripción</span>
-    </a>
-</li>
-
-<li>
-    <a href="horario_inscripcion.html">
-        <i class='bx bxs-timer' ></i>
-        <span class="text">Horario inscripción</span>
-    </a>
-</li>
-
-<li>
     <a href="horario.html">
         <i class='bx bxs-time' ></i>
         <span class="text">Horario</span>

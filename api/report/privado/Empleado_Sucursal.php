@@ -8,7 +8,7 @@ require_once('../../entities/dto/sucursal.php');
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Empleados por Sucursal');
+$pdf->startReport('Empleados por sucursal');
 // Se crea un objeto de la clase ya que estos sera por lo que se filtrara.
 $sucursal = new Sucursal;
 // Verifica si exiten registros a mostrar.
@@ -28,7 +28,7 @@ if ($dataSucursal = $sucursal->readAll()) {
     // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
     // Septimo indica si se muestra el color: 0 Es que no se mostrará el color, 1 Es que si se mostrará el color del setfillcolor
 
-    $pdf->cell(93, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
+    $pdf->cell(93, 10, 'Nombre completo', 1, 0, 'C', 1);
     $pdf->cell(93, 10, 'Sucursal', 1, 1, 'C', 1);
 
     // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])

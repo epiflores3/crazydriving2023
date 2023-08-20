@@ -28,7 +28,7 @@ if ($datafp = $afp->readAll()) {
     // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
     // Septimo indica si se muestra el color: 0 Es que no se mostrará el color, 1 Es que si se mostrará el color del setfillcolor
 
-    $pdf->cell(67, 10, 'Nombre Completo del empleado', 1, 0, 'C', 1);
+    $pdf->cell(67, 10, 'Nombre completo', 1, 0, 'C', 1);
     $pdf->cell(57, 10, 'DUI', 1, 0, 'C', 1);
     $pdf->cell(62, 10, 'Sucursal', 1, 1, 'C', 1);
 

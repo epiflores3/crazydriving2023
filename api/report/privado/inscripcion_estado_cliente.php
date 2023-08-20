@@ -9,7 +9,7 @@ require_once('../../entities/dto/cliente.php');
 // Se crea un objeto de la clase reporte.
 $pdf = new Report;
 // Se coloca un titulo al documento.
-$pdf->startReport('Inscripción por estado del cliente');
+$pdf->startReport('Inscripciones por estado del cliente');
 // Se crea un objeto de la clase ya que estos sera por lo que se filtrara.
 $estado = new Cliente;
 // Verifica si exiten registros a mostrar.
@@ -29,13 +29,13 @@ if ($dataCliente = $estado->readAll()) {
     // Sexto indica el alineamiento del texto: L Alineación a la izquierda, C centro, R Alineación a la derecha
     // Septimo indica si se muestra el color: 0 Es que no se mostrará el color, 1 Es que si se mostrará el color del setfillcolor
 
-    $pdf->cell(73, 10, 'Nombre del cliente', 1, 0, 'C', 1);
+    $pdf->cell(72, 10, 'Nombre del cliente', 1, 0, 'C', 1);
     $pdf->cell(20, 10, 'Anticipo', 1, 0, 'C', 1);
     // $pdf->cell(30, 10, 'Fecha de registro', 1, 0, 'C', 1);
     $pdf->cell(28, 10, 'Fecha de inicio', 1, 0, 'C', 1);
-    $pdf->cell(20, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
+    $pdf->cell(22, 10,  $pdf->encodeString('Evaluación'), 1, 0, 'C', 1);
     // $pdf->cell(25, 10, 'Descripción', 1, 0, 'C', 1);
-    $pdf->cell(73, 10, 'Nombre del empleado', 1, 0, 'C', 1);
+    $pdf->cell(72, 10, 'Nombre del empleado', 1, 0, 'C', 1);
     $pdf->cell(18, 10, 'Inicio', 1, 0, 'C', 1);
     $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
 
@@ -47,7 +47,7 @@ if ($dataCliente = $estado->readAll()) {
     // Recorre filas una por una.
     foreach ($dataCliente as $rowEstado) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Estado: ' . $rowEstado['estado_cliente']), 1, 1, 'C', 1);
+        $pdf->cell(250, 10, $pdf->encodeString('Estado: ' . $rowEstado['estado_cliente']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase ya que esto sera lo que se filtrara .
         $inscripcion = new Inscripcion;
         // Se establece por el id que tiene que capturar.

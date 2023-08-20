@@ -40,10 +40,12 @@
                     <div class="head">
                         <h3>Registro de paquetes</h3>
 
-                        <label for="transmisionr" class="form-label">Reporte por Transmisión </label><br>
-                                    <select class="form-select" aria-label="Default select example" name="transmisionr"
-                                        id="transmisionr"></select><br>
-
+                        <form class="row" method="post">
+                            <label for="transmisionr" class="form-label">Reporte por tipo de transmisión </label><br>
+                            <select class="form-select" aria-label="Default select example" name="transmisionr"
+                                id="transmisionr"></select><br>
+                        </form>
+                        <br>
                         <form method="post" id="search-form">
                             <div class="input-field">
                                 <input id="search" name="search" type="search"
@@ -56,12 +58,10 @@
                             data-bs-target="#agregar"><img height="25px" width="25px"
                                 src="../../resource/img/imgtablas/agregar.png" alt="check">
                         </button>
-                        <button class="btn me-md-2" type="button">
-                            <a onclick="openTipoPaqueteG()"><img height="20px"
-                                    width="20px"
-                                    src="../../resource/img/imgtablas/agregar.png"
-                                    alt=""></a>
-                        </button>
+                        <!-- <button class="btn me-md-2" type="button">
+                            <a onclick="openTipoPaqueteG()"><img height="20px" width="20px"
+                                    src="../../resource/img/imgtablas/agregar.png" alt=""></a>
+                        </button> -->
                     </div>
                     <div class="row">
                         <main class="container">

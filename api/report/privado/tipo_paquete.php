@@ -17,7 +17,7 @@ if (isset($_GET['id_tipo_paquete'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
         if ($rowTP = $tipo_paquete->readOne()) {
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Paquete de tipo paquete ' . $rowTP['tipo_paquete']);
+            $pdf->startReport('Paquetes por: ' . $rowTP['tipo_paquete']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataP = $paquete->tipoPaquete()) {
                 // Se establece un color de relleno para los encabezados.
