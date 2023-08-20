@@ -83,7 +83,7 @@ async function fillTable(form = null) {
         <td>
 
            <button onclick="openEmpleadoSucuEspecifico(${row.id_sucursal})" type="button" class="btn ">
-                <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
+                <img height="1px" width="1px" src="../../resource/img/imgtablas/reportAFP.png" alt="ver">
                 </button>
 
             <button type="button" class="btn " onclick="openUpdate(${row.id_sucursal})">
@@ -149,7 +149,7 @@ async function openDelete(id) {
 
 function openEmpleadoSucuEspecifico(id) {
     // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}report/privado/Empleado_Sucu_Especifico.php`);
+    const PATH = new URL(`${SERVER_URL}report/privado/empleado_sucu_especifico.php`);
     // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
     PATH.searchParams.append('id_sucursal', id);
     // Se abre el reporte en una nueva pestaña del navegador web.

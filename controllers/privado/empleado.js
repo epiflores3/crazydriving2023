@@ -304,7 +304,7 @@ async function fillTable(form = null) {
 
     function openReportEmpleadosPorSucu() {
         // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-        const PATH = new URL(`${SERVER_URL}report/privado/Empleado_Sucursal.php`);
+        const PATH = new URL(`${SERVER_URL}report/privado/empleado_sucursal.php`);
         // Se abre el reporte en una nueva pestaña del navegador web.
         window.open(PATH.href);
     }
