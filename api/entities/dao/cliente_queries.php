@@ -59,7 +59,7 @@ class ClienteQueries
     }
 
     //Para hacer grafico de pastel, donde se muestra la cantidad de los clientes por estado.
-    public function CantidadEstadoCliente()
+    public function cantidadEstadoCliente()
     {
         $sql = 'SELECT cliente.estado_cliente, ROUND((COUNT(id_cliente) * 100.0 / (SELECT COUNT(id_cliente) FROM cliente)), 2) porcentaje
         FROM cliente

@@ -63,7 +63,7 @@ class ModeloQueries
     }
 
     //Método para realizar el reporte parametrizado de vehiculos por modelos
-    public function vehiculosmodelos()
+    public function vehiculosModelos()
     {
         $sql = 'SELECT ve.id_vehiculo, mo.modelo, ve.placa
          FROM vehiculo ve

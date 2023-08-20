@@ -48,7 +48,7 @@ if ($datafp = $afp->readAll()) {
         // Se establece por el id que tiene que capturar.
         if ($em->setAFP($rowAFP['id_afp'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataE = $em->EmpleadosPorAfp()) {
+            if ($dataE = $em->empleadosPorAfp()) {
                 // Recorre filas una por una.
                 foreach ($dataE as $rowAFP) {
                     // Se rellenan las celdas de las tallas deacuerdo a algo en especifico.

@@ -23,7 +23,7 @@ async function graficoPastelPaqueteTransmision() {
             porcentaje.push(row.porcentaje);
         });
         // Llamada a la función que genera gráfico de pastel. Se encuentra en el archivo components.js
-        pieGraph('chartpaquetetransmision', transmision, porcentaje, 'Porcentaje de paquetes por transmisiones');
+        pieGraph('chartpaquetetransmision', transmision, porcentaje, 'Porcentaje de paquetes por transmisión');
     } else {
         document.getElementById('chartpaquetetransmision').remove();
         console.log(JSON.exception);

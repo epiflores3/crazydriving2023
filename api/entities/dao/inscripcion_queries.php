@@ -108,7 +108,7 @@ class InscripcionQueries
     }
 
     //Para hacer grafico de pastel, donde se muestra la cantidad de inscripciones por evaluación.
-    public function CantidadEvaluacionInscripcion()
+    public function cantidadEvaluacionInscripcion()
     {
         $sql = 'SELECT inscripcion.evaluacion, ROUND((COUNT(id_inscripcion) * 100.0 / (SELECT COUNT(id_inscripcion) FROM inscripcion)), 2) porcentaje
         FROM inscripcion

@@ -19,7 +19,7 @@ if (isset($_GET['id_sucursal'])) {
             // Se inicia el reporte con el encabezado del documento.
             $pdf->startReport('Empleados de la sucursal: ' . $rowSu['nombre_sucursal']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-            if ($dataEmp = $Empleado->EmpPorSucuEspecifico()) {
+            if ($dataEmp = $Empleado->empPorSucuEspecifico()) {
                 // Se establece un color de relleno para los encabezados.
                 $pdf->setFillColor(225);
                 // Se establece la fuente para los encabezados.

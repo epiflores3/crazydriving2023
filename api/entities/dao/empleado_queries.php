@@ -69,7 +69,7 @@ class EmpleadoQueries
     }
 
     // Reporte que filtre empleados que pertenecen por AFP
-    public function EmpleadosPorAfp()
+    public function empleadosPorAfp()
     {
         $sql = 'SELECT nombre_com_empleado, dui_empleado, nombre_sucursal
         FROM empleado 
@@ -83,7 +83,7 @@ class EmpleadoQueries
     }
 
     // Reporte que filtre empleados por sucursal
-    public function EmpleadosPorSucu()
+    public function empleadosPorSucu()
     {
         $sql = 'SELECT nombre_com_empleado, nombre_sucursal
         FROM empleado 
@@ -96,7 +96,7 @@ class EmpleadoQueries
     }
 
     // Reporte que filtre empleados por sucursal en especifico
-    public function EmpPorSucuEspecifico()
+    public function empPorSucuEspecifico()
     {
         $sql = 'SELECT nombre_com_empleado, nombre_sucursal
         FROM empleado 

@@ -129,7 +129,7 @@ if (isset($_GET['action'])) {
                 break;
                 // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica 
             case 'cantidadEstadoCliente':
-                if ($result['dataset'] = $cliente->CantidadEstadoCliente()) {
+                if ($result['dataset'] = $cliente->cantidadEstadoCliente()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos disponibles';
