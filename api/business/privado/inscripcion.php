@@ -181,7 +181,7 @@ if (isset($_GET['action'])) {
                 break;
                 // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica de pastel
             case 'CantidadEvaluacionInscripcion':
-                if ($result['dataset'] = $inscripcion->CantidadEvaluacionInscripcion()) {
+                if ($result['dataset'] = $inscripcion->cantidadEvaluacionInscripcion()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos disponibles';

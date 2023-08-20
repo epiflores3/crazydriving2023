@@ -63,7 +63,7 @@ class VehiculoQueries
     }
 
     //Método para realizar el gráfico de cantidad de vehículos por modelo
-    public function Cantidadvehiculopormodelo()
+    public function cantidadVehiculoPorModelo()
     {
         $sql = 'SELECT modelo, count(id_vehiculo) cantidad
         FROM vehiculo

@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
                 break;
                 // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica 
             case 'Cantidadvehiculopormodelo':
-                if ($result['dataset'] = $vehiculo->Cantidadvehiculopormodelo()) {
+                if ($result['dataset'] = $vehiculo->cantidadVehiculoPorModelo()) {
                     $result['status'] = 1;
                 } else {
                     $result['exception'] = 'No hay datos registrados';

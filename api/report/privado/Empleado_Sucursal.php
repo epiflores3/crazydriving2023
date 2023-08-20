@@ -47,7 +47,7 @@ if ($dataSucursal = $sucursal->readAll()) {
         // Se establece por el id que tiene que capturar.
         if ($em->setSucursal($rowSucursal['id_sucursal'])) {
             // Verifica si exiten registros a mostrar.
-            if ($dataE = $em->EmpleadosPorSucu()) {
+            if ($dataE = $em->empleadosPorSucu()) {
                 // Recorre filas una por una.
                 foreach ($dataE as $rowSucursal) {
                     // Se rellenan las celdas de las tallas deacuerdo a algo en especifico.

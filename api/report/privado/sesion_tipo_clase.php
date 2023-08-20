@@ -20,7 +20,7 @@ if (isset($_GET['tipo_clase'])) {
         $pdf->startReport('Sesiones por tipo de clase');
 
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-        if ($dataSesion = $ses->sesiontipoclase()) {
+        if ($dataSesion = $ses->sesionTipoclase()) {
             // Se establece un color de relleno para los encabezados.
             $pdf->setFillColor(225);
             // Se establece la fuente para los encabezados.

@@ -68,7 +68,7 @@ class SesionQueries
     }
 
     //Método para realizar el reporte parametrizado de sesiones por un tipo de clase
-    public function sesiontipoclase()
+    public function sesionTipoclase()
     {
         $sql = 'SELECT ses.id_sesion, ses.fecha_sesion, ses.hora_inicio, ses.hora_fin, emp.nombre_com_empleado
         FROM sesion ses

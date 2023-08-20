@@ -63,7 +63,7 @@ class PaqueteQueries
     }
 
     //Método para realizar el grafico de pastel de cantidad de paquetes por transmisiones 
-    public function CantidadPaquetesPorTransmision()
+    public function cantidadPaquetesPorTransmision()
     {
         $sql = 'SELECT paquete.transmision, ROUND((COUNT(id_paquete) * 100.0 / (SELECT COUNT(id_paquete) FROM paquete)), 2) porcentaje
         FROM paquete

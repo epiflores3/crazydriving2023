@@ -20,7 +20,7 @@ if (isset($_GET['tipo_vehiculo'])) {
         $pdf->startReport('Vehículos por tipo: ' . $_GET['tipo_vehiculo']);
 
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-        if ($dataVehiculo = $veh->vehiculosmodelos()) {
+        if ($dataVehiculo = $veh->vehiculosModelos()) {
             // Se establece un color de relleno para los encabezados.
             $pdf->setFillColor(225);
             // Se establece la fuente para los encabezados.
