@@ -594,4 +594,11 @@ body {
 	}
 }
 
+.alerta_incorrecto{
+	color: var(--red);
+}
+
+.alerta_correcto{
+	color:darkgreen;
+}
 
