@@ -35,18 +35,24 @@
                                         <div class="mb-3">
                                             <label for="hora_inicial">Hora inicial:</label><br>
                                             <input type="time" name="hora_inicial" id="hora_inicial"
-                                                class="form-control" required><br>
+                                                class="form-control" required>
                                         </div>
+
+                                        <div id="alerta_incorrecto"></div>
+
 
                                         <div class="mb-3">
                                             <label for="hora_final">Hora final:</label><br>
                                             <input type="time" name="hora_final" id="hora_final" class="form-control"
-                                                required><br>
+                                                required>
                                         </div>
+
+                                        <div id="alerta_correcto"></div>
+                                        <br>
 
                                         <div>
 
-                                            <button type="submit" class="btn btn-primary"><i
+                                            <button id="enviardatos" type="submit" class="btn btn-primary"><i
                                                     class="fa-solid fa-floppy-disk"></i>
                                                 Enviar</button>
                                         </div>

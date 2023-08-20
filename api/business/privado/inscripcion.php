@@ -153,7 +153,7 @@ if (isset($_GET['action'])) {
                 //Se manda a llamar el método que trae los datos de la base de datos, que se convertran en gráfico lineal
             case 'cantidadDeFechasInicio':
                 if ($_POST['fecha_inicial'] >= $_POST['fecha_final']) {
-                    $result['exception'] = 'No hay datos disponibles';
+                    $result['exception'] = 'Rango no valido, escribe correctamente, la fecha inicial no puede ser mayor o igual a la fecha final';
                 } elseif ($result['dataset'] = $inscripcion->cantidadFechasInicio($_POST['fecha_inicial'], $_POST['fecha_final'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Top 5 encontrado correctamente';
@@ -163,7 +163,9 @@ if (isset($_GET['action'])) {
                 break;
                 //Se manda a llamar el método que trae los datos de la base de datos, que se convertran en gráfico 
             case 'cantidadHorariosMasSolicitados':
-                if ($result['dataset'] = $inscripcion->cantidadHorariosMasSolicitados($_POST['hora_inicial'], $_POST['hora_final'])) {
+                if ($_POST['hora_inicial'] >= $_POST['hora_final']) {
+                    $result['exception'] = 'Rango no valido, escribe correctamente, la hora inicial no puede ser mayor o igual a la hora final';
+                }elseif ($result['dataset'] = $inscripcion->cantidadHorariosMasSolicitados($_POST['hora_inicial'], $_POST['hora_final'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Top 5 encontrado correctamente';
                 } else {
