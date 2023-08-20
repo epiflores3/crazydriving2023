@@ -42,7 +42,7 @@ if ($datatp = $tipo_paquete->readAll()) {
     // Recorre filas una por una.
     foreach ($datatp as $rowTP) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Nombre tipo paquete: ' . $rowTP['tipo_paquete']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Tipo paquete: ' . $rowTP['tipo_paquete']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase detalle producto ya que esto sera lo que se filtrara .
         $paquete = new Paquete;
         // Se establece por el id que tiene que capturar.

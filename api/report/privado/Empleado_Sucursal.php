@@ -41,7 +41,7 @@ if ($dataSucursal = $sucursal->readAll()) {
     // Recorre filas una por una.
     foreach ($dataSucursal as $rowSucursal) {
         // Se muestra la celda que tendra el dato por el que se filtra.
-        $pdf->cell(0, 10, $pdf->encodeString('Empleados de la sucursal: ' . $rowSucursal['nombre_sucursal']), 1, 1, 'C', 1);
+        $pdf->cell(0, 10, $pdf->encodeString('Sucursal: ' . $rowSucursal['nombre_sucursal']), 1, 1, 'C', 1);
         // Se crea un objeto de la clase ya que esto sera lo que se filtrara .
         $em = new Empleado;
         // Se establece por el id que tiene que capturar.

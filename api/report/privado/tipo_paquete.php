@@ -17,7 +17,7 @@ if (isset($_GET['id_tipo_paquete'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
         if ($rowTP = $tipo_paquete->readOne()) {
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Paquetes por: ' . $rowTP['tipo_paquete']);
+            $pdf->startReport('Paquetes por tipo: ' . $rowTP['tipo_paquete']);
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataP = $paquete->tipoPaquete()) {
                 // Se establece un color de relleno para los encabezados.
@@ -25,10 +25,10 @@ if (isset($_GET['id_tipo_paquete'])) {
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
-                $pdf->cell(70, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
+                $pdf->cell(70, 10, $pdf->encodeString( 'Descripción ') , 1, 0, 'C', 1);
                 $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
                 $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
-                $pdf->cell(50, 10, 'Transmision', 1, 1, 'C', 1);
+                $pdf->cell(50, 10,  $pdf->encodeString('Transmisión'), 1, 1, 'C', 1);
 
                 // Se establece la fuente para los datos.
                 $pdf->setFont('Times', '', 11);

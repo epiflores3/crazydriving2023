@@ -25,7 +25,7 @@ if (isset($_GET['transmision'])) {
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.
-            $pdf->cell(70, 10, 'Nombre descripcion ', 1, 0, 'C', 1);
+            $pdf->cell(70, 10, $pdf->encodeString( 'Descripción '), 1, 0, 'C', 1);
             $pdf->cell(36, 10, 'Valor paquete', 1, 0, 'C', 1);
             $pdf->cell(30, 10, 'Cantidad clase', 1, 0, 'C', 1);
             $pdf->cell(50, 10, 'Tipo paquete', 1, 1, 'C', 1);
