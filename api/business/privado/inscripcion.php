@@ -152,7 +152,7 @@ if (isset($_GET['action'])) {
                 break;
                 //Se manda a llamar el método que trae los datos de la base de datos, que se convertran en gráfico lineal
             case 'cantidadDeFechasInicio':
-                if ($_POST['fecha_inicial'] > $_POST['fecha_final']) {
+                if ($_POST['fecha_inicial'] >= $_POST['fecha_final']) {
                     $result['exception'] = 'No hay datos disponibles';
                 } elseif ($result['dataset'] = $inscripcion->cantidadFechasInicio($_POST['fecha_inicial'], $_POST['fecha_final'])) {
                     $result['status'] = 1;
