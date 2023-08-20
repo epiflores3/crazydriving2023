@@ -23,7 +23,7 @@ async function graficoDonaPaquetesMasVendidos() {
             porcentaje.push(row.porcentaje);
         });
         // Llamada a la función que genera gráfico de pastel. Se encuentra en el archivo components.js
-        doughnutGraph('chartPaquetesMasVendidos', valor, porcentaje, 'Porcentaje de paquetes más vendidos');
+        doughnutGraph('chartPaquetesMasVendidos', valor, porcentaje, 'Top 5 de porcentaje de paquetes más vendidos');
     } else {
         document.getElementById('chartPaquetesMasVendidos').remove();
         console.log(JSON.exception);
