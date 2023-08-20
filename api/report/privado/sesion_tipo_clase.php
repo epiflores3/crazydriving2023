@@ -17,7 +17,7 @@ if (isset($_GET['tipo_clase'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
 
         // Se inicia el reporte con el encabezado del documento.
-        $pdf->startReport('Sesiones por tipo de clase');
+        $pdf->startReport('Sesiones por tipo: '. $_GET['tipo_clase']);
 
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataSesion = $ses->sesiontipoclase()) {

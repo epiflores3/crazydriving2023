@@ -2,8 +2,8 @@
 const INSCRIPCION_API = 'business/privado/inscripcion.php';
 //Constante para poder guardar los datos del formulario
 const SAVE_FORM = document.getElementById('save-form');
-
-
+const INCORRECT_TEXT = document.getElementById('alerta_incorrecto');
+const CORRECT_TEXT = document.getElementById('alerta_correcto');
 
 //Método que se ejecuta al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,11 +91,15 @@ function mostrarValoresEnTiempoReal(texto1, texto2) {
 // Valida que lo que se capture de los date sea en su formato correcto
 function validarFechas(texto1, texto2) {
     if (texto1 >= texto2) { 
-        console.log("La fecha inicial es mayor a la Fecha final");
+        // console.log("La fecha inicial es mayor a la Fecha final");
         document.getElementById("enviardatos").disabled = true;
+        INCORRECT_TEXT.innerHTML = `<span class="alerta_incorrecto">La fecha inicial es mayor a la fecha final</span>`;
+        CORRECT_TEXT.innerHTML = ``;
     }
     else{
-    console.log("Texto agregado correctamente");
+        INCORRECT_TEXT.innerHTML = ``;
+        CORRECT_TEXT.innerHTML = `<span class="alerta_correcto">Texto agregado correctamente</span>`;
+    // console.log("Texto agregado correctamente");
     }
 };
 
