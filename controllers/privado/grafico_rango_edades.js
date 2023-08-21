@@ -2,7 +2,12 @@
 const CLIENTE_API = 'business/privado/cliente.php';
 //Constante para poder guardar los datos del formulario
 const SAVE_FORM = document.getElementById('save-form');
-
+//Constante de textos para validaciones
+const INCORRECT_TEXT = document.getElementById('alerta_incorrecto');
+const CORRECT_TEXT = document.getElementById('alerta_correcto');
+//Constantes para manejar los campos del gráfico
+// const ANIO1 = document.getElementById("anios_inicial");
+// const ANIO2 = document.getElementById("anios_final");
 
 
 //Método que se ejecuta al cargar la página
@@ -14,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Evita cargar la pagina despues de enviar el formulario
     event.preventDefault();
+    validarFechas();
     // Se declara una constante de tipo FORM.
     const FORM = new FormData(SAVE_FORM);
     // Pide guardar los datos del formulario
@@ -42,3 +48,20 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 
 
 // ----------------------------------------- VALIDACIONES ----------------------------------------------
+
+function validarFechas(){
+    var anio1 = new Date(document.getElementById("anios_inicial").value);
+    var anio2 = new Date(document.getElementById("anios_final").value);
+      
+    if (anio1.getFullYear()>anio2.getFullYear()) {
+        INCORRECT_TEXT.innerHTML = `<span class="alerta_incorrecto">Rango no valido, escribe correctamente, la fecha inicial no puede ser mayor o igual a la fecha final</span>`;
+        CORRECT_TEXT.innerHTML = ``;
+    } else {
+        INCORRECT_TEXT.innerHTML = ``;
+        CORRECT_TEXT.innerHTML = `<span class="alerta_correcto">Texto agregado correctamente</span>`; 
+    }
+
+};
+
+
+

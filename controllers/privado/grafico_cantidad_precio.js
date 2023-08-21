@@ -2,6 +2,13 @@
 const PAQUETE_API = 'business/privado/paquete.php';
 //Constante para poder guardar los datos del formulario
 const SAVE_FORM = document.getElementById('save-form');
+//Constante de textos para validaciones
+const INCORRECT_TEXT = document.getElementById('alerta_incorrecto');
+const CORRECT_TEXT = document.getElementById('alerta_correcto');
+//Constantes para manejar los campos del gráfico
+const PRECIO1 = document.getElementById("precio_incial");
+const PRECIO2 = document.getElementById("precio_final");
+
 
 //Método que se ejecuta al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 SAVE_FORM.addEventListener('submit', async (event) => {
     // Evita cargar la pagina despues de enviar el formulario
     event.preventDefault();
+    validadoRangoDeDinero();
     // Se declara una constante de tipo FORM.
     const FORM = new FormData(SAVE_FORM);
     // Pide guardar los datos del formulario
@@ -36,4 +44,20 @@ SAVE_FORM.addEventListener('submit', async (event) => {
         document.getElementById('chart2').remove();
     }
 });
+
+
+
+// ----------------------------------------- VALIDACIONES ----------------------------------------------
+
+function validadoRangoDeDinero(){
+    var precio1 = parseInt(PRECIO1.value);
+    var precio2 = parseInt(PRECIO2.value);
+if (precio1>=precio2) {
+    INCORRECT_TEXT.innerHTML = `<span class="alerta_incorrecto">Rango no valido, escribe correctamente, la fecha inicial no puede ser mayor o igual a la fecha final</span>`;
+    CORRECT_TEXT.innerHTML = ``;
+} else {
+    INCORRECT_TEXT.innerHTML = ``;
+    CORRECT_TEXT.innerHTML = `<span class="alerta_correcto">Texto agregado correctamente</span>`;
+}
+};
 

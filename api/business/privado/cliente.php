@@ -136,7 +136,9 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'cantidadClienteEdades':
-                if ($result['dataset'] = $cliente->cantidadClientePorEdades($_POST['anios_inicial'], $_POST['anios_final'])) {
+                if ($_POST['anios_inicial'] >= $_POST['anios_final']) {
+                    $result['exception'] = 'Rango no valido, escribe correctamente, la fecha inicial no puede ser mayor o igual a la fecha final';
+                }elseif ($result['dataset'] = $cliente->cantidadClientePorEdades($_POST['anios_inicial'], $_POST['anios_final'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Top 5 encontrado correctamente';
                 } else {

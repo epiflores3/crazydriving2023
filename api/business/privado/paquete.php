@@ -128,7 +128,9 @@ if (isset($_GET['action'])) {
                 break;
                 // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica 
             case 'cantidadPaquetePrecio':
-                if ($result['dataset'] = $paquete->cantidadPaquetePrecio($_POST['precio_incial'], $_POST['precio_final'])) {
+                if ($_POST['precio_incial'] >= $_POST['precio_final']) {
+                    $result['exception'] = 'Rango no valido, escribe correctamente, la precio inicial no puede ser mayor o igual a la precio final';
+                }elseif ($result['dataset'] = $paquete->cantidadPaquetePrecio($_POST['precio_incial'], $_POST['precio_final'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Top 5 encontrado correctamente';
                 } else {

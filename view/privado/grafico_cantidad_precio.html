@@ -34,26 +34,27 @@
                                     <form method="post" id="save-form">
 
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text">Precio Inicial $</span>
+                                            <span class="input-group-text">Precio inicial $</span>
                                             <input type="text" class="form-control"
                                                 aria-label="Amount (to the nearest dollar)" name="precio_incial"
                                                 id="precio_incial">
-
                                         </div>
 
+                                        <div id="alerta_incorrecto"></div>
 
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text">Precio Final $</span>
+                                            <span class="input-group-text">Precio final $</span>
                                             <input type="text" class="form-control"
                                                 aria-label="Amount (to the nearest dollar)" name="precio_final"
                                                 id="precio_final">
-
                                         </div>
 
+                                        <div id="alerta_correcto"></div>
+                                        <br>
 
                                         <div>
 
-                                            <button type="submit" class="btn btn-primary"><i
+                                            <button id="enviardatos" type="submit" class="btn btn-primary"><i
                                                     class="fa-solid fa-floppy-disk"></i>
                                                 Enviar</button>
                                         </div>
