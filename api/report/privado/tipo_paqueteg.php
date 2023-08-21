@@ -14,7 +14,7 @@ $tipo_paquete = new TipoPaquete;
 // Verifica si exiten registros a mostrar.
 if ($datatp = $tipo_paquete->readAll()) {
     // Se pone un color al encabezado.
-    $pdf->setFillColor(175);
+    $pdf->setFillColor(148,188,204);
     // Se pone una fuente.
     $pdf->setFont('Times', 'B', 11);
     // Se rellenan las celdas del encabezado.
@@ -35,7 +35,7 @@ if ($datatp = $tipo_paquete->readAll()) {
     // Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, boolean fill [, mixed link]]]]]]])
 
     // Se estabelce un color para la celda que muestra por lo que se filtra.
-    $pdf->setFillColor(225);
+    $pdf->setFillColor(225, 238, 242);
     // Se establece una fuente para las celdas que muestran resultados.
     $pdf->setFont('Times', '', 11);
 

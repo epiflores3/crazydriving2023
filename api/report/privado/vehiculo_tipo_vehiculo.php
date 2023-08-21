@@ -22,7 +22,7 @@ if (isset($_GET['tipo_vehiculo'])) {
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataVehiculo = $veh->vehiculosModelos()) {
             // Se establece un color de relleno para los encabezados.
-            $pdf->setFillColor(225);
+            $pdf->setFillColor(148,188,204);
             // Se establece la fuente para los encabezados.
             $pdf->setFont('Times', 'B', 11);
             // Se imprimen las celdas con los encabezados.  

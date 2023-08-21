@@ -15,7 +15,7 @@ $estado = new Cliente;
 // Verifica si exiten registros a mostrar.
 if ($dataCliente = $estado->readAll()) {
     // Se pone un color al encabezado.
-    $pdf->setFillColor(175);
+    $pdf->setFillColor(148,188,204);
     // Se pone una fuente.
     $pdf->setFont('Times', 'B', 11);
     // Se rellenan las celdas del encabezado.
@@ -40,7 +40,7 @@ if ($dataCliente = $estado->readAll()) {
     $pdf->cell(18, 10, 'Fin', 1, 1, 'C', 1);
 
     // Se estabelce un color para la celda que muestra por lo que se filtra.
-    $pdf->setFillColor(225);
+    $pdf->setFillColor(225, 238, 242);
     // Se establece una fuente para las celdas que muestran resultados.
     $pdf->setFont('Times', '', 11);
 

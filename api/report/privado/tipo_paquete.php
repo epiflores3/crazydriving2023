@@ -21,7 +21,7 @@ if (isset($_GET['id_tipo_paquete'])) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataP = $paquete->tipoPaquete()) {
                 // Se establece un color de relleno para los encabezados.
-                $pdf->setFillColor(225);
+                $pdf->setFillColor(148,188,204);
                 // Se establece la fuente para los encabezados.
                 $pdf->setFont('Times', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
