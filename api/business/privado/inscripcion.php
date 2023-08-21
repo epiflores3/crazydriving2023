@@ -174,7 +174,9 @@ if (isset($_GET['action'])) {
                 break;
                 //Se manda a llamar el método que trae los datos de la base de datos, que se convertran en gráfico 
             case 'inscripcionesMasFechas':
-                if ($result['dataset'] = $inscripcion->inscripcionesMasFechas($_POST['inicial'], $_POST['final'])) {
+                if ($_POST['inicial'] >= $_POST['final']) {
+                    $result['exception'] = 'Rango no valido, escribe correctamente, la fecha inicial no puede ser mayor o igual a la fecha final';
+                }elseif ($result['dataset'] = $inscripcion->inscripcionesMasFechas($_POST['inicial'], $_POST['final'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Top 5 encontrado correctamente';
                 } else {
