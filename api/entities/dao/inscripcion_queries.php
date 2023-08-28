@@ -19,19 +19,23 @@ class InscripcionQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, cliente.nombre_com_cliente, empleado.nombre_com_empleado
-	FROM inscripcion
-    INNER JOIN cliente USING(id_cliente)
-    INNER JOIN empleado USING(id_empleado)';
+        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, paquete.descripcion, cliente.nombre_com_cliente, empleado.nombre_com_empleado, horario.inicio 
+        FROM inscripcion
+        INNER JOIN cliente USING(id_cliente)
+        INNER JOIN empleado USING(id_empleado)
+        INNER JOIN paquete USING(id_paquete)
+        INNER JOIN horario USING(id_horario)';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, cliente.nombre_com_cliente, cliente.id_cliente, empleado.nombre_com_empleado, empleado.id_empleado
+        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, paquete.descripcion, cliente.nombre_com_cliente, empleado.nombre_com_empleado, horario.inicio 
         FROM inscripcion
         INNER JOIN cliente USING(id_cliente)
         INNER JOIN empleado USING(id_empleado)
+        INNER JOIN paquete USING(id_paquete)
+        INNER JOIN horario USING(id_horario)
         where id_inscripcion=? ';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -40,9 +44,11 @@ class InscripcionQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
-        $sql = 'INSERT INTO inscripcion(anticipo_paquete, fecha_registro, fecha_inicio, evaluacion, tipo_licencia, estado_cliente, id_cliente, id_empleado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->anticipo, $this->fecharegistro, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idcliente, $this->idempleado);
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('d-m-Y');
+        $sql = 'INSERT INTO inscripcion(anticipo_paquete, fecha_registro, fecha_inicio, evaluacion, tipo_licencia, estado_cliente, id_cliente, id_cliente, id_empleado, id_horario)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->anticipo, $this->$date, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idpaquete, $this->idcliente, $this->idempleado, $this->idhorario);
         return Database::executeRow($sql, $params);
     }
 

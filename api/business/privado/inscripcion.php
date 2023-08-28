@@ -88,10 +88,14 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Tipo licencia incorrecta';
                 } elseif (!$inscripcion->setEstado($_POST['estadoc'])) {
                     $result['exception'] = 'Estado cliente incorrecta';
+                } elseif (!$inscripcion->setIdPaquete($_POST['Paquete'])) {
+                    $result['exception'] = 'Paquete incorrecta';
                 } elseif (!$inscripcion->setIdcliente($_POST['cliente'])) {
                     $result['exception'] = 'Cliente incorrecta';
                 } elseif (!$inscripcion->setIdempleado($_POST['asesor'])) {
-                    $result['exception'] = 'Empleado incorrecta';
+                    $result['exception'] = 'Empleado  incorrecta';
+                } elseif (!$inscripcion->setIdHorario($_POST['horario'])) {
+                    $result['exception'] = 'Horario incorrecta';
                 } elseif ($inscripcion->createRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Inscripcion creado correctamente';

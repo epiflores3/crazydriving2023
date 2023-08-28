@@ -3,6 +3,10 @@ const INSCRIPCION_API = 'business/privado/inscripcion.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const CLIENTE_API = 'business/privado/cliente.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
+const HORARIO_API = 'business/privado/horario.php';
+// Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
+const PAQUETE_API = 'business/privado/paquete.php';
+// Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const EMPLEADO_API = 'business/privado/empleado.php';
 //Constante para poder guardar los datos del modal
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregar'));
@@ -96,6 +100,8 @@ function openCreate() {
     fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estadoc');
     fillSelect(EMPLEADO_API, 'readAll', 'asesor');
     fillSelect(CLIENTE_API, 'readAll', 'cliente');
+    fillSelect(PAQUETE_API, 'readAll', 'Paquete');
+    fillSelect(HORARIO_API, 'readAll', 'horario');
 }
 
 //Función que llena la tabla con todos los registros que se necuentran en la base
