@@ -14,8 +14,10 @@ class Inscripcion extends InscripcionQueries
     protected $evaluacion = null;
     protected $tipolicencia = null;
     protected $estadocliente = null;
+    protected $idpaquete = null;
     protected $idcliente = null;
     protected $idempleado = null;
+    protected $idhorario = null;
     const ESTADOS = array(
         array('En proceso', 'En proceso'),
         array('Pendiente', 'Pendiente'),
@@ -112,6 +114,28 @@ class Inscripcion extends InscripcionQueries
     }
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
+    public function setIdPaquete($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->idpaquete = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
+    public function setIdHorario($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->idhorario = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setIdempleado($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -180,5 +204,17 @@ class Inscripcion extends InscripcionQueries
     public function getIdempleado()
     {
         return $this->idempleado;
+    }
+
+    //Método para obtener los valores de los atributos correspondientes
+    public function getIdpaquete()
+    {
+        return $this->idpaquete;
+    }
+
+    //Método para obtener los valores de los atributos correspondientes
+    public function getIdhorario()
+    {
+        return $this->idhorario;
     }
 }
