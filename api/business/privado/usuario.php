@@ -59,23 +59,23 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            case 'changePassword':
-                $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_SESSION['id_usuario'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif (!$usuario->checkPassword($_POST['actual'])) {
-                    $result['exception'] = 'Clave actual incorrecta';
-                } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-                    $result['exception'] = 'Claves nuevas diferentes';
-                } elseif (!$usuario->setClave($_POST['nueva'])) {
-                    $result['exception'] = Validator::getPasswordError();
-                } elseif ($usuario->changePassword()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Contraseña cambiada correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+            // case 'changePassword':
+            //     $_POST = Validator::validateForm($_POST);
+            //     if (!$usuario->setId($_SESSION['id_usuario'])) {
+            //         $result['exception'] = 'Usuario incorrecto';
+            //     } elseif (!$usuario->checkPassword($_POST['actual'])) {
+            //         $result['exception'] = 'Clave actual incorrecta';
+            //     } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+            //         $result['exception'] = 'Claves nuevas diferentes';
+            //     } elseif (!$usuario->setClave($_POST['nueva'])) {
+            //         $result['exception'] = Validator::getPasswordError();
+            //     } elseif ($usuario->changePassword()) {
+            //         $result['status'] = 1;
+            //         $result['message'] = 'Contraseña cambiada correctamente';
+            //     } else {
+            //         $result['exception'] = Database::getException();
+            //     }
+            //     break;
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $usuario->readAll()) {
@@ -145,8 +145,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$usuario->setAlias($_POST['alias'])) {
                     $result['exception'] = 'Alias incorrecto';
-                } elseif (!$usuario->setClave($_POST['clave'])) {
-                    $result['exception'] = 'Clave incorrecta';
+                } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'], $_POST['correo'])) {
+                    $result['exception'] = Validator::getPasswordError();
                 } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
                     $result['exception'] = 'Seleccione una imagen';
                 } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
@@ -154,7 +154,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
                     $result['exception'] = 'Fecha creacion incorrecta';
                 } elseif (!$usuario->setIntentos($_POST['intentos'])) {
-                    $result['exception'] = Validator::getPasswordError();
+                    $result['exception'] = 'Intentos incorrectos';
                 } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!isset($_POST['idempleado'])) {
@@ -173,7 +173,8 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
-            case 'update':
+                //AGREGARLE EL POST DE CORREO Y DE LOS DATOS QUE NO QUEREMOS PARA QUE LA COTRASEÑA NO LO ACEPTE
+                case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_POST['id'])) {
                     $result['exception'] = 'Usuario incorrecto';
@@ -184,7 +185,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$usuario->setAlias($_POST['alias'])) {
                     $result['exception'] = 'Alias incorrecto';
-                } elseif (!$usuario->setClave($_POST['clave'])) {
+                } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'])) {
                     $result['exception'] = 'Clave incorrecta';
                 } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
                     $result['exception'] = 'Fecha creacion incorrecta';

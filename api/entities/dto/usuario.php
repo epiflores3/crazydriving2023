@@ -51,10 +51,9 @@ class Usuario extends UsuarioQueries
     }
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
-    public function setClave($value)
+    public function setClave($value, $user)
     {
-        if (Validator::validatePassword($value)) {
-
+        if (Validator::validatePassword($value, $user)) {
             $this->clave = password_hash($value, PASSWORD_DEFAULT);
             return true;
         } else {
