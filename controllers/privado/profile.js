@@ -50,7 +50,7 @@ PASSWORD_FORM.addEventListener('submit', async (event) => {
 
     if (JSON.status) {
       
-        // PASSWORD_MODAL.close();
+        PASSWORD_MODAL.hide();
     
         sweetAlert(1, JSON.message, true);
     } else {
@@ -63,5 +63,5 @@ function openPassword() {
 
     PASSWORD_MODAL.show();
   
-    // PASSWORD_FORM.reset();
+     PASSWORD_MODAL.hide();
 }

@@ -3,5 +3,5 @@
 define('SERVER', 'localhost');
 define('DATABASE', 'expo_2023');
 define('USERNAME', 'postgres');
-define('PASSWORD', '1234');
+define('PASSWORD', '123');
 ?>

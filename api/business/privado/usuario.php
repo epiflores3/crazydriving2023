@@ -59,23 +59,23 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-            // case 'changePassword':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$usuario->setId($_SESSION['id_usuario'])) {
-            //         $result['exception'] = 'Usuario incorrecto';
-            //     } elseif (!$usuario->checkPassword($_POST['actual'])) {
-            //         $result['exception'] = 'Clave actual incorrecta';
-            //     } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-            //         $result['exception'] = 'Claves nuevas diferentes';
-            //     } elseif (!$usuario->setClave($_POST['nueva'])) {
-            //         $result['exception'] = Validator::getPasswordError();
-            //     } elseif ($usuario->changePassword()) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Contraseña cambiada correctamente';
-            //     } else {
-            //         $result['exception'] = Database::getException();
-            //     }
-            //     break;
+            case 'changePassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setId($_SESSION['id_usuario'])) {
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif (!$usuario->checkPassword($_POST['actual'])) {
+                    $result['exception'] = 'Clave actual incorrecta';
+                } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                    $result['exception'] = 'Claves nuevas diferentes';
+                } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($usuario->changePassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $usuario->readAll()) {
