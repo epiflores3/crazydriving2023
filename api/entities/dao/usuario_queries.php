@@ -49,8 +49,8 @@ class UsuarioQueries
         $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        // if ($password == $data['clave_usuario']) {
-         if (password_verify($password, $data['clave_usuario'])) {
+        if ($password == $data['clave_usuario']) {
+        //  if (password_verify($password, $data['clave_usuario'])) {
             return true;
         } else {
             return false;

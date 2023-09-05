@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <i class='bx bxs-log-out-circle' ></i>
                     <span class="text">Cerrar sesión</span>
                 </a>
-            </li>
+            </li>---
             </ul>
                  
             `;
@@ -396,7 +396,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+async function checkSessionTime() {
+    //Solo un ejémplo de un ajax
+    const DATA = await dataFetch(USER_API, 'checkSessionTime');
+    if (DATA.status) {
+        console.log(DATA.message);// <-- Aquí sabemos que no es válida
+    } else {
+        clearInterval(heartbeat);
+        sweetAlert(3, DATA.exception, false, 'index.html');
+    }
+}
 
+
+const heartbeat = setInterval(() => {
+    checkSessionTime();
+}, 300000);// <-- Cada 2 segundos verifica si aun hay sesión
 
 
 

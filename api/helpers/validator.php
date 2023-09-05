@@ -75,11 +75,9 @@ class Validator
         if ($file['size'] > 2097152) {
             self::$fileError = 'El tamaño de la imagen debe ser menor a 2MB';
             return false;
-            
         } elseif ($width > $maxWidth || $height > $maxHeigth) {
             self::$fileError = 'La dimensión de la imagen es incorrecta';
             return false;
-
         } elseif ($type == 2 || $type == 3) {
             // Se obtiene la extensión del archivo y se convierte a minúsculas.
             $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -92,6 +90,20 @@ class Validator
         }
     }
 
+    public static function validateSessionTime()
+    {
+        //Establecer tiempo de inactivad en segundos
+        $tiempoInactividadMaximo = 300;
+        //Verificar la última actividad está registrada en la sesión 
+        if ((time() - $_SESSION['tiempo_sesion']) > $tiempoInactividadMaximo) {
+            //Destruye la sesión
+            session_destroy();
+            return false;
+        } else {
+            $_SESSION['tiempo_sesion'] = time();
+            return true;
+        }
+    }
     /*
     *   Método para validar un correo electrónico.
     *   Parámetros: $value (dato a validar).
@@ -194,22 +206,22 @@ class Validator
         } elseif (strlen($value) > 72) {
             self::$passwordError = 'Clave mayor a 72 caracteres';
             return false;
-        }  elseif (preg_match('/\s/', $value)) { 
-            self::$passwordError = 'Clave contiene espacios en blancos ';   
+        } elseif (preg_match('/\s/', $value)) {
+            self::$passwordError = 'Clave contiene espacios en blancos ';
             return false;
-        } elseif (!preg_match('/\W/', $value)) { 
-            self::$passwordError = 'Clave debe contener al menos un caracter especial';   
+        } elseif (!preg_match('/\W/', $value)) {
+            self::$passwordError = 'Clave debe contener al menos un caracter especial';
             return false;
-        } elseif (!preg_match('/\d/', $value)) { 
-            self::$passwordError = 'Clave debe contener al menos un dígito';   
+        } elseif (!preg_match('/\d/', $value)) {
+            self::$passwordError = 'Clave debe contener al menos un dígito';
             return false;
-        } elseif (!preg_match('/[a-z]/', $value)) { 
-            self::$passwordError = 'Clave debe contener al menos una letra en minúsculas';   
+        } elseif (!preg_match('/[a-z]/', $value)) {
+            self::$passwordError = 'Clave debe contener al menos una letra en minúsculas';
             return false;
         } elseif (strpos($value, $user) !== false) {
             self::$passwordError = 'Clave contiene datos del usuario ';
             return false;
-        } elseif (preg_match('/[A-Z]/', $value)) {    
+        } elseif (preg_match('/[A-Z]/', $value)) {
             return true;
         } else {
             self::$passwordError = 'Clave debe contener al menos una letra en mayusculas';
@@ -218,7 +230,7 @@ class Validator
     }
 
 
-    
+
     /*
     *   Método para validar el formato del DUI (Documento Único de Identidad).
     *   Parámetros: $value (dato a validar).
@@ -329,14 +341,13 @@ class Validator
     }
 
 
-      // Validar en formato de 12 horas
-      public static function validateHours($values)
-      {
-          if (preg_match("/^(?:1[012]|0[0-9]):[0-5][0-9]$/", $values)) {
-              return true;
-          } else {
-              return false;
-          }
-      }
-      
+    // Validar en formato de 12 horas
+    public static function validateHours($values)
+    {
+        if (preg_match("/^(?:1[012]|0[0-9]):[0-5][0-9]$/", $values)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

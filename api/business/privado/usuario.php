@@ -5,21 +5,6 @@ require_once('../../entities/dto/usuario.php');
 if (isset($_GET['action'])) {
     // Se realiza una sesión o se sigue manejando la actual.
     session_start();
-    //Establecer tiempo de inactivad en segundos
-    $tiempoInactividadMaximo = 60;
-    //Verificar la última actividad está registrada en la sesión 
-    if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad'] > $tiempoInactividadMaximo)) {
-        // La sesión expiro por inactividad, verificar la últim acrividad registrada en la sesión 
-        session_unset();
-        //Destruye la sesión
-        session_destroy();
-        //Establece el encabezado HTTP para la respuesta como tipo de contenido JSON con codificación UTF-8
-        header('content-type: application/json; charset=utf-8');
-        //Finaliza la ejecución del script
-        exit;
-    }
-    //Actualizar el timpo de la última actividad 
-    $_SESSION['ultima_actividad'] = time();
     // Se instancia una clase.
     $usuario = new Usuario;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
@@ -30,6 +15,14 @@ if (isset($_GET['action'])) {
         // Se compara la acciones que el usuario puede realizar cuando ha iniciado sesión.
         switch ($_GET['action']) {
                 //Se obtiene el alias del usuario y si existen, d elo contarrio mostrará un mensaje de error.
+            case 'checkSessionTime':
+                if (Validator::validateSessionTime()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Sesión activa';
+                } else {
+                    $result['exception'] = 'Su sesión ha caducado';
+                }
+                break;
             case 'getUser':
                 if (isset($_SESSION['alias_usuario'])) {
                     $result['status'] = 1;
@@ -189,7 +182,7 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
                 //AGREGARLE EL POST DE CORREO Y DE LOS DATOS QUE NO QUEREMOS PARA QUE LA COTRASEÑA NO LO ACEPTE
-                case 'update':
+            case 'update':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_POST['id'])) {
                     $result['exception'] = 'Usuario incorrecto';
@@ -275,6 +268,7 @@ if (isset($_GET['action'])) {
                 } elseif ($usuario->checkPassword($_POST['contra'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
+                    $_SESSION['tiempo_sesion'] = time();
                     $_SESSION['id_usuario'] = $usuario->getId();
                     $_SESSION['alias_usuario'] = $usuario->getAlias();
                 } else {
