@@ -18,6 +18,21 @@ class UsuarioQueries
         }
     }
 
+
+     //Método para comprobar el usuario
+     public function checkMail($correo)
+     {
+         $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
+         $params = array($correo);
+         if ($data = Database::getRow($sql, $params)) {
+             $this->id = $data['id_usuario'];
+             $this->correo = $correo;
+             return true;
+         } else {
+             return false;
+         }
+     }
+
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {

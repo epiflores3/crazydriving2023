@@ -5,6 +5,21 @@ require_once('../../entities/dto/usuario.php');
 if (isset($_GET['action'])) {
     // Se realiza una sesión o se sigue manejando la actual.
     session_start();
+    //Establecer tiempo de inactivad en segundos
+    $tiempoInactividadMaximo = 60;
+    //Verificar la última actividad está registrada en la sesión 
+    if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad'] > $tiempoInactividadMaximo)) {
+        // La sesión expiro por inactividad, verificar la últim acrividad registrada en la sesión 
+        session_unset();
+        //Destruye la sesión
+        session_destroy();
+        //Establece el encabezado HTTP para la respuesta como tipo de contenido JSON con codificación UTF-8
+        header('content-type: application/json; charset=utf-8');
+        //Finaliza la ejecución del script
+        exit;
+    }
+    //Actualizar el timpo de la última actividad 
+    $_SESSION['ultima_actividad'] = time();
     // Se instancia una clase.
     $usuario = new Usuario;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
