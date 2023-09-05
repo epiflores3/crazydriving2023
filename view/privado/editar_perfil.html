@@ -23,56 +23,62 @@
     <section id="content">
         <nav></nav>
         <main>
-            <div  id="advanced-search-form">
+            <div id="advanced-search-form">
                 <h2 class="text-center">Editar cuenta</h2>
                 <br><br><br>
-                <a onclick="openPassword()" class="btn waves-effect indigo tooltipped" data-tooltip="Cambiar clave">
-                    <img height="25px" width="25px"
-                    src="../../resource/img/imgtablas/agregar.png" alt="check">
-                </a>
+
                 <!-- <button onclick="openPassword()" type="button" class="btn" data-bs-toggle="modal"
                 data-bs-target="#agregar"><img height="25px" width="25px"
                     src="../../resource/img/imgtablas/agregar.png" alt="check">
             </button> -->
                 <form class="row g-3" method="post" id="profile-form" autocomplete="off">
-                    
+
                     <div class="form-group">
-                        <label for="">Alias</label>
-                        <input type="text" id="alias" name="alias" class="form-control"
-                            placeholder="Nombre completo" id="first-name">
+                        <label for="" class="form-label">Alias</label>
+                        <input type="text" id="alias" name="alias" class="form-control" placeholder="Nombre completo"
+                            id="first-name">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="">Fecha de creacion</label>
+                        <label for="" class="form-label">Fecha de creacion</label>
                         <input type="date" id="fechacreacion" name="fechacreacion" class="form-control"
                             placeholder="Fecha de creacion">
                     </div>
-                
+
                     <div class="form-group">
-                        <label for="">Correo electrónico</label>
+                        <label for="" class="form-label">Correo electrónico</label>
                         <input type="email" id="correo" name="correo" class="form-control"
                             placeholder="Correo electrónico" id="age">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="" class="form-label">Empleado</label>
                         <select type="text" name="idempleado" id="idempleado" class="form-select" required>
                         </select>
                     </div>
-                    
-                    <div class="clearfix"></div>
-                    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="contra_primer"
-                        name="contra_primer">
-                        <span class="glyphicon glyphicon-search"></span> Editar cuenta </button>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn" id=" contra_primer" name="contra_primer">
+                            <img height="30px" width="30px" src="../../resource/img/salvar.png" alt="check">
+                        </button>
+
+                        <div class="mb-3">
+                            <a onclick="openPassword()" class="btn waves-effect indigo tooltipped"
+                                data-tooltip="Cambiar clave">
+                                <img height="35px" width="35px" src="../../resource/img/recargar.png" alt="check">
+                            </a>
+                        </div>
+                        
+                    </div>
                 </form>
             </div>
-           
+
 
             <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregar" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title"></h5>
+                            <h5 class="modal-title" id="modal-title">Cambio Contraseña</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -93,15 +99,19 @@
                                     <label for="">Confirmar</label><br>
                                     <input type="text" name="confirmar" id="confirmar" class="form-control"><br>
                                 </div>
-                              
 
-                                <div>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary"><i
-                                            class="fa-solid fa-floppy-disk"></i>
-                                        Agregar</button>
+                                <div class="text-center">
+
+                                    <button type="submit" class="btn" id="contra_primer" name="contra_primer">
+                                        <img height="30px" width="30px" src="../../resource/img/salvar.png" alt="check">
+                                    </button>
+    
+                                    <button type="reset
+                                    " class="btn" id="recargar" name="recargar">
+                                        <img height="35px" width="35px" src="../../resource/img/actualizar.png" alt="check">
+                                    </button>
                                 </div>
+
                             </form>
                         </div>
 
@@ -110,7 +120,7 @@
             </div>
 
         </main>
-       
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
