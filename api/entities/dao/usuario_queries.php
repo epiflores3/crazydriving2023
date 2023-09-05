@@ -43,16 +43,62 @@ class UsuarioQueries
         return Database::getRows($sql, $params);
     }
 
+    public function checkEstado($alias)
+    {
+        //Consulta de datos para verificar si existe un usuario con el alias
+        $sql = 'SELECT id_usuario, estado_usuario, EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_bloqueo)) AS dias_bloqueo
+                FROM usuario WHERE alias_usuario = ?';
+        //Valor que se envía al parámetro
+        $params = array($alias);
+        //Si encuentra datos ingresa a la estructura
+        if ($data = Database::getRow($sql, $params)) {
+            // Captura la información del usuario *************
+            $this->id = $data['id_usuario'];
+            // Se revisa el estado del usuario
+            if ($data['estado_usuario'] == "Bloqueado") {
+                // Verifica si el tiempo de diferencia en mayor o igual al 24hrs
+                if($data['dias_bloqueo'] > 0){
+                    // Se actualiza el usuario a estado Activo
+                    $sql = "UPDATE usuario SET intento = 0, estado_usuario = 'Activo', fecha_bloqueo = NULL WHERE id_usuario = ?";
+                    $params = array($this->id);
+                    return Database::executeRow($sql, $params);
+                }else{
+                    return false;
+                }
+            } else {
+                return true;
+            }            
+        } else {
+            return false;
+        }
+
+    }
+
     //Método para comprobar la contraseña del usuario
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
+        $sql = 'SELECT clave_usuario, intento, estado_usuario FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if ($password == $data['clave_usuario']) {
-        //  if (password_verify($password, $data['clave_usuario'])) {
+
+        if (password_verify($password, $data['clave_usuario']) ) {
+            // Reiniciar el contador de intentos fallidos a 0
+            $sql = 'UPDATE usuario SET intento = 0 WHERE id_usuario = ?';
+            Database::executeRow($sql, $params);
             return true;
         } else {
+            // Verificar y actualizar el contador de intentos fallidos toma el número entero y le suma 1
+            $intentosFallidos = intval($data['intento']) + 1;
+
+            if ($intentosFallidos >= 5) {
+                $sql = "UPDATE usuario SET intento = 0, estado_usuario = 'Bloqueado',  fecha_bloqueo = CURRENT_TIMESTAMP WHERE id_usuario = ?";
+                Database::executeRow($sql, $params);
+            } else {
+                // Si no se ha alcanzado el límite, simplemente actualizamos el contador de intentos fallidos.
+                $sql = 'UPDATE usuario SET intento = ? WHERE id_usuario = ?';
+                $params = array($intentosFallidos, $this->id);
+                Database::executeRow($sql, $params);
+            }
             return false;
         }
     }

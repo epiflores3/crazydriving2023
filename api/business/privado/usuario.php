@@ -260,11 +260,29 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
-                //Comprobar que los datos estén correctos para poder iniciar sesión
+               
+            // case 'login':
+            //     $_POST = Validator::validateForm($_POST);
+            //     if (!$usuario->checkUser($_POST['nombre'])) {
+            //         $result['exception'] = 'Alias incorrecto';
+            //     } elseif ($usuario->checkPassword($_POST['contra'])) {
+            //         $result['status'] = 1;
+            //         $result['message'] = 'Autenticación correcta';
+            //         $_SESSION['tiempo_sesion'] = time();
+            //         $_SESSION['id_usuario'] = $usuario->getId();
+            //         $_SESSION['alias_usuario'] = $usuario->getAlias();
+            //     } else {
+            //         $result['exception'] = 'Clave incorrecta';
+            //     }
+            //     break;
+
+             //Comprobar que los datos estén correctos para poder iniciar sesión
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->checkUser($_POST['nombre'])) {
                     $result['exception'] = 'Alias incorrecto';
+                } elseif (!$usuario->checkEstado($_POST['nombre'])) {
+                    $result['exception'] = 'Estado bloqueado';
                 } elseif ($usuario->checkPassword($_POST['contra'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
@@ -275,6 +293,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Clave incorrecta';
                 }
                 break;
+
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
