@@ -129,6 +129,22 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
+      //Método para realizar el mantenimiento crear(create)
+      public function createFirstUse()
+      {
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
+        $this->intentos = 0;
+        $this->estadousu = 'Activo';
+
+          $sql = 'INSERT INTO usuario(alias_usuario, correo_usuario, clave_usuario, fecha_creacion, intento, estado_usuario, id_empleado)
+          VALUES (?, ?, ?, ?, ?, ?,(SELECT id_empleado FROM empleado LIMIT 1))';
+          $params = array($this->alias ,$this->correo,$this->clave, $date, $this->intentos, $this->estadousu) ;
+          return Database::executeRow($sql, $params);
+      }
+
+     
+  
     //Método para realizar el mantenimiento actualizar(update)
     public function updateRow($current_imagen)
     {

@@ -66,6 +66,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Seleccione una imagen';
                 } elseif (!$empleado->setLicencia($_FILES['licencia'])) {
                     $result['exception'] = Validator::getFileError();
+                    
                 } elseif (!$empleado->setTelefono($_POST['telefono'])) {
                     $result['exception'] = 'Teléfono del empleado incorrecto';
                 } elseif (!$empleado->setNacimiento($_POST['nacimiento'])) {

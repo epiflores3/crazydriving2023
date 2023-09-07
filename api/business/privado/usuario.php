@@ -1,5 +1,6 @@
 <?php
 require_once('../../entities/dto/usuario.php');
+require_once('../../entities/dto/empleado.php');
 
 // Se comprueba si se cumplirá una acción, es decir, caso(case) a realizar, si no se llegará a cumplir ninguna acción se mostrará un mensaje de error.
 if (isset($_GET['action'])) {
@@ -7,6 +8,7 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia una clase.
     $usuario = new Usuario;
+    $empleado = new Empleado;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
     $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -23,6 +25,9 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Su sesión ha caducado';
                 }
                 break;
+
+
+
             case 'getUser':
                 if (isset($_SESSION['alias_usuario'])) {
                     $result['status'] = 1;
@@ -146,6 +151,55 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
+
+            // case 'sendmail':
+            //     if (!$usuario->setCorreo($_POST['correo'])) {
+            //         $result['exception'] = 'Correo incorrecto';
+            //     }
+            //     $mail = new PHPMailer(true);
+            //     $mail->isSMTP();
+            //     $mail->SMTPAuth = true;
+            //     //to view proper logging details for success and error messages
+            //     // $mail->SMTPDebug = 1;
+            //     $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
+            //     $mail->Username = 'enderchristianchiqui@gmail.com';   //email
+            //     $mail->Password = 'upmuvkorsmjbqigr';   //16 character obtained from app password created
+            //     $mail->Port = 465;                    //SMTP port
+            //     $mail->SMTPSecure = "ssl";
+            //     //sender information
+            //     $mail->setFrom('enderchristianchiqui@gmail.com', 'Endernoob09');
+            //     //receiver address and name
+            //     $mail->addAddress($email, $recipient);
+            //     $mail->isHTML(true);
+            //     $mail->Subject = 'Codigo de recuperacion de contrasena';
+            //     $mail->Body    = '<body style="background-color:#2B3547";>
+            //             <br>
+            //             <center><h3 style="color:white";>Su codigo para resetear su contraseña</h3></center>
+            //             <div>
+            //                 <b style = "color:white";>
+            //                       Aqui se le presenta el codigode recuperacion de contraseña,
+            //                     recuerde cambiarla cada cierto tiempo para evitar problemas de seguridad.
+            //                 </b>
+            //             </div>
+            //             <br>
+            //             <br>
+            //             <center><h2 style="color:white">' . $code . '</h2></center>
+            //             <br>
+            //             <br>
+            //             </body>
+            //                 <p> De parte de Fencing a usted ' . $recipient . '</p>';
+            //     // Send mail  
+            //     if ($mail->send()) {
+            //         if ($result['dataset'] = [$number, $armero->getCorreo()]) {
+            //             $result['status'] = 1;
+            //             $result['message'] = 'it worked!';
+            //         }
+            //     } else {
+            //         $result['exception'] = 'it didnt work :(';
+            //     }
+            //     $mail->smtpClose();
+            // break;
+
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
@@ -182,54 +236,56 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
                 //AGREGARLE EL POST DE CORREO Y DE LOS DATOS QUE NO QUEREMOS PARA QUE LA COTRASEÑA NO LO ACEPTE
-            case 'update':
-                $_POST = Validator::validateForm($_POST);
-                if (!$usuario->setId($_POST['id'])) {
-                    $result['exception'] = 'Usuario incorrecto';
-                } elseif (!$data = $usuario->readOne()) {
-                    $result['exception'] = 'Usuario inexistente';
-                }
-                if (!$usuario->setCorreo($_POST['correo'])) {
-                    $result['exception'] = 'Correo incorrecto';
-                } elseif (!$usuario->setAlias($_POST['alias'])) {
-                    $result['exception'] = 'Alias incorrecto';
-                } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'])) {
-                    $result['exception'] = 'Clave incorrecta';
-                } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
-                    $result['exception'] = 'Fecha creacion incorrecta';
-                } elseif (!$usuario->setIntentos($_POST['intentos'])) {
-                    $result['exception'] = Validator::getPasswordError();
-                } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
-                    $result['exception'] = 'Estado incorrecto';
-                } elseif (!isset($_POST['idempleado'])) {
-                    $result['exception'] = 'Seleccione un empleado';
-                } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
-                    $result['exception'] = 'empleado incorrecta';
-                } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                    $result['exception'] = 'Seleccione una imagen';
-                } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                    if ($usuario->updateRow($data['imagen_usuario'])) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Usuario modificado correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
-                    $result['exception'] = Validator::getFileError();
-                } elseif ($usuario->updateRow($data['imagen_usuario'])) {
-                    $result['status'] = 1;
-                    if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
-                        $result['message'] = 'Usuario modificado correctamente';
-                    } else {
-                        $result['message'] = 'Usuario modificado pero no se guardó la imagen';
-                    }
-                } elseif ($usuario->updateRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Usuario modificado correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+            // case 'update':
+            //     $_POST = Validator::validateForm($_POST);
+            //     if (!$usuario->setId($_POST['id'])) {
+            //         $result['exception'] = 'Usuario incorrecto';
+            //     } elseif (!$data = $usuario->readOne()) {
+            //         $result['exception'] = 'Usuario inexistente';
+            //     }
+            //     if (!$usuario->setCorreo($_POST['correo'])) {
+            //         $result['exception'] = 'Correo incorrecto';
+            //     } elseif (!$usuario->setAlias($_POST['alias'])) {
+            //         $result['exception'] = 'Alias incorrecto';
+            //     } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'])) {
+            //         $result['exception'] = 'Clave incorrecta';
+            //     } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
+            //         $result['exception'] = 'Fecha creacion incorrecta';
+            //     } elseif (!$usuario->setIntentos($_POST['intentos'])) {
+            //         $result['exception'] = Validator::getPasswordError();
+            //     } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
+            //         $result['exception'] = 'Estado incorrecto';
+            //     } elseif (!isset($_POST['idempleado'])) {
+            //         $result['exception'] = 'Seleccione un empleado';
+            //     } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
+            //         $result['exception'] = 'empleado incorrecta';
+            //     } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+            //         $result['exception'] = 'Seleccione una imagen';
+            //     } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
+            //         if ($usuario->updateRow($data['imagen_usuario'])) {
+            //             $result['status'] = 1;
+            //             $result['message'] = 'Usuario modificado correctamente';
+            //         } else {
+            //             $result['exception'] = Database::getException();
+            //         }
+            //     } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
+            //         $result['exception'] = Validator::getFileError();
+            //     } elseif ($usuario->updateRow($data['imagen_usuario'])) {
+            //         $result['status'] = 1;
+            //         if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
+            //             $result['message'] = 'Usuario modificado correctamente';
+            //         } else {
+            //             $result['message'] = 'Usuario modificado pero no se guardó la imagen';
+            //         }
+            //     } elseif ($usuario->updateRow()) {
+            //         $result['status'] = 1;
+            //         $result['message'] = 'Usuario modificado correctamente';
+            //     } else {
+            //         $result['exception'] = Database::getException();
+            //     }
+            //     break;
+
+
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':
                 if ($_POST['id_usuario'] == $_SESSION['id_usuario']) {
@@ -260,23 +316,46 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
-               
-            // case 'login':
-            //     $_POST = Validator::validateForm($_POST);
-            //     if (!$usuario->checkUser($_POST['nombre'])) {
-            //         $result['exception'] = 'Alias incorrecto';
-            //     } elseif ($usuario->checkPassword($_POST['contra'])) {
-            //         $result['status'] = 1;
-            //         $result['message'] = 'Autenticación correcta';
-            //         $_SESSION['tiempo_sesion'] = time();
-            //         $_SESSION['id_usuario'] = $usuario->getId();
-            //         $_SESSION['alias_usuario'] = $usuario->getAlias();
-            //     } else {
-            //         $result['exception'] = 'Clave incorrecta';
-            //     }
-            //     break;
 
-             //Comprobar que los datos estén correctos para poder iniciar sesión
+                case 'signup':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$empleado->setNombre($_POST['nombre'])) {
+                        $result['exception'] = 'Nombre del empleado incorrecto';
+                    } elseif (!$empleado->setDUI($_POST['dui'])) {
+                        $result['exception'] = 'DUI del empleado incorrecto';
+                    } elseif (!$empleado->setTelefono($_POST['telefono'])) {
+                        $result['exception'] = 'Teléfono del empleado incorrecto';
+                    } elseif (!$empleado->setNacimiento($_POST['nacimiento'])) {
+                        $result['exception'] = 'Fecha de nacimiento del empleado incorrecto';
+                    } elseif (!$empleado->setDireccion($_POST['direccion'])) {
+                        $result['exception'] = 'Dirección del empleado incorrecto';
+                    } elseif (!($empleado->setCorreo($_POST['correo']) AND $usuario->setCorreo($_POST['correo']))) {
+                        $result['exception'] = 'Correo del empleado incorrecto';
+                    } elseif (!$empleado->setAFP($_POST['afp_primer'])) {
+                        $result['exception'] = 'Nombre de afp del empleado incorrecto';
+                    } elseif (!$empleado->setRol($_POST['rol_primer'])) {
+                        $result['exception'] = 'Rol del empleado incorrecto';
+                    } elseif (!$empleado->setSucursal($_POST['sucursal_primer'])) {
+                        $result['exception'] = 'Sucursal del empleado incorrecta';
+                    } elseif (!$usuario->setAlias($_POST['ali_primer'])) {
+                        $result['exception'] = 'Alias incorrecto';
+                    } elseif (!$usuario->setClave($_POST['contra_primer'], $_POST['ali_primer'], $_POST['correo'])) {
+                        $result['exception'] = Validator::getPasswordError();
+                    } elseif ($_POST['rescon_primer'] != $_POST['contra_primer']) {
+                        $result['exception'] = 'Claves diferentes';
+                    } elseif (!$empleado->setEstado(1)) {
+                        $result['exception'] = 'Claves diferentes';
+                    } elseif (!$empleado->createRow()) {
+                        $result['status'] = 1;
+                    } elseif ($usuario->createFirstUse()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Usuario creado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
+
+                //Comprobar que los datos estén correctos para poder iniciar sesión
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->checkUser($_POST['nombre'])) {

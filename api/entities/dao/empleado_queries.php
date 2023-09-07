@@ -41,11 +41,24 @@ class EmpleadoQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
-        $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, licencia_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, nombre_afp, estado_empleado, id_rol, id_sucursal)
+        $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, licencia_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, id_afp, estado_empleado, id_rol, id_sucursal)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->nombre, $this->dui, $this->licencia, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->AFP, $this->estado, $this->idrol, $this->idsucursal);
         return Database::executeRow($sql, $params);
     }
+
+
+    /* public function createEmpleado()
+    {
+   
+    $this->estado = 'true';
+    
+    $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, estado_empleado, id_rol, )
+    VALUES (?, ?, ?, ?, ?, ?, ?)';
+    $params = array($this->nombre, $this->dui, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->estado);
+    return Database ::executeRow($sql, $params);
+    }
+*/
 
     //Método para realizar el mantenimiento actualizar(update)
     public function updateRow($current_imagen)

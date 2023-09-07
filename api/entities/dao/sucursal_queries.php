@@ -22,6 +22,13 @@ class SucursalQueries
         return Database::getRows($sql);
     }
 
+    public function readAllCmb()
+    {
+        $sql = 'SELECT id_sucursal, nombre_sucursal
+        FROM sucursal';
+        return Database::getRows($sql);
+    }
+
     public function readOne()
     {
         $sql = 'SELECT id_sucursal, nombre_sucursal, direccion_sucursal 
