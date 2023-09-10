@@ -15,6 +15,7 @@ class Usuario extends UsuarioQueries
     protected $intentos = null;
     protected $estadousu = null;
     protected $idempleado = null;
+    protected $codigo_recuperacion = null;
     protected $ruta = '../../images/usuario/';
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
@@ -27,7 +28,16 @@ class Usuario extends UsuarioQueries
             return false;
         }
     }
-
+    
+    public function setCodigoRecuperacion($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->codigo_recuperacion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setCorreo($value)
     {
@@ -175,5 +185,9 @@ class Usuario extends UsuarioQueries
     public function getRuta()
     {
         return $this->ruta;
+    }
+    public function getCodigoRecuperacion()
+    {
+        return $this->codigo_recuperacion;
     }
 }

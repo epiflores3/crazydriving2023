@@ -1,6 +1,13 @@
 <?php
 require_once('../../helpers/database.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../libraries/PHPMailer_Lb/src/Exception.php';
+require '../../libraries/PHPMailer_Lb/src/PHPMailer.php';
+require '../../libraries/PHPMailer_Lb/src/SMTP.php';
 //Clase para poder tener acceso a todos de la entidad requerida
 class UsuarioQueries
 {
@@ -19,19 +26,131 @@ class UsuarioQueries
     }
 
 
-     //Método para comprobar el usuario
-     public function checkMail($correo)
-     {
-         $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
-         $params = array($correo);
-         if ($data = Database::getRow($sql, $params)) {
-             $this->id = $data['id_usuario'];
-             $this->correo = $correo;
-             return true;
-         } else {
-             return false;
-         }
-     }
+    //Método para comprobar el usuario
+    public function checkRecovery($correo, $alias)
+    {
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? AND alias_usuario = ?';
+        $params = array($this->correo, $this->alias);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_usuario'];
+            $this->correo = $correo;
+            $this->alias = $alias;
+
+            //Create an instance; passing `true` enables exceptions
+            /*numero ramdon*/
+            $strength = 6;
+            $input = '0123456789';
+            $input_lengt = strlen($input);
+            $random_string = 'cod-';
+            $random_string_number = '';
+            for ($i = 0; $i < $strength; $i++) {
+                $random_character = $input[mt_rand(0, $input_lengt - 1)];
+                $random_string .= $random_character;
+                $random_string_number .= $random_character;
+            }
+            $this->codigo_recuperacion = $random_string_number;
+            $mail = new PHPMailer(true);
+
+            try {
+                // Configuración del servidor
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
+                $mail->isSMTP();                                            // Enviar usando SMTP
+                $mail->Host       = 'smtp.gmail.com';                     // Configurar el servidor SMTP para enviar a través de Gmail
+                $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
+                $mail->Username   = 'soportecrazydriving@gmail.com';                     // Nombre de usuario SMTP
+                $mail->Password   = 'rmzhqmjwqbkswubj';                               // Contraseña SMTP
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Habilitar cifrado TLS implícito
+                $mail->Port       = 465;                                    // Puerto TCP para conectarse; usa 587 si has configurado `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                // Destinatarios
+                $mail->setFrom('soportecrazydriving@gmail.com', 'Crazy Driving'); // Quien lo envía
+                $mail->addAddress($this->correo, $this->alias);     // Agregar un destinatario
+
+                // Adjuntos
+                // $mail->addAttachment('/var/tmp/file.tar.gz');         // Agregar archivos adjuntos
+                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Nombre opcional
+
+                // Contenido
+                $mail->CharSet = 'UTF-8'; //caracteres especiales
+                $mail->isHTML(true);                                  // Configurar el formato del correo como HTML
+                $mensaje = 'Estos es un mensaje Cuaquiera DE Una Variable X ';
+                $mail->Subject = 'Codigo De Cambio de Contraseña';
+                $mail->AltBody = 'Este es el cuerpo en texto sin formato para clientes de correo que no admiten HTML';
+
+                $mail->Body    = '<!DOCTYPE html>
+    
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>' . $mail->Subject . '</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                color: #333;
+            }
+            p {
+                color: #666;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Título del Correo Electrónico</h1>
+            <p>' . $mail->AltBody . '</p>
+            <p>' . $mensaje . '</p>
+            <a href="#" class="button">Visitar Sitio Web</a>
+        </div>
+    </body>
+    </html>
+    ';
+
+                $mail->send();
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
+
+    //Método para comprobar el usuario
+    public function checkMail($correo)
+    {
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
+        $params = array($correo);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_usuario'];
+            $this->correo = $correo;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
@@ -57,21 +176,20 @@ class UsuarioQueries
             // Se revisa el estado del usuario
             if ($data['estado_usuario'] == "Bloqueado") {
                 // Verifica si el tiempo de diferencia en mayor o igual al 24hrs
-                if($data['dias_bloqueo'] > 0){
+                if ($data['dias_bloqueo'] > 0) {
                     // Se actualiza el usuario a estado Activo
                     $sql = "UPDATE usuario SET intento = 0, estado_usuario = 'Activo', fecha_bloqueo = NULL WHERE id_usuario = ?";
                     $params = array($this->id);
                     return Database::executeRow($sql, $params);
-                }else{
+                } else {
                     return false;
                 }
             } else {
                 return true;
-            }            
+            }
         } else {
             return false;
         }
-
     }
 
     //Método para comprobar la contraseña del usuario
@@ -81,7 +199,7 @@ class UsuarioQueries
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
 
-        if (password_verify($password, $data['clave_usuario']) ) {
+        if (password_verify($password, $data['clave_usuario'])) {
             // Reiniciar el contador de intentos fallidos a 0
             $sql = 'UPDATE usuario SET intento = 0 WHERE id_usuario = ?';
             Database::executeRow($sql, $params);
@@ -129,22 +247,22 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
-      //Método para realizar el mantenimiento crear(create)
-      public function createFirstUse()
-      {
+    //Método para realizar el mantenimiento crear(create)
+    public function createFirstUse()
+    {
         date_default_timezone_set('America/El_Salvador');
         $date = date('Y-m-d');
         $this->intentos = 0;
         $this->estadousu = 'Activo';
 
-          $sql = 'INSERT INTO usuario(alias_usuario, correo_usuario, clave_usuario, fecha_creacion, intento, estado_usuario, id_empleado)
+        $sql = 'INSERT INTO usuario(alias_usuario, correo_usuario, clave_usuario, fecha_creacion, intento, estado_usuario, id_empleado)
           VALUES (?, ?, ?, ?, ?, ?,(SELECT id_empleado FROM empleado LIMIT 1))';
-          $params = array($this->alias ,$this->correo,$this->clave, $date, $this->intentos, $this->estadousu) ;
-          return Database::executeRow($sql, $params);
-      }
+        $params = array($this->alias, $this->correo, $this->clave, $date, $this->intentos, $this->estadousu);
+        return Database::executeRow($sql, $params);
+    }
 
-     
-  
+
+
     //Método para realizar el mantenimiento actualizar(update)
     public function updateRow($current_imagen)
     {
