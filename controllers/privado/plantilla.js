@@ -1,3 +1,5 @@
+const USER_API = 'business/privado/usuario.php';
+
 const HEADER = document.querySelector('header');
 const NAV = document.querySelector('nav');
 
@@ -8,6 +10,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const JSON = await dataFetch(USER_API, 'getUser');
     // Se verifica si el usuario está autenticado, de lo contrario se envía a iniciar sesión.
     if (JSON.session) {
+
+
+        const heartbeat = setInterval(() => {
+            checkSessionTime();
+        }, 300000);// <-- Cada 2 segundos verifica si aun hay sesión
+        
+
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             HEADER.innerHTML = `
@@ -202,8 +211,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             sweetAlert(3, JSON.exception, false, 'index.html');
         }
     } else {
+       
         // Se comprueba si la página web es la principal, de lo contrario se direcciona a iniciar sesión.
-        if (location.pathname != '/crazydriving2023/view/privado/index.html') {
+        if (location.pathname != '/crazydriving2023/view/privado/index.html' && location.pathname != '/crazydriving2023/view/privado/cuchao.html') {
             location.href = 'index.html';
         }
     }
@@ -221,9 +231,9 @@ async function checkSessionTime() {
 }
 
 
-const heartbeat = setInterval(() => {
-    checkSessionTime();
-}, 300000);// <-- Cada 2 segundos verifica si aun hay sesión
+// const heartbeat = setInterval(() => {
+//     checkSessionTime();
+// }, 300000);// <-- Cada 2 segundos verifica si aun hay sesión
 
 
 
