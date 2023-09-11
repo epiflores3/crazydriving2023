@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../../resource/css/estiloprivado.css">
+    <title>Restaurar contraseña</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-12"><br>
+            <div class="container d-flex justify-content-center align-items-center min-vh-500">
+                <form class="form" action="config/recovery.php" id="recu-form">
+                    <h3 class="fw-bold">Restaurar contraseña</h3><br>
+                    <img height="150px" width="150px" src="../../resource/img/restaurar_contra.png" alt="restaurar"><br>
+                    <div class="title">Crear nueva contraseña</div>
+                    <p class="message">Por favor, crear una nueva contraseña para poder ingresar al sistema</p>
+
+                    <div class="input-container">
+                        <input placeholder="Ingresar contraseña nueva" class="input-field "  type="password" id="" name="" autocomplete="off">
+                        <label for="input-field" class="input-label">Ingresar contraseña nueva</label>
+                        <span class="input-highlight"></span>
+                    </div>
+                    
+
+                    <button class="action" type="submit">Aceptar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../resource/js/sweetalert.min.js"></script>
+    <script src="../../controllers/components.js"></script>
+    <script src="../../controllers/privado/account.js"></script>
+    <script src="../../controllers/privado/recovery.js"></script>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+
+
+</body>
+
+</html>
