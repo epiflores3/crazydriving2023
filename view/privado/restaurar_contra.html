@@ -35,18 +35,23 @@
         </div>
         <div class="col-6"><br>
             <div class="container d-flex justify-content-center align-items-center min-vh-500">
-                <form class="form">
-                    <h3 class="fw-bold">Verificar código</h3><br>
+                <form class="form" id="verificarcodigo-form">
+                      <h3 class="fw-bold">Verificar código</h3><br>
                     <img height="150px" width="150px" src="../../resource/img/restaurar.png" alt="restaurar"><br>
                     <div class="title">Verificar</div>
                     <p class="message">¡Hemos enviado el código de restauración a tu correo electrónico, favor de
                         revisar para continuar con el proceso!</p>
-                    <div class="inputs">
-                        <input id="input1" type="text" maxlength="1">
-                        <input id="input2" type="text" maxlength="1">
-                        <input id="input3" type="text" maxlength="1"> <input id="input4" type="text" maxlength="1">
+                        <input type="tel" autocomplete="off"  class=" form-control" id="verificarcodigo" name="verificarcodigo">
+                    <div class="inputs" required>
+
+
+                        <input id="input1" class="input-code" type="text" maxlength="1">
+                        <input id="input2" class="input-code" type="text" maxlength="1">
+                        <input id="input3" class="input-code" type="text" maxlength="1">
+                        <input id="input4" class="input-code" type="text" maxlength="1">
+                        <input id="input5" class="input-code" type="text" maxlength="1"> <input id="input4" type="text" maxlength="1">
                     </div> <br>
-                    <button class="action">Verificar</button>
+                    <button class="action" type="submit">Verificar</button>
                 </form>
             </div>
         </div>

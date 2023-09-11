@@ -26,14 +26,14 @@ class UsuarioQueries
     }
 
     //Método para comprobar el usuario
-    public function checkRecovery($correo, $alias)
+    public function checkRecovery($correo)
     {
-        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? AND alias_usuario = ?';
-        $params = array($this->correo, $this->alias);
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? ';
+        $params = array($this->correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
             $this->correo = $correo;
-            $this->alias = $alias;
+            // $this->alias = $alias;
 
             //Create an instance; passing `true` enables exceptions
             /*numero ramdon*/
@@ -52,7 +52,7 @@ class UsuarioQueries
 
             try {
                 // Configuración del servidor
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
                 $mail->isSMTP();                                            // Enviar usando SMTP
                 $mail->Host       = 'smtp.gmail.com';                     // Configurar el servidor SMTP para enviar a través de Gmail
                 $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
@@ -63,7 +63,7 @@ class UsuarioQueries
 
                 // Destinatarios
                 $mail->setFrom('soportecrazydriving@gmail.com', 'Crazy Driving'); // Quien lo envía
-                $mail->addAddress($this->correo, $this->alias);     // Agregar un destinatario
+                $mail->addAddress($this->correo);     // Agregar un destinatario
 
                 // Adjuntos
                 // $mail->addAttachment('/var/tmp/file.tar.gz');         // Agregar archivos adjuntos
@@ -72,9 +72,9 @@ class UsuarioQueries
                 // Contenido
                 $mail->CharSet = 'UTF-8'; //caracteres especiales
                 $mail->isHTML(true);                                  // Configurar el formato del correo como HTML
-                $mensaje = 'Estos es un mensaje Cuaquiera DE Una Variable X ';
-                $mail->Subject = 'Codigo De Cambio de Contraseña';
-                $mail->AltBody = 'Este es el cuerpo en texto sin formato para clientes de correo que no admiten HTML';
+                $mensaje = 'Mensaje de verificación';
+                $mail->Subject = 'Código de verificación de contraseña';
+                $mail->AltBody = '¡Te saludamos de sistema Crazy Driving para enviarte el código de verificación, por favor ingresarlo en el formulario!';
 
                 $mail->Body    = '<!DOCTYPE html>
     
@@ -116,10 +116,10 @@ class UsuarioQueries
     </head>
     <body>
         <div class="container">
-            <h1>Título del Correo Electrónico</h1>
+            <h1>Código de verificación</h1>
             <p>' . $mail->AltBody . '</p>
             <p>' . $mensaje . '</p>
-            <a href="#" class="button">Visitar Sitio Web</a>
+            <p>' . $random_string_number . '</p>
         </div>
     </body>
     </html>
@@ -148,6 +148,21 @@ class UsuarioQueries
             return false;
         }
     }
+
+     //Método para comprobar el códigp
+     public function checkCode($random_string_number)
+     {
+         $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
+         $params = array($random_string_number);
+         if ($data = Database::getRow($sql, $params)) {
+             $this->id = $data['id_usuario'];
+             $this->random_string_number = $random_string_number;
+             return true;
+         } else {
+             return false;
+         }
+     }
+
 
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)

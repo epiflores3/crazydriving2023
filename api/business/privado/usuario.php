@@ -327,6 +327,28 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
+
+            case 'verificacioCodigoRecuperacion':
+                // Se realiza una validación y limpieza de los datos del formulario POST
+                $_POST = Validator::validateForm($_POST);
+                if (!isset($_SESSION['id_usuario_logOut'])) {
+                    // Si no existe una sesión de usuario, se establece un mensaje de excepción
+                    $result['exception'] = 'Debe autenticarse para cambiar la contraseña';
+                } elseif (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
+                    // Si no se puede establecer el ID de usuario basado en la sesión, se establece un mensaje de excepción
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif ($_SESSION['codigo_recuperacion'] == $_POST['verificarcodigo']) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Codigo de verificacion correcto';
+                    // $_SESSION['alias_usuario'] = $usuario->getCorreo_Usuario();
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'Código incorrecto';
+                    }
+                }
+                break;
             case 'checkRecovery':
                 $_POST = Validator::validateForm($_POST);
                 // Validar la dirección de correo electrónico
@@ -334,11 +356,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 }
                 // Validar el alias de usuario
-                elseif (!$usuario->setAlias($_POST['alias'])) {
-                    $result['exception'] = 'Alias incorrecto';
-                }
+                // elseif (!$usuario->setAlias($_POST['alias'])) {
+                //     $result['exception'] = 'Alias incorrecto';
+                // }
                 // Crear el primer usuario en la base de datos
-                elseif ($usuario->checkRecovery($_POST['correo_usuario'], ($_POST['alias']))) {
+                elseif ($usuario->checkRecovery($_POST['correo_usuario'])) {
                     // Si el cambio de contraseña es exitoso según el método changePasswordExpiracion, se establece el estado como exitoso y se muestra un mensaje de éxito
                     $result['status'] = 1;
                     $_SESSION['id_usuario_logOut'] = $usuario->getId();
