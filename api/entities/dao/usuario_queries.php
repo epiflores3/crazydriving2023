@@ -25,15 +25,15 @@ class UsuarioQueries
         }
     }
 
-
     //Método para comprobar el usuario
-    public function checkRecovery($correo)
+    public function checkRecovery($correo, $alias)
     {
-        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
-        $params = array($this->correo);
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? AND alias_usuario = ?';
+        $params = array($this->correo, $this->alias);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
             $this->correo = $correo;
+            $this->alias = $alias;
 
             //Create an instance; passing `true` enables exceptions
             /*numero ramdon*/
@@ -52,7 +52,7 @@ class UsuarioQueries
 
             try {
                 // Configuración del servidor
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
                 $mail->isSMTP();                                            // Enviar usando SMTP
                 $mail->Host       = 'smtp.gmail.com';                     // Configurar el servidor SMTP para enviar a través de Gmail
                 $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
@@ -130,12 +130,10 @@ class UsuarioQueries
             } catch (Exception $e) {
                 return false;
             }
-
         } else {
             return false;
         }
     }
-
 
     //Método para comprobar el usuario
     public function checkMail($correo)
@@ -164,14 +162,12 @@ class UsuarioQueries
     public function checkEstado($alias)
     {
         //Consulta de datos para verificar si existe un usuario con el alias
-        $sql = 'SELECT id_usuario, estado_usuario, EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_bloqueo)) AS dias_bloqueo
+        $sql = 'SELECT estado_usuario, EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_bloqueo)) AS dias_bloqueo
                 FROM usuario WHERE alias_usuario = ?';
         //Valor que se envía al parámetro
         $params = array($alias);
         //Si encuentra datos ingresa a la estructura
         if ($data = Database::getRow($sql, $params)) {
-            // Captura la información del usuario *************
-            $this->id = $data['id_usuario'];
             // Se revisa el estado del usuario
             if ($data['estado_usuario'] == "Bloqueado") {
                 // Verifica si el tiempo de diferencia en mayor o igual al 24hrs
@@ -191,10 +187,25 @@ class UsuarioQueries
         }
     }
 
+    public function checkRenewPassword()
+    {
+        $sql = 'SELECT EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_creacion)) AS dias
+        FROM usuario WHERE id_usuario = ?';
+        $params = array($this->id);
+
+        if (!$data = Database::getRow($sql, $params)) {
+            return false;
+        } elseif ($data['dias'] < 90) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Método para comprobar la contraseña del usuario
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_usuario, intento, estado_usuario FROM usuario WHERE id_usuario = ?';
+        $sql = 'SELECT clave_usuario, intento FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
 
@@ -205,7 +216,7 @@ class UsuarioQueries
             return true;
         } else {
             // Verificar y actualizar el contador de intentos fallidos toma el número entero y le suma 1
-            $intentosFallidos = intval($data['intento']) + 1;
+            $intentosFallidos = ($data['intento']) + 1;
 
             if ($intentosFallidos >= 5) {
                 $sql = "UPDATE usuario SET intento = 0, estado_usuario = 'Bloqueado',  fecha_bloqueo = CURRENT_TIMESTAMP WHERE id_usuario = ?";
@@ -259,7 +270,6 @@ class UsuarioQueries
         $params = array($this->alias, $this->correo, $this->clave, $date, $this->intentos, $this->estadousu);
         return Database::executeRow($sql, $params);
     }
-
 
 
     //Método para realizar el mantenimiento actualizar(update)
@@ -321,3 +331,4 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 }
+
