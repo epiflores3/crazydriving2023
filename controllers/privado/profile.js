@@ -58,6 +58,15 @@ PASSWORD_FORM.addEventListener('submit', async (event) => {
     }
 });
 
+// Obtener el fragmento de la URL (después del #)
+const modalToOpen = window.location.hash.substring(1);
+
+// Abrir el modal correspondiente si se proporcionó el fragmento
+if (modalToOpen) {
+  $(document).ready(function() {
+    PASSWORD_MODAL.show();
+  });
+}
 
 function openPassword() {
 
@@ -65,3 +74,4 @@ function openPassword() {
   
      PASSWORD_MODAL.hide();
 }
+

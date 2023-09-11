@@ -10,12 +10,13 @@ if (isset($_GET['action'])) {
     $usuario = new Usuario;
     $empleado = new Empleado;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
-    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null);
+    $result = array('status' => 0, 'session' => 0, 'message' => null, 'exception' => null, 'dataset' => null, 'username' => null, 'password' => false);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_usuario'])) {
         $result['session'] = 1;
         // Se compara la acciones que el usuario puede realizar cuando ha iniciado sesión.
         switch ($_GET['action']) {
+
                 //Se obtiene el alias del usuario y si existen, d elo contarrio mostrará un mensaje de error.
             case 'checkSessionTime':
                 if (Validator::validateSessionTime()) {
@@ -27,6 +28,17 @@ if (isset($_GET['action'])) {
                 break;
 
 
+                //  case 'cheackSession':
+                //    if (isset($_SESSION['id_usuario'])) {
+                //         $result['status'] = 1;
+                //        if($usuario->checkRenewPassword()){
+                //            $result['status'] = 1;
+                //            $result['message'] = 'Has llegado al límite, tienes que cambiar tu contraseña';
+                //        }
+                //          }else {
+                //          $result['exception'] = 'id de usuario indefinido';
+                //    }
+                //      break;
 
             case 'getUser':
                 if (isset($_SESSION['alias_usuario'])) {
@@ -36,6 +48,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias de usuario indefinido';
                 }
                 break;
+
+
                 //Acción de cerrar la sesión, contrario no se puede realizar dicha acción mostrará un mensaje de error.
             case 'logOut':
                 if (session_destroy()) {
@@ -327,8 +341,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 }
                 // Crear el primer usuario en la base de datos
-                elseif ($usuario->checkRecovery($_POST['correo_usuario'], ($_POST['alias']) )) 
-                {
+                elseif ($usuario->checkRecovery($_POST['correo_usuario'], ($_POST['alias']))) {
                     // Si el cambio de contraseña es exitoso según el método changePasswordExpiracion, se establece el estado como exitoso y se muestra un mensaje de éxito
                     $result['status'] = 1;
                     $_SESSION['id_usuario_logOut'] = $usuario->getId();
@@ -389,14 +402,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif (!$usuario->checkEstado($_POST['nombre'])) {
                     $result['exception'] = 'Estado bloqueado';
-                } elseif ($usuario->checkPassword($_POST['contra'])) {
+                } elseif (!$usuario->checkPassword($_POST['contra'])) {
+                    $result['exception'] = 'Clave incorrecta';
+                } elseif ($usuario->checkRenewPassword()) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
                     $_SESSION['tiempo_sesion'] = time();
                     $_SESSION['id_usuario'] = $usuario->getId();
                     $_SESSION['alias_usuario'] = $usuario->getAlias();
                 } else {
-                    $result['exception'] = 'Clave incorrecta';
+                    $_SESSION['id_usuario_password'] = $usuario->getId();
+                    $result['password'] = true;
+                    $result['exception'] = 'Tu contraseña a caducado';
                 }
                 break;
 
