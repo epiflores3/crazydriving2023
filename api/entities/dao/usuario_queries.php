@@ -27,14 +27,13 @@ class UsuarioQueries
 
 
     //Método para comprobar el usuario
-    public function checkRecovery($correo, $alias)
+    public function checkRecovery($correo)
     {
-        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? AND alias_usuario = ?';
-        $params = array($this->correo, $this->alias);
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
+        $params = array($this->correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
             $this->correo = $correo;
-            $this->alias = $alias;
 
             //Create an instance; passing `true` enables exceptions
             /*numero ramdon*/
@@ -53,7 +52,7 @@ class UsuarioQueries
 
             try {
                 // Configuración del servidor
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
                 $mail->isSMTP();                                            // Enviar usando SMTP
                 $mail->Host       = 'smtp.gmail.com';                     // Configurar el servidor SMTP para enviar a través de Gmail
                 $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP

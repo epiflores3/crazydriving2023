@@ -323,11 +323,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo incorrecto';
                 }
                 // Validar el alias de usuario
-                elseif (!$usuario->setAlias($_POST['alias'])) {
-                    $result['exception'] = 'Alias incorrecto';
-                }
+                // elseif (!$usuario->setAlias($_POST['alias'])) {
+                //     $result['exception'] = 'Alias incorrecto';
+                // }
                 // Crear el primer usuario en la base de datos
-                elseif ($usuario->checkRecovery($_POST['correo_usuario'], ($_POST['alias']) )) 
+                elseif ($usuario->checkRecovery($_POST['correo_usuario'])) 
                 {
                     // Si el cambio de contraseña es exitoso según el método changePasswordExpiracion, se establece el estado como exitoso y se muestra un mensaje de éxito
                     $result['status'] = 1;
