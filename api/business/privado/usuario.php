@@ -101,6 +101,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+
+        
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $usuario->readAll()) {
@@ -375,6 +377,25 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                case 'resetPassword':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$usuario->setId($_SESSION['id_usuario_password'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    } elseif (!$usuario->checkPassword($_POST['actual'])) {
+                        $result['exception'] = 'Clave actual incorrecta';
+                    } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                        $result['exception'] = 'Claves nuevas diferentes';
+                    } elseif (!$usuario->setClave($_POST['nueva'],$_SESSION['alias_usuario_password'] )) {
+                        $result['exception'] = Validator::getPasswordError();
+                    } elseif ($usuario->resetPassword()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Contraseña cambiada correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
+
+
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
                 if (!$empleado->setNombre($_POST['nombre'])) {
@@ -429,6 +450,7 @@ if (isset($_GET['action'])) {
                     $_SESSION['id_usuario'] = $usuario->getId();
                     $_SESSION['alias_usuario'] = $usuario->getAlias();
                 } else {
+                    $_SESSION['alias_usuario_password'] = $usuario->getAlias();
                     $_SESSION['id_usuario_password'] = $usuario->getId();
                     $result['password'] = true;
                     $result['exception'] = 'Tu contraseña a caducado';

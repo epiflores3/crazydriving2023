@@ -204,7 +204,7 @@ class UsuarioQueries
 
     public function checkRenewPassword()
     {
-        $sql = 'SELECT EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_creacion)) AS dias
+        $sql = 'SELECT EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_clave)) AS dias
         FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
 
@@ -322,6 +322,15 @@ class UsuarioQueries
                 SET clave_usuario = ?
                 WHERE id_usuario = ?';
         $params = array($this->clave, $_SESSION['id_usuario']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function resetPassword()
+    {
+        $sql = 'UPDATE usuario
+                SET clave_usuario = ?, fecha_clave = ?
+                WHERE id_usuario = ?';
+        $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario_password']);
         return Database::executeRow($sql, $params);
     }
 

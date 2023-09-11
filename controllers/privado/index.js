@@ -36,7 +36,7 @@ LOGIN.addEventListener('submit', async (event) => {
         sweetAlert(1, JSON.message, true, 'pagina_principal.html');
     } else {
         if (JSON.password) {
-            sweetAlert(2, JSON.exception, false, 'cuchao.html');
+            sweetAlert(2, JSON.exception, false, 'restaurar_contra_correo.html');
         } else {
             sweetAlert(2, JSON.exception, false);
         }
