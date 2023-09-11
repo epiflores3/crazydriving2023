@@ -6,7 +6,7 @@
   <!-- Codificación de caracteres para el documento -->
   <meta charset="utf-8">
   <!-- Título del documento -->
-  <title>CoffeeShop - Registrarse</title>
+  <title>Crazy Driving - Registrarse</title>
   <!-- Optimización de la página web para dispositivos móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,92 +23,93 @@
   <!-- Encabezado del documento -->
   <header></header>
 
-  <div class="row">
+  <div class="row m-3">
     <!-- <div class="col-6"></div> -->
-    <div class="col-12">
+    <div class="mb-3">
       <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <form class="form g-3" method="post" id="first-use" autocomplete="off">
+        <form class="form" method="post" id="first-use" autocomplete="off">
           <h3 class="fw-bold">Registrarse</h3><br>
 
-          <img height="150px" width="150px" src="../../resource/img/social.png" alt="restaurar">
-
+          <img height="120px" width="120px" src="../../resource/img/social.png" alt="restaurar">
 
           <input class="invisible" type="number" id="id" name="id">
 
-          <div class="col-12">
-            <label for="" class="form-label">Nombre completo</label>
-            <input type="text" class="form-control" id="nombre" name="nombre"
-              placeholder="Escriba el un nombre para su alias">
-          </div>
+          <div class="row mb-3">
 
-          <div class="col-12">
-            <label for="" class="form-label">DUI</label>
-            <input type="" class="form-control" id="dui" name="dui" placeholder="Escriba un correo valido">
-          </div>
+            <div class="col-12 mb-3">
+              <label for="" class="form-label m-0">Nombre completo</label>
+              <input type="text" class="form-control" id="nombre" name="nombre"
+                placeholder="Escriba el un nombre para su alias">
+            </div>
 
+            <div class="col mb-3">
+              <label for="" class="form-label m-0">DUI</label>
+              <input type="" class="form-control" id="dui" name="dui" placeholder="Escriba un correo valido">
+            </div>
 
-          <div class="col-12">
-            <label for="" class="form-label">Telefono</label>
-            <input type="" class="form-control" id="telefono" name="telefono" placeholder="Confirma tu clave">
-          </div>
+            <div class="col mb-3">
+              <label for="" class="form-label m-0">Telefono</label>
+              <input type="" class="form-control" id="telefono" name="telefono" placeholder="Confirma tu clave">
+            </div>
 
-          <div class="col-12">
-            <label for="" class="form-label">Fecha nacimiento</label>
-            <input type="date" class="form-control" id="nacimiento" name="nacimiento"
-              placeholder="Escriba el un nombre para su alias">
-          </div>
+            <div class="mb-3 ">
+              <label for="" class="form-label m-0">Fecha nacimiento</label>
+              <input type="date" class="form-control" id="nacimiento" name="nacimiento"
+                placeholder="Escriba el un nombre para su alias">
+            </div>
 
-          <div class="col-12">
-            <label for="" class="form-label">Direccion</label>
-            <input type="" class="form-control" id="direccion" name="direccion"
-              placeholder="Escriba un correo valido">
-          </div>
+            <div class="col-12 mb-3">
+              <label for="" class="form-label m-0">Direccion</label>
+              <input type="" class="form-control" id="direccion" name="direccion"
+                placeholder="Escriba un correo valido">
+            </div>
 
-          <div class="col-12">
-            <label for="" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="correo" name="correo" placeholder="Escriba una clave">
-          </div>
+            <div class="col-12 mb-3">
+              <label for="" class="form-label m-0">Correo</label>
+              <input type="email" class="form-control" id="correo" name="correo" placeholder="Escriba una clave">
+            </div>
 
-            <div class="col-12">
-              <label for="afp_primer" class="form-label">AFP</label>
+            <div class="col mb-3">
+              <label for="afp_primer" class="form-label m-0">AFP</label>
               <select class="form-select" required aria-label="select example" id="afp_primer" name="afp_primer">
                 <option value="">Seleccione una opcion</option>
               </select>
-            </div> -->
+            </div>
 
-             <div class="col-12">
-              <label for="sucursal_primer" class="form-label">Sucursal</label>
-              <select class="form-select" required aria-label="select example" id="sucursal_primer" name="sucursal_primer">
-                <option value="">Seleccione una opcion</option >
-              </select>
-            </div> 
-
-            <div class="col-12">
-              <label for="rol_primer" class="form-label">Rol</label>
-              <select class="form-select" required aria-label="select example" id="rol_primer" name="rol_primer">
-                <option value="">Seleccione una opcion</option> 
+            <div class="col mb-3">
+              <label for="sucursal_primer" class="form-label m-0">Sucursal</label>
+              <select class="form-select" required aria-label="select example" id="sucursal_primer"
+                name="sucursal_primer">
+                <option value="">Seleccione una opcion</option>
               </select>
             </div>
 
+            <div class="col-12 mb-3">
+              <label for="rol_primer" class="form-label m-0">Rol</label>
+              <select class="form-select" required aria-label="select example" id="rol_primer" name="rol_primer">
+                <option value="">Seleccione una opcion</option>
+              </select>
+            </div>
 
-          <div class="col-12">
-            <label for="" class="form-label">Alias</label>
-            <input type="text" class="form-control" id="ali_primer" name="ali_primer"
-              placeholder="Escriba el un nombre para su alias">
+            <div class="col-12 mb-3">
+              <label for="" class="form-label m-0">Alias</label>
+              <input type="text" class="form-control" id="ali_primer" name="ali_primer"
+                placeholder="Escriba el un nombre para su alias">
+            </div>
+
+            <div class="col">
+              <label for="" class="form-label m-0">Clave</label>
+              <input type="password" class="form-control" id="contra_primer" name="contra_primer"
+                placeholder="Escriba una clave">
+            </div>
+
+            <div class="col">
+              <label for="" class="form-label m-0">Confirmar clave</label>
+              <input type="password" class="form-control" id="rescon_primer" name="rescon_primer"
+                placeholder="Confirma tu clave">
+            </div>
+
           </div>
-
-          <div class="col-12">
-            <label for="" class="form-label">Clave</label>
-            <input type="password" class="form-control" id="contra_primer" name="contra_primer"
-              placeholder="Escriba una clave">
-          </div>
-
-          <div class="col-12">
-            <label for="" class="form-label">Confirmar clave</label>
-            <input type="password" class="form-control" id="rescon_primer" name="rescon_primer"
-              placeholder="Confirma tu clave">
-          </div>
-
 
 
           <!-- <br>
@@ -130,9 +131,10 @@
                               </label>
                             </div>
                         </div> -->
+          <br>
 
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary">Sign in</button>
+          <div class="m-0">
+            <button type="submit" class="btn btn-primary">Regitrarse</button>
           </div>
         </form>
       </div>
