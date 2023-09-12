@@ -67,7 +67,7 @@ SAVE_FORM_VALIDARDATOS.addEventListener('submit', async (event) => {
     //si no a inisiado sesion
     if (JSON.status) {
       //mensaje si todo fue correcto cambio de contraseña
-      sweetAlert(1, JSON.message, true, 'restaurar_contra_correo.html');//aqui el html de cambiar contra
+      sweetAlert(1, JSON.message, true, 'restaurar_contra_codigo.html');//aqui el html de cambiar contra
 
     } else {
       //problema mensaje 

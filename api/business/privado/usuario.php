@@ -337,6 +337,7 @@ if (isset($_GET['action'])) {
                     // Si no existe una sesión de usuario, se establece un mensaje de excepción
                     $result['exception'] = 'Debe autenticarse para cambiar la contraseña';
                 } elseif (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
+                    $_SESSION['alias_usuario_logOut'] = $usuario->getAlias();
                     // Si no se puede establecer el ID de usuario basado en la sesión, se establece un mensaje de excepción
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif ($_SESSION['codigo_recuperacion'] == $_POST['verificarcodigo']) {
@@ -395,6 +396,23 @@ if (isset($_GET['action'])) {
                     }
                     break;
 
+                    
+                case 'resetNewPassword':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                        $result['exception'] = 'Claves nuevas diferentes';
+                    } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario_logOut'])) {
+                        $result['exception'] = Validator::getPasswordError();
+                    } elseif ($usuario->resetNewPassword()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Contraseña cambiada correctamente';
+                        session_destroy();
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
 
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
@@ -434,6 +452,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                
                 //Comprobar que los datos estén correctos para poder iniciar sesión
             case 'login':
                 $_POST = Validator::validateForm($_POST);

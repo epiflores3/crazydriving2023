@@ -204,13 +204,14 @@ class UsuarioQueries
 
     public function checkRenewPassword()
     {
-        $sql = 'SELECT EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_clave)) AS dias
+        $sql = 'SELECT correo_usuario, EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_clave)) AS dias
         FROM usuario WHERE id_usuario = ?';
         $params = array($this->id);
 
         if (!$data = Database::getRow($sql, $params)) {
             return false;
         } elseif ($data['dias'] < 90) {
+            $this->correo=$data['correo_usuario'] ;
             return true;
         } else {
             return false;
@@ -331,6 +332,15 @@ class UsuarioQueries
                 SET clave_usuario = ?, fecha_clave = ?
                 WHERE id_usuario = ?';
         $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario_password']);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function resetNewPassword()
+    {
+        $sql = 'UPDATE usuario
+                SET clave_usuario = ?, fecha_clave = ?
+                WHERE id_usuario = ?';
+        $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario_logOut']);
         return Database::executeRow($sql, $params);
     }
 

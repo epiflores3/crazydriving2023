@@ -1,7 +1,7 @@
 /*
 *   CONTROLADOR DE USO GENERAL EN TODAS LAS PÁGINAS WEB.
 */
-
+const USER_API = 'business/privado/usuario.php';
 // Constante para establecer la ruta del servidor.
 const SERVER_URL = 'http://localhost/crazydriving2023/api/';
 

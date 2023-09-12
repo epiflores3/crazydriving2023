@@ -1,4 +1,4 @@
-const USER_API = 'business/privado/usuario.php';
+//const USER_API = 'business/privado/usuario.php';
 
 const HEADER = document.querySelector('header');
 const NAV = document.querySelector('nav');
