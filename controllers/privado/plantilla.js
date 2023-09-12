@@ -209,9 +209,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             sweetAlert(3, JSON.exception, false, 'index.html');
         }
     } else {
-       
         // Se comprueba si la página web es la principal, de lo contrario se direcciona a iniciar sesión.
-        if (location.pathname != '/crazydriving2023/view/privado/index.html' && location.pathname != '/crazydriving2023/view/privado/cuchao.html') {
+        if (location.pathname != '/crazydriving2023/view/privado/index.html') {
             location.href = 'index.html';
         }
     }

@@ -17,7 +17,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
   } else {
     if (JSON.status) {
       //mensaje si todo fue correcto
-      sweetAlert(1, JSON.exception, true);
+      sweetAlert(1, JSON.message, true);
 
     } else {
       //problema mensaje 

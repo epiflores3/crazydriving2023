@@ -33,7 +33,7 @@ LOGIN.addEventListener('submit', async (event) => {
     const JSON = await dataFetch(USER_API, 'login', FORM);
     // Se comprueba si la respuesta es correcta, sino muestra con la excepción.
     if (JSON.status) {
-        sweetAlert(1, JSON.message, true, 'pagina_principal.html');
+        sweetAlert(1, JSON.message, true, 'codigo_sfa.html');
     } else {
         if (JSON.password) {
             sweetAlert(2, JSON.exception, false, 'restaurar_contra_correo.html');

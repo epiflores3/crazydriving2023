@@ -1,13 +1,7 @@
 <?php
 require_once('../../helpers/database.php');
+require_once('../../helpers/props.php');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require '../../libraries/PHPMailer_Lb/src/Exception.php';
-require '../../libraries/PHPMailer_Lb/src/PHPMailer.php';
-require '../../libraries/PHPMailer_Lb/src/SMTP.php';
 //Clase para poder tener acceso a todos de la entidad requerida
 class UsuarioQueries
 {
@@ -26,114 +20,75 @@ class UsuarioQueries
     }
 
     //Método para comprobar el usuario
-    public function checkRecovery($correo)
+    public function checkRecovery()
     {
-        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ? ';
+        $sql = 'SELECT id_usuario, alias_usuario FROM usuario WHERE correo_usuario = ? ';
         $params = array($this->correo);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
-            $this->correo = $correo;
-            // $this->alias = $alias;
+            $this->alias = $data['alias_usuario'];
 
             //Create an instance; passing `true` enables exceptions
-            /*numero ramdon*/
-            $strength = 6;
-            $input = '0123456789';
-            $input_lengt = strlen($input);
-            $random_string = 'cod-';
-            $random_string_number = '';
-            for ($i = 0; $i < $strength; $i++) {
-                $random_character = $input[mt_rand(0, $input_lengt - 1)];
-                $random_string .= $random_character;
-                $random_string_number .= $random_character;
-            }
-            $this->codigo_recuperacion = $random_string_number;
-            $mail = new PHPMailer(true);
+            
+            $this->codigo_recuperacion = rand(100000, 999999);
+            $mensaje = 'Mensaje de verificación';
+            $mailSubject = 'Código de verificación de contraseña';
+            $mailAltBody = '¡Te saludamos de sistema Crazy Driving para enviarte el código de verificación, por favor ingresarlo en el formulario!';
 
-            try {
-                // Configuración del servidor
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Habilitar salida de depuración detallada
-                $mail->isSMTP();                                            // Enviar usando SMTP
-                $mail->Host       = 'smtp.gmail.com';                     // Configurar el servidor SMTP para enviar a través de Gmail
-                $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
-                $mail->Username   = 'soportecrazydriving@gmail.com';                     // Nombre de usuario SMTP
-                $mail->Password   = 'rmzhqmjwqbkswubj';                               // Contraseña SMTP
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Habilitar cifrado TLS implícito
-                $mail->Port       = 465;                                    // Puerto TCP para conectarse; usa 587 si has configurado `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-                // Destinatarios
-                $mail->setFrom('soportecrazydriving@gmail.com', 'Crazy Driving'); // Quien lo envía
-                $mail->addAddress($this->correo);     // Agregar un destinatario
-
-                // Adjuntos
-                // $mail->addAttachment('/var/tmp/file.tar.gz');         // Agregar archivos adjuntos
-                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Nombre opcional
-
-                // Contenido
-                $mail->CharSet = 'UTF-8'; //caracteres especiales
-                $mail->isHTML(true);                                  // Configurar el formato del correo como HTML
-                $mensaje = 'Mensaje de verificación';
-                $mail->Subject = 'Código de verificación de contraseña';
-                $mail->AltBody = '¡Te saludamos de sistema Crazy Driving para enviarte el código de verificación, por favor ingresarlo en el formulario!';
-
-                $mail->Body    = '<!DOCTYPE html>
-    
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>' . $mail->Subject . '</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            h1 {
-                color: #333;
-            }
-            p {
-                color: #666;
-            }
-            .button {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 3px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Código de verificación</h1>
-            <p>' . $mail->AltBody . '</p>
-            <p>' . $mensaje . '</p>
-            <p>' . $random_string_number . '</p>
-        </div>
-    </body>
-    </html>
-    ';
-
-                $mail->send();
-                return true;
-            } catch (Exception $e) {
-                return false;
-            }
+            $mailBody = '<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>' . $mailSubject . '</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background-color: #f4f4f4;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .container {
+                            max-width: 600px;
+                            margin: 0 auto;
+                            background-color: #ffffff;
+                            padding: 20px;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        }
+                        h1 {
+                            color: #333;
+                        }
+                        p {
+                            color: #666;
+                        }
+                        .button {
+                            display: inline-block;
+                            padding: 10px 20px;
+                            background-color: #007BFF;
+                            color: #fff;
+                            text-decoration: none;
+                            border-radius: 3px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>Código de verificación</h1>
+                        <p>' . $mailAltBody . '</p>
+                        <p>' . $mensaje . '</p>
+                        <p>' . $random_string_number . '</p>
+                    </div>
+                </body>
+                </html>';
+            return Props::sendMail($this->correo, $mailSubject, $mailBody);
         } else {
             return false;
         }
     }
+
+
+
 
     //Método para comprobar el usuario
     public function checkMail($correo)
@@ -211,7 +166,7 @@ class UsuarioQueries
         if (!$data = Database::getRow($sql, $params)) {
             return false;
         } elseif ($data['dias'] < 90) {
-            $this->correo=$data['correo_usuario'] ;
+            $this->correo = $data['correo_usuario'] ;
             return true;
         } else {
             return false;

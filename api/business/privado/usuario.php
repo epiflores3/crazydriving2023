@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-        
+
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $usuario->readAll()) {
@@ -337,7 +337,7 @@ if (isset($_GET['action'])) {
                     // Si no existe una sesión de usuario, se establece un mensaje de excepción
                     $result['exception'] = 'Debe autenticarse para cambiar la contraseña';
                 } elseif (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
-                    $_SESSION['alias_usuario_logOut'] = $usuario->getAlias();
+
                     // Si no se puede establecer el ID de usuario basado en la sesión, se establece un mensaje de excepción
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif ($_SESSION['codigo_recuperacion'] == $_POST['verificarcodigo']) {
@@ -363,12 +363,13 @@ if (isset($_GET['action'])) {
                 //     $result['exception'] = 'Alias incorrecto';
                 // }
                 // Crear el primer usuario en la base de datos
-                elseif ($usuario->checkRecovery($_POST['correo_usuario'])) {
+                elseif ($usuario->checkRecovery()) {
                     // Si el cambio de contraseña es exitoso según el método changePasswordExpiracion, se establece el estado como exitoso y se muestra un mensaje de éxito
                     $result['status'] = 1;
                     $_SESSION['id_usuario_logOut'] = $usuario->getId();
                     $_SESSION['codigo_recuperacion'] = $usuario->getCodigoRecuperacion();
-                    $result['exception'] = 'Código enviado correctamente';
+                    $_SESSION['alias_usuario_logOut'] = $usuario->getAlias();
+                    $result['message'] = 'Código enviado correctamente';
                 } else {
                     if (Database::getException()) {
                         $result['exception'] = Database::getException();
@@ -378,41 +379,40 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                case 'resetPassword':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$usuario->setId($_SESSION['id_usuario_password'])) {
-                        $result['exception'] = 'Usuario incorrecto';
-                    } elseif (!$usuario->checkPassword($_POST['actual'])) {
-                        $result['exception'] = 'Clave actual incorrecta';
-                    } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-                        $result['exception'] = 'Claves nuevas diferentes';
-                    } elseif (!$usuario->setClave($_POST['nueva'],$_SESSION['alias_usuario_password'] )) {
-                        $result['exception'] = Validator::getPasswordError();
-                    } elseif ($usuario->resetPassword()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Contraseña cambiada correctamente';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
+            case 'resetPassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setId($_SESSION['id_usuario_password'])) {
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif (!$usuario->checkPassword($_POST['actual'])) {
+                    $result['exception'] = 'Clave actual incorrecta';
+                } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                    $result['exception'] = 'Claves nuevas diferentes';
+                } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario_password'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($usuario->resetPassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
-                    
-                case 'resetNewPassword':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
-                        $result['exception'] = 'Usuario incorrecto';
-                    } elseif ($_POST['nueva'] != $_POST['confirmar']) {
-                        $result['exception'] = 'Claves nuevas diferentes';
-                    } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario_logOut'])) {
-                        $result['exception'] = Validator::getPasswordError();
-                    } elseif ($usuario->resetNewPassword()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Contraseña cambiada correctamente';
-                        session_destroy();
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
+            case 'resetNewPassword':
+                $_POST = Validator::validateForm($_POST);
+                if (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
+                    $result['exception'] = 'Usuario incorrecto';
+                } elseif ($_POST['nueva'] != $_POST['confirmar']) {
+                    $result['exception'] = 'Claves nuevas diferentes';
+                } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario_logOut'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($usuario->resetNewPassword()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Contraseña cambiada correctamente';
+                    session_destroy();
+                } else {
+                    $result['exception'] = Database::getException();
+                }
+                break;
 
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
@@ -452,7 +452,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                
+
                 //Comprobar que los datos estén correctos para poder iniciar sesión
             case 'login':
                 $_POST = Validator::validateForm($_POST);
@@ -464,10 +464,13 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Clave incorrecta';
                 } elseif ($usuario->checkRenewPassword()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Autenticación correcta';
-                    $_SESSION['tiempo_sesion'] = time();
-                    $_SESSION['id_usuario'] = $usuario->getId();
-                    $_SESSION['alias_usuario'] = $usuario->getAlias();
+                    $_SESSION['sfa'] = rand(100000, 999999);
+                    $mensaje = $_SESSION['sfa'];
+                    if (Props::sendMail($usuario->getCorreo(), 'Código de autenticación', $mensaje)) {
+                        $result['message'] = 'Credenciales correctas, revise su correo';
+                    } else {
+                        $result['exception'] = 'Ocurrió un problema al enviar el correo';
+                    }
                 } else {
                     $_SESSION['alias_usuario_password'] = $usuario->getAlias();
                     $_SESSION['id_usuario_password'] = $usuario->getId();
@@ -476,6 +479,19 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+            case 'sfa':
+                $_POST = Validator::validateForm($_POST);
+                if ($_POST['verificarcodigo'] == $_SESSION['sfa']) {
+                    unset($_SESSION['sfa']);
+                    $result['status'] = 1;
+                    $result['message'] = 'Autenticación correcta';
+                    $_SESSION['tiempo_sesion'] = time();
+                    $_SESSION['id_usuario'] = $usuario->getId();
+                    $_SESSION['alias_usuario'] = $usuario->getAlias();
+                } else {
+                    $result['exception'] = 'Código incorrecto';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
