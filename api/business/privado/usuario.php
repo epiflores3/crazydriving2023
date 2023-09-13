@@ -27,18 +27,6 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
-                //  case 'cheackSession':
-                //    if (isset($_SESSION['id_usuario'])) {
-                //         $result['status'] = 1;
-                //        if($usuario->checkRenewPassword()){
-                //            $result['status'] = 1;
-                //            $result['message'] = 'Has llegado al límite, tienes que cambiar tu contraseña';
-                //        }
-                //          }else {
-                //          $result['exception'] = 'id de usuario indefinido';
-                //    }
-                //      break;
-
             case 'getUser':
                 if (isset($_SESSION['alias_usuario'])) {
                     $result['status'] = 1;
@@ -464,6 +452,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Clave incorrecta';
                 } elseif ($usuario->checkRenewPassword()) {
                     $result['status'] = 1;
+                    $_SESSION['id_usuario_sfa'] = $usuario->getId();
                     $_SESSION['sfa'] = rand(100000, 999999);
                     $mensaje = $_SESSION['sfa'];
                     if (Props::sendMail($usuario->getCorreo(), 'Código de autenticación', $mensaje)) {
@@ -481,7 +470,10 @@ if (isset($_GET['action'])) {
 
             case 'sfa':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['verificarcodigo'] == $_SESSION['sfa']) {
+                if ($_POST['verificarcodigo'] != $_SESSION['sfa']) {
+                    $result['exception'] = 'Código incorrecto';
+                } elseif($usuario->checkSFA($_SESSION['id_usuario_sfa'])) {
+                    unset($_SESSION['id_usuario_sfa']);
                     unset($_SESSION['sfa']);
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
@@ -489,7 +481,7 @@ if (isset($_GET['action'])) {
                     $_SESSION['id_usuario'] = $usuario->getId();
                     $_SESSION['alias_usuario'] = $usuario->getAlias();
                 } else {
-                    $result['exception'] = 'Código incorrecto';
+                    $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
             default:

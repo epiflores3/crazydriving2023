@@ -19,6 +19,20 @@ class UsuarioQueries
         }
     }
 
+    //Método para comprobar segundo factor de autenticación
+    public function checkSFA($id)
+    {
+        $sql = 'SELECT id_usuario, alias_usuario FROM usuario WHERE id_usuario = ?';
+        $params = array($id);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_usuario'];
+            $this->alias = $data['alias_usuario'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Método para comprobar el usuario
     public function checkRecovery()
     {

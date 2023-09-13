@@ -8,18 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (JSON.session) {
         // Se direcciona a la página web de bienvenida.
         location.href = 'pagina_principal.html';
-
-        // if(JSON2.session){
-        //     window.location.href = "editar_perfil.html#agregar";
-        // }
-
     } else if (JSON.status) {
-        // Se muestra el formulario para iniciar sesión.
-        /*document.getElementById('login-container').classList.remove('hide');*/
         sweetAlert(4, JSON.message, true);
     } else {
         // Se muestra el formulario para registrar el primer usuario.
-        //document.getElementById('signup-container').classList.remove('hide');
         sweetAlert(4, JSON.exception, true);
     }
 });
