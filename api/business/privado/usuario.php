@@ -39,12 +39,16 @@ if (isset($_GET['action'])) {
                 //Acción de cerrar la sesión, contrario no se puede realizar dicha acción mostrará un mensaje de error.
             case 'logOut':
                 if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión cerrada correctamente';
+                    if ($usuario->cambiarEstadoInactivo()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Sesión cerrada correctamente';
+                    } 
                 } else {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
                 }
-                break;
+                break
+                
+                ;
             case 'readProfile':
                 if ($result['dataset'] = $usuario->readProfile()) {
                     $result['status'] = 1;
@@ -456,7 +460,9 @@ if (isset($_GET['action'])) {
                     $_SESSION['sfa'] = rand(100000, 999999);
                     $mensaje = $_SESSION['sfa'];
                     if (Props::sendMail($usuario->getCorreo(), 'Código de autenticación', $mensaje)) {
-                        $result['message'] = 'Credenciales correctas, revise su correo';
+                        if ($usuario->cambiarEstadoProceso()) {
+                            $result['message'] = 'Credenciales correctas, revise su correo';
+                        } 
                     } else {
                         $result['exception'] = 'Ocurrió un problema al enviar el correo';
                     }
@@ -468,22 +474,27 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+
+
             case 'sfa':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['verificarcodigo'] != $_SESSION['sfa']) {
                     $result['exception'] = 'Código incorrecto';
                 } elseif($usuario->checkSFA($_SESSION['id_usuario_sfa'])) {
-                    unset($_SESSION['id_usuario_sfa']);
-                    unset($_SESSION['sfa']);
-                    $result['status'] = 1;
-                    $result['message'] = 'Autenticación correcta';
-                    $_SESSION['tiempo_sesion'] = time();
-                    $_SESSION['id_usuario'] = $usuario->getId();
-                    $_SESSION['alias_usuario'] = $usuario->getAlias();
+                    if($usuario->cambiarEstadoActivo()){
+                        unset($_SESSION['id_usuario_sfa']);
+                        unset($_SESSION['sfa']);
+                        $result['status'] = 1;
+                        $result['message'] = 'Autenticación correcta';
+                        $_SESSION['tiempo_sesion'] = time();
+                        $_SESSION['id_usuario'] = $usuario->getId();
+                        $_SESSION['alias_usuario'] = $usuario->getAlias();
+                    }
                 } else {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+                
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

@@ -33,6 +33,25 @@ class UsuarioQueries
         }
     }
 
+   public function cambiarEstadoInactivo(){
+    $sql = "UPDATE usuario SET estado_usuario = 'Inactivo' WHERE id_usuario = ?";
+    $params = array($_SESSION['id_usuario']);
+    return Database::executeRow($sql, $params);
+   }
+
+   public function cambiarEstadoProceso(){
+    $sql = "UPDATE usuario SET estado_usuario = 'Proceso' WHERE id_usuario = ?";
+    $params = array($_SESSION['id_usuario_sfa']);
+    return Database::executeRow($sql, $params);
+   }
+
+   
+   public function cambiarEstadoActivo(){
+    $sql = "UPDATE usuario SET estado_usuario = 'Activo' WHERE id_usuario = ?";
+    $params = array($_SESSION['id_usuario_sfa']);
+    return Database::executeRow($sql, $params);
+   }
+
     //Método para comprobar el usuario
     public function checkRecovery()
     {
