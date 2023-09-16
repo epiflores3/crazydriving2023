@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
         // Se compara la acciones que el usuario puede realizar cuando ha iniciado sesión.
         switch ($_GET['action']) {
 
-                //Se obtiene el alias del usuario y si existen, d elo contarrio mostrará un mensaje de error.
+                //Se comprueba el tiempo de actividad de la sesión, a pasar el tiempo estipulado la sesión se cerrará.
             case 'checkSessionTime':
                 if (Validator::validateSessionTime()) {
                     $result['status'] = 1;
@@ -26,38 +26,37 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Su sesión ha caducado';
                 }
                 break;
-
+                //Se obtiene el alias del usuario y si existen, de lo contarrio mostrará un mensaje de error.
             case 'getUser':
                 if (isset($_SESSION['alias_usuario'])) {
                     $result['status'] = 1;
                     $result['username'] = $_SESSION['alias_usuario'];
                 } else {
-                    $result['exception'] = 'Alias de usuario indefinido';
+                    $result['exception'] = 'Ha ocurrido un problema';
                 }
                 break;
-
                 //Acción de cerrar la sesión, contrario no se puede realizar dicha acción mostrará un mensaje de error.
             case 'logOut':
                 if (session_destroy()) {
                     if ($usuario->cambiarEstadoInactivo()) {
                         $result['status'] = 1;
                         $result['message'] = 'Sesión cerrada correctamente';
-                    } 
+                    }
                 } else {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
                 }
-                break
-                
-                ;
+                break;
+                //Se comprueba que el usuario existe, de lo contrario mostrará un mensaje de error.
             case 'readProfile':
                 if ($result['dataset'] = $usuario->readProfile()) {
                     $result['status'] = 1;
                 } elseif (Database::getException()) {
                     $result['exception'] = Database::getException();
                 } else {
-                    $result['exception'] = 'Usuario inexistente';
+                    $result['exception'] = 'Ha ocurrido un problema';
                 }
                 break;
+                //Se comprueba que los datos de editar mi perfil se realicen correctamente.
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setCorreo($_POST['correo'])) {
@@ -65,7 +64,7 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->setAlias($_POST['alias'])) {
                     $result['exception'] = 'Apellidos incorrectos';
                 } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
-                    $result['exception'] = 'Correo incorrecto';
+                    $result['exception'] = 'Correo electrónico incorrecto';
                 } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif ($usuario->editProfile()) {
@@ -76,6 +75,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
+                //Se comprueba que las credenciales estén correctas, si es ha sido se realizará la acción de cambio de contraseña.
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_SESSION['id_usuario'])) {
@@ -93,8 +93,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
-
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
             case 'readAll':
                 if ($result['dataset'] = $usuario->readAll()) {
@@ -157,55 +155,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-
-                // case 'sendmail':
-                //     if (!$usuario->setCorreo($_POST['correo'])) {
-                //         $result['exception'] = 'Correo incorrecto';
-                //     }
-                //     $mail = new PHPMailer(true);
-                //     $mail->isSMTP();
-                //     $mail->SMTPAuth = true;
-                //     //to view proper logging details for success and error messages
-                //     // $mail->SMTPDebug = 1;
-                //     $mail->Host = 'smtp.gmail.com';  //gmail SMTP server
-                //     $mail->Username = 'enderchristianchiqui@gmail.com';   //email
-                //     $mail->Password = 'upmuvkorsmjbqigr';   //16 character obtained from app password created
-                //     $mail->Port = 465;                    //SMTP port
-                //     $mail->SMTPSecure = "ssl";
-                //     //sender information
-                //     $mail->setFrom('enderchristianchiqui@gmail.com', 'Endernoob09');
-                //     //receiver address and name
-                //     $mail->addAddress($email, $recipient);
-                //     $mail->isHTML(true);
-                //     $mail->Subject = 'Codigo de recuperacion de contrasena';
-                //     $mail->Body    = '<body style="background-color:#2B3547";>
-                //             <br>
-                //             <center><h3 style="color:white";>Su codigo para resetear su contraseña</h3></center>
-                //             <div>
-                //                 <b style = "color:white";>
-                //                       Aqui se le presenta el codigode recuperacion de contraseña,
-                //                     recuerde cambiarla cada cierto tiempo para evitar problemas de seguridad.
-                //                 </b>
-                //             </div>
-                //             <br>
-                //             <br>
-                //             <center><h2 style="color:white">' . $code . '</h2></center>
-                //             <br>
-                //             <br>
-                //             </body>
-                //                 <p> De parte de Fencing a usted ' . $recipient . '</p>';
-                //     // Send mail  
-                //     if ($mail->send()) {
-                //         if ($result['dataset'] = [$number, $armero->getCorreo()]) {
-                //             $result['status'] = 1;
-                //             $result['message'] = 'it worked!';
-                //         }
-                //     } else {
-                //         $result['exception'] = 'it didnt work :(';
-                //     }
-                //     $mail->smtpClose();
-                // break;
-
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
@@ -321,7 +270,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Debe crear un usuario para comenzar';
                 }
                 break;
-
+                //Se comprueba que el codigo de recuperación se ha correcto, de lo contrario se mostrará un mensaje de error.
             case 'verificacioCodigoRecuperacion':
                 // Se realiza una validación y limpieza de los datos del formulario POST
                 $_POST = Validator::validateForm($_POST);
@@ -329,7 +278,6 @@ if (isset($_GET['action'])) {
                     // Si no existe una sesión de usuario, se establece un mensaje de excepción
                     $result['exception'] = 'Debe autenticarse para cambiar la contraseña';
                 } elseif (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
-
                     // Si no se puede establecer el ID de usuario basado en la sesión, se establece un mensaje de excepción
                     $result['exception'] = 'Usuario incorrecto';
                 } elseif ($_SESSION['codigo_recuperacion'] == $_POST['verificarcodigo']) {
@@ -344,19 +292,13 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                //Se comprueba que el correo sea correcto, para realizar la acción de recuperación por correo electrónico.
             case 'checkRecovery':
                 $_POST = Validator::validateForm($_POST);
                 // Validar la dirección de correo electrónico
                 if (!$usuario->setCorreo($_POST['correo_usuario'])) {
                     $result['exception'] = 'Correo incorrecto';
-                }
-                // Validar el alias de usuario
-                // elseif (!$usuario->setAlias($_POST['alias'])) {
-                //     $result['exception'] = 'Alias incorrecto';
-                // }
-                // Crear el primer usuario en la base de datos
-                elseif ($usuario->checkRecovery()) {
-                    // Si el cambio de contraseña es exitoso según el método changePasswordExpiracion, se establece el estado como exitoso y se muestra un mensaje de éxito
+                } elseif ($usuario->checkRecovery()) {
                     $result['status'] = 1;
                     $_SESSION['id_usuario_logOut'] = $usuario->getId();
                     $_SESSION['codigo_recuperacion'] = $usuario->getCodigoRecuperacion();
@@ -370,7 +312,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-
+                //Se comprueba que las credenciales sean correcta, para realizar cambio de contraseña.
             case 'resetPassword':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_SESSION['id_usuario_password'])) {
@@ -388,7 +330,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
+                //Se comprueba que las credenciales sean correcta, para realizar cambio de contraseña.
             case 'resetNewPassword':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->setId($_SESSION['id_usuario_logOut'])) {
@@ -405,7 +347,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
+                //Se comprueba que las credenciales sean correcta, para realizar el proceso de registrarse.
             case 'signup':
                 $_POST = Validator::validateForm($_POST);
                 if (!$empleado->setNombre($_POST['nombre'])) {
@@ -443,17 +385,15 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-
-
                 //Comprobar que los datos estén correctos para poder iniciar sesión
             case 'login':
                 $_POST = Validator::validateForm($_POST);
                 if (!$usuario->checkUser($_POST['nombre'])) {
-                    $result['exception'] = 'Alias incorrecto';
+                    $result['exception'] = 'Credenciales incorrectas';
                 } elseif (!$usuario->checkEstado($_POST['nombre'])) {
                     $result['exception'] = 'Estado bloqueado';
                 } elseif (!$usuario->checkPassword($_POST['contra'])) {
-                    $result['exception'] = 'Clave incorrecta';
+                    $result['exception'] = 'Credenciales incorrectas';
                 } elseif ($usuario->checkRenewPassword()) {
                     $result['status'] = 1;
                     $_SESSION['id_usuario_sfa'] = $usuario->getId();
@@ -461,8 +401,8 @@ if (isset($_GET['action'])) {
                     $mensaje = $_SESSION['sfa'];
                     if (Props::sendMail($usuario->getCorreo(), 'Código de autenticación', $mensaje)) {
                         if ($usuario->cambiarEstadoProceso()) {
-                            $result['message'] = 'Credenciales correctas, revise su correo';
-                        } 
+                            $result['message'] = 'Credenciales correctas, favor revisar su correo electrónico';
+                        }
                     } else {
                         $result['exception'] = 'Ocurrió un problema al enviar el correo';
                     }
@@ -470,18 +410,16 @@ if (isset($_GET['action'])) {
                     $_SESSION['alias_usuario_password'] = $usuario->getAlias();
                     $_SESSION['id_usuario_password'] = $usuario->getId();
                     $result['password'] = true;
-                    $result['exception'] = 'Tu contraseña a caducado';
+                    $result['exception'] = 'Tu contraseña ha caducado';
                 }
                 break;
-
-
-
+                //Se comprueba que las credenciales sean correcta, para realizar el segundo proceso de autenticación.
             case 'sfa':
                 $_POST = Validator::validateForm($_POST);
                 if ($_POST['verificarcodigo'] != $_SESSION['sfa']) {
                     $result['exception'] = 'Código incorrecto';
-                } elseif($usuario->checkSFA($_SESSION['id_usuario_sfa'])) {
-                    if($usuario->cambiarEstadoActivo()){
+                } elseif ($usuario->checkSFA($_SESSION['id_usuario_sfa'])) {
+                    if ($usuario->cambiarEstadoActivo()) {
                         unset($_SESSION['id_usuario_sfa']);
                         unset($_SESSION['sfa']);
                         $result['status'] = 1;
@@ -494,7 +432,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
-                
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

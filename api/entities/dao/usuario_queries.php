@@ -33,26 +33,31 @@ class UsuarioQueries
         }
     }
 
-   public function cambiarEstadoInactivo(){
-    $sql = "UPDATE usuario SET estado_usuario = 'Inactivo' WHERE id_usuario = ?";
-    $params = array($_SESSION['id_usuario']);
-    return Database::executeRow($sql, $params);
-   }
+    //Método para cambiar el estadoo de inactividad 
+    public function cambiarEstadoInactivo()
+    {
+        $sql = "UPDATE usuario SET estado_usuario = 'Inactivo' WHERE id_usuario = ?";
+        $params = array($_SESSION['id_usuario']);
+        return Database::executeRow($sql, $params);
+    }
 
-   public function cambiarEstadoProceso(){
-    $sql = "UPDATE usuario SET estado_usuario = 'Proceso' WHERE id_usuario = ?";
-    $params = array($_SESSION['id_usuario_sfa']);
-    return Database::executeRow($sql, $params);
-   }
+    //Método para cambiar el estadoo de proceso 
+    public function cambiarEstadoProceso()
+    {
+        $sql = "UPDATE usuario SET estado_usuario = 'Proceso' WHERE id_usuario = ?";
+        $params = array($_SESSION['id_usuario_sfa']);
+        return Database::executeRow($sql, $params);
+    }
 
-   
-   public function cambiarEstadoActivo(){
-    $sql = "UPDATE usuario SET estado_usuario = 'Activo' WHERE id_usuario = ?";
-    $params = array($_SESSION['id_usuario_sfa']);
-    return Database::executeRow($sql, $params);
-   }
+    //Método para cambiar el estadoo de actividad 
+    public function cambiarEstadoActivo()
+    {
+        $sql = "UPDATE usuario SET estado_usuario = 'Activo' WHERE id_usuario = ?";
+        $params = array($_SESSION['id_usuario_sfa']);
+        return Database::executeRow($sql, $params);
+    }
 
-    //Método para comprobar el usuario
+    //Método para comprobar el las credenciales para proceso de recuperación por correo electrónico
     public function checkRecovery()
     {
         $sql = 'SELECT id_usuario, alias_usuario FROM usuario WHERE correo_usuario = ? ';
@@ -62,7 +67,7 @@ class UsuarioQueries
             $this->alias = $data['alias_usuario'];
 
             //Create an instance; passing `true` enables exceptions
-            
+
             $this->codigo_recuperacion = rand(100000, 999999);
             $mensaje = 'Mensaje de verificación';
             $mailSubject = 'Código de verificación de contraseña';
@@ -110,7 +115,7 @@ class UsuarioQueries
                         <h1>Código de verificación</h1>
                         <p>' . $mailAltBody . '</p>
                         <p>' . $mensaje . '</p>
-                        <p>' . $random_string_number . '</p>
+                        <p>' . $this->codigo_recuperacion . '</p>
                     </div>
                 </body>
                 </html>';
@@ -120,10 +125,7 @@ class UsuarioQueries
         }
     }
 
-
-
-
-    //Método para comprobar el usuario
+    //Método para comprobar el correo
     public function checkMail($correo)
     {
         $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
@@ -137,20 +139,19 @@ class UsuarioQueries
         }
     }
 
-     //Método para comprobar el códigp
-     public function checkCode($random_string_number)
-     {
-         $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
-         $params = array($random_string_number);
-         if ($data = Database::getRow($sql, $params)) {
-             $this->id = $data['id_usuario'];
-             $this->random_string_number = $random_string_number;
-             return true;
-         } else {
-             return false;
-         }
-     }
-
+    //Método para comprobar el códigp
+    public function checkCode($random_string_number)
+    {
+        $sql = 'SELECT id_usuario FROM usuario WHERE correo_usuario = ?';
+        $params = array($random_string_number);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['id_usuario'];
+            $this->random_string_number = $random_string_number;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
@@ -162,6 +163,7 @@ class UsuarioQueries
         return Database::getRows($sql, $params);
     }
 
+    //Método para comprobar el estado del usuario
     public function checkEstado($alias)
     {
         //Consulta de datos para verificar si existe un usuario con el alias
@@ -190,6 +192,7 @@ class UsuarioQueries
         }
     }
 
+    //Método para ccomprobar que las credenciales no hayan pasado los 90 días de inactividad
     public function checkRenewPassword()
     {
         $sql = 'SELECT correo_usuario, EXTRACT(days FROM (CURRENT_TIMESTAMP - fecha_clave)) AS dias
@@ -199,7 +202,7 @@ class UsuarioQueries
         if (!$data = Database::getRow($sql, $params)) {
             return false;
         } elseif ($data['dias'] < 90) {
-            $this->correo = $data['correo_usuario'] ;
+            $this->correo = $data['correo_usuario'];
             return true;
         } else {
             return false;
@@ -353,4 +356,3 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 }
-

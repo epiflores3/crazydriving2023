@@ -28,7 +28,8 @@ class Usuario extends UsuarioQueries
             return false;
         }
     }
-    
+
+    //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setCodigoRecuperacion($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -186,6 +187,8 @@ class Usuario extends UsuarioQueries
     {
         return $this->ruta;
     }
+
+    //Método para obtener los valores de los atributos correspondientes
     public function getCodigoRecuperacion()
     {
         return $this->codigo_recuperacion;

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         sweetAlert(4, JSON.message, true);
     } else {
         // Se muestra el formulario para registrar el primer usuario.
-        sweetAlert(4, JSON.exception, true);
+        sweetAlert(4, JSON.exception, true, 'primer_uso.html');
     }
 });
 
