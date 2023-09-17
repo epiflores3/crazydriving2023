@@ -1,4 +1,4 @@
-// const EMPLEADO_API = 'business/privado/empleado.php';
+const EMPLEADO_API = 'business/privado/empleado.php';
 
 const PROFILE_FORM = document.getElementById('profile-form');
 
