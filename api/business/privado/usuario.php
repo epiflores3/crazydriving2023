@@ -189,56 +189,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
-                //AGREGARLE EL POST DE CORREO Y DE LOS DATOS QUE NO QUEREMOS PARA QUE LA COTRASEÑA NO LO ACEPTE
-                // case 'update':
-                //     $_POST = Validator::validateForm($_POST);
-                //     if (!$usuario->setId($_POST['id'])) {
-                //         $result['exception'] = 'Usuario incorrecto';
-                //     } elseif (!$data = $usuario->readOne()) {
-                //         $result['exception'] = 'Usuario inexistente';
-                //     }
-                //     if (!$usuario->setCorreo($_POST['correo'])) {
-                //         $result['exception'] = 'Correo incorrecto';
-                //     } elseif (!$usuario->setAlias($_POST['alias'])) {
-                //         $result['exception'] = 'Alias incorrecto';
-                //     } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'])) {
-                //         $result['exception'] = 'Clave incorrecta';
-                //     } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
-                //         $result['exception'] = 'Fecha creacion incorrecta';
-                //     } elseif (!$usuario->setIntentos($_POST['intentos'])) {
-                //         $result['exception'] = Validator::getPasswordError();
-                //     } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
-                //         $result['exception'] = 'Estado incorrecto';
-                //     } elseif (!isset($_POST['idempleado'])) {
-                //         $result['exception'] = 'Seleccione un empleado';
-                //     } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
-                //         $result['exception'] = 'empleado incorrecta';
-                //     } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                //         $result['exception'] = 'Seleccione una imagen';
-                //     } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
-                //         if ($usuario->updateRow($data['imagen_usuario'])) {
-                //             $result['status'] = 1;
-                //             $result['message'] = 'Usuario modificado correctamente';
-                //         } else {
-                //             $result['exception'] = Database::getException();
-                //         }
-                //     } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
-                //         $result['exception'] = Validator::getFileError();
-                //     } elseif ($usuario->updateRow($data['imagen_usuario'])) {
-                //         $result['status'] = 1;
-                //         if (Validator::saveFile($_FILES['imagen_usuario'], $usuario->getRuta(), $usuario->getImagen())) {
-                //             $result['message'] = 'Usuario modificado correctamente';
-                //         } else {
-                //             $result['message'] = 'Usuario modificado pero no se guardó la imagen';
-                //         }
-                //     } elseif ($usuario->updateRow()) {
-                //         $result['status'] = 1;
-                //         $result['message'] = 'Usuario modificado correctamente';
-                //     } else {
-                //         $result['exception'] = Database::getException();
-                //     }
-                //     break;
+        
 
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':

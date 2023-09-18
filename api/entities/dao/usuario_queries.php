@@ -311,9 +311,9 @@ class UsuarioQueries
     public function changePassword()
     {
         $sql = 'UPDATE usuario
-                SET clave_usuario = ?
+                SET clave_usuario = ?, fecha_clave = ?
                 WHERE id_usuario = ?';
-        $params = array($this->clave, $_SESSION['id_usuario']);
+        $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
     }
 
