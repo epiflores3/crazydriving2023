@@ -1,19 +1,19 @@
 <?php
-require_once('../../entities/dto/notificacion.php');
+require_once('../../entities/dto/registros_intentos.php');
 
 // Se comprueba si se cumplirá una acción, es decir, caso(case) a realizar, si no se llegará a cumplir ninguna acción se mostrará un mensaje de error.
 if (isset($_GET['action'])) {
     // Se realiza una sesión o se sigue manejando la actual.
     session_start();
     // Se instancia una clase.
-    $notificacion = new Notificacion;
+    $fallidos = new RegistrosFallidos;
     // Se declara e inicializa un arreglo para guardar el resultado que se retorna.
     $result = array('status' => 0, 'message' => null, 'exception' => null, 'dataset' => null);
    
         switch ($_GET['action']) {
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
                 case 'readAll':
-                    if ($result['dataset'] = $notificacion->readAll()) {
+                    if ($result['dataset'] = $fallidos->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     } elseif (Database::getException()) {
@@ -23,17 +23,7 @@ if (isset($_GET['action'])) {
                     }
                     break;
 
-                case 'notifi':
-                    $_POST = Validator::validateForm($_POST);
-                    if (!$notificacion->setAccion($_POST['accion'])) {
-                        $result['exception'] = 'Accion no leida';
-                    } elseif (!$notificacion->createNoti()) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Notificacion creada';
-                    } else {
-                        $result['exception'] = Database::getException();
-                    }
-                    break;
+               
               
             default:
                

@@ -72,6 +72,8 @@ class Usuario extends UsuarioQueries
         }
     }
 
+
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setImagen($file)
     {

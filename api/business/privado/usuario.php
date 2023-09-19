@@ -63,10 +63,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 } elseif (!$usuario->setAlias($_POST['alias'])) {
                     $result['exception'] = 'Apellidos incorrectos';
-                } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
-                    $result['exception'] = 'Correo electrónico incorrecto';
-                } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
-                    $result['exception'] = 'Alias incorrecto';
                 } elseif ($usuario->editProfile()) {
                     $result['status'] = 1;
                     $_SESSION['alias_usuario'] = $usuario->getAlias();

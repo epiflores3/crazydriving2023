@@ -285,7 +285,7 @@ class UsuarioQueries
         // Se verifica si existe una nueva imagen_usuario para borrar la actual, de lo contrario se mantiene la actual.
         ($this->imagen_usuario) ? Validator::deleteFile($this->getRuta(), $current_imagen) : $this->imagen_usuario = $current_imagen;
         $sql = 'UPDATE usuario
-                SET  correo_usuario = ?, alias_usuario = ?,  clave_usuario = ?,  imagen_usuario = ?,  fecha_creacion = ?, intento = ?,  estado_usuario = ?,  id_empleado = ?
+                SET  correo_usuario = ?, alias_usuario = ?,  clave_usuario = ?,  imagen_usuario = ?,  fecha_creacion = ?, intento = ?,  estado_usuario = ?,  id_empleado = ?, fecha_clave = ?
                 WHERE id_usuario = ?';
         $params = array($this->correo, $this->alias, $this->clave, $this->imagen_usuario, $this->fechacreacion, $this->intentos, $this->estadousu, $this->idempleado, $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
@@ -316,7 +316,7 @@ class UsuarioQueries
         $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
     }
-
+  //Para cambiar la clave
     public function resetPassword()
     {
         $sql = 'UPDATE usuario
@@ -325,7 +325,7 @@ class UsuarioQueries
         $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario_password']);
         return Database::executeRow($sql, $params);
     }
-
+  //Para cambiar la clave 
     public function resetNewPassword()
     {
         $sql = 'UPDATE usuario
@@ -338,7 +338,7 @@ class UsuarioQueries
     //Para leer el usuario que inicio sesion
     public function readProfile()
     {
-        $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado
+        $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado, empleado.nombre_com_empleado
         FROM usuario
         INNER JOIN empleado USING(id_empleado)
         WHERE id_usuario = ?';
@@ -350,9 +350,9 @@ class UsuarioQueries
     public function editProfile()
     {
         $sql = 'UPDATE usuario
-                SET correo_usuario = ?, alias_usuario = ?, fecha_creacion = ?, id_empleado = ?
+                SET correo_usuario = ?, alias_usuario = ?
                 WHERE id_usuario = ?';
-        $params = array($this->correo, $this->alias, $this->fechacreacion, $this->idempleado,  $_SESSION['id_usuario']);
+        $params = array($this->correo, $this->alias, $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
     }
 }

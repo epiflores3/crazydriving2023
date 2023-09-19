@@ -218,7 +218,7 @@ class Validator
         } elseif (!preg_match('/[a-z]/', $value)) {
             self::$passwordError = 'Clave debe contener al menos una letra en minúsculas';
             return false;
-        } elseif (strpos($value, $user)) {
+        } elseif (!strpos($value, $user)) {
             self::$passwordError = 'Clave contiene datos del usuario ';
             return false;
         } elseif (preg_match('/[A-Z]/', $value)) {

@@ -84,7 +84,6 @@ async function fillTable(form = null) {
     <tr>
         <td>${row.correo_usuario}</td>
         <td>${row.alias_usuario}</td>
-        <td>${row.clave_usuario}</td>
         <td><img src="${SERVER_URL}images/usuario/${row.imagen_usuario}" class="materialboxed" height="100"></td>
         <td>${row.fecha_creacion}</td>
         <td>${row.intento}</td>

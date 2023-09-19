@@ -1,4 +1,4 @@
-const EMPLEADO_API = 'business/privado/empleado.php';
+ const EMPLEADO_API = 'business/privado/empleado.php';
 
 const PROFILE_FORM = document.getElementById('profile-form');
 
@@ -14,9 +14,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (JSON.status) {
       
         document.getElementById('fechacreacion').value = JSON.dataset.fecha_creacion;
+        document.getElementById('fechacreacion').disabled = true;
         document.getElementById('correo').value = JSON.dataset.correo_usuario;
         document.getElementById('alias').value = JSON.dataset.alias_usuario;
-        fillSelect(USER_API, 'readAll', 'idempleado', JSON.dataset.id_empleado);
+        fillSelect(EMPLEADO_API, 'readAll', 'idempleado', JSON.dataset.id_empleado);
+        document.getElementById('idempleado').disabled = true;
     
        
     } else {
