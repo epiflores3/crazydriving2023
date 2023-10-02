@@ -160,6 +160,11 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Alias incorrecto';
                 } elseif (!$usuario->setClave($_POST['clave'], $_POST['alias'], $_POST['correo'])) {
                     $result['exception'] = Validator::getPasswordError();
+                } elseif (!$usuario->setClave($_POST['confirmar'], $_POST['alias'], $_POST['correo'])) {
+                    $result['exception'] = Validator::getPasswordError();
+                } elseif ($_POST['clave'] != $_POST['confirmar']) {
+                    $result['exception'] = 'Claves diferentes';
+                    $result['exception'] = Validator::getPasswordError();
                 } elseif (!is_uploaded_file($_FILES['imagen_usuario']['tmp_name'])) {
                     $result['exception'] = 'Seleccione una imagen';
                 } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
@@ -185,7 +190,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-        
+
 
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':
@@ -270,6 +275,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Claves nuevas diferentes';
                 } elseif (!$usuario->setClave($_POST['nueva'], $_SESSION['alias_usuario_password'])) {
                     $result['exception'] = Validator::getPasswordError();
+                    
                 } elseif ($usuario->resetPassword()) {
                     $result['status'] = 1;
                     $result['message'] = 'Contraseña cambiada correctamente';
@@ -342,16 +348,13 @@ if (isset($_GET['action'])) {
                 } elseif (!$usuario->checkPassword($_POST['contra'])) {
                     $result['exception'] = 'Credenciales incorrectas';
                 } elseif ($usuario->checkRenewPassword()) {
-                    $result['status'] = 1;
-                    $_SESSION['id_usuario_sfa'] = $usuario->getId();
-                    $_SESSION['sfa'] = rand(100000, 999999);
-                    $mensaje = $_SESSION['sfa'];
-                    if (Props::sendMail($usuario->getCorreo(), 'Código de autenticación', $mensaje)) {
+                    if ($usuario->checkRecovery()) {
+                        $result['status'] = 1;
+                        $_SESSION['id_usuario_sfa'] = $usuario->getId();
+                        $_SESSION['codigo_recuperacion'] = $usuario->getCodigoRecuperacion();
                         if ($usuario->cambiarEstadoProceso()) {
                             $result['message'] = 'Credenciales correctas, favor revisar su correo electrónico';
                         }
-                    } else {
-                        $result['exception'] = 'Ocurrió un problema al enviar el correo';
                     }
                 } else {
                     $_SESSION['alias_usuario_password'] = $usuario->getAlias();
@@ -363,12 +366,12 @@ if (isset($_GET['action'])) {
                 //Se comprueba que las credenciales sean correcta, para realizar el segundo proceso de autenticación.
             case 'sfa':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['verificarcodigo'] != $_SESSION['sfa']) {
+                if ($_POST['verificarcodigo'] != $_SESSION['codigo_recuperacion']) {
                     $result['exception'] = 'Código incorrecto';
                 } elseif ($usuario->checkSFA($_SESSION['id_usuario_sfa'])) {
                     if ($usuario->cambiarEstadoActivo()) {
                         unset($_SESSION['id_usuario_sfa']);
-                        unset($_SESSION['sfa']);
+                        unset($_SESSION['codigo_recuperacion']);
                         $result['status'] = 1;
                         $result['message'] = 'Autenticación correcta';
                         $_SESSION['tiempo_sesion'] = time();

@@ -197,6 +197,7 @@ class Validator
     *   Parámetros: $value (dato a validar).
     *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
     */
+    //Cuando son métodos las llaves ban abajos y las condiciones (if, elseif) a la par
     public static function validatePassword($value, $user)
     {
         // Se verifica la longitud mínima.
@@ -218,7 +219,7 @@ class Validator
         } elseif (!preg_match('/[a-z]/', $value)) {
             self::$passwordError = 'Clave debe contener al menos una letra en minúsculas';
             return false;
-        } elseif (!strpos($value, $user)) {
+        } elseif (strpos($value, $user) !== false) {
             self::$passwordError = 'Clave contiene datos del usuario ';
             return false;
         } elseif (preg_match('/[A-Z]/', $value)) {

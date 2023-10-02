@@ -285,7 +285,7 @@ class UsuarioQueries
         // Se verifica si existe una nueva imagen_usuario para borrar la actual, de lo contrario se mantiene la actual.
         ($this->imagen_usuario) ? Validator::deleteFile($this->getRuta(), $current_imagen) : $this->imagen_usuario = $current_imagen;
         $sql = 'UPDATE usuario
-                SET  correo_usuario = ?, alias_usuario = ?,  clave_usuario = ?,  imagen_usuario = ?,  fecha_creacion = ?, intento = ?,  estado_usuario = ?,  id_empleado = ?, fecha_clave = ?
+                SET  correo_usuario = ?, alias_usuario = ?,  clave_usuario = ?,  imagen_usuario = ?,  fecha_creacion = ?, intento = ?,  estado_usuario = ?,  id_empleado = ?
                 WHERE id_usuario = ?';
         $params = array($this->correo, $this->alias, $this->clave, $this->imagen_usuario, $this->fechacreacion, $this->intentos, $this->estadousu, $this->idempleado, $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
@@ -307,6 +307,17 @@ class UsuarioQueries
         return Database::getRows($sql);
     }
 
+    public function getCurrentPassword()
+    {
+        $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
+        $params = array($_SESSION['id_usuario']);
+        $result = Database::getRow($sql, $params);
+        if ($result) {
+            return $result['clave_usuario'];
+        }
+        return null; // Puedes retornar null u otro valor predeterminado si no se encuentra la contraseña actual.
+    }
+
     //Para cambiar la clave
     public function changePassword()
     {
@@ -316,7 +327,26 @@ class UsuarioQueries
         $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario']);
         return Database::executeRow($sql, $params);
     }
-  //Para cambiar la clave
+
+    //     public function changePassword()
+
+    // {
+    //     $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
+    //     $params = array($_SESSION['id_usuario']);
+    //     $data  = Database::getRow($sql, $params);
+    //     if ($data) {
+    //         if ($this->clave ===  $data['clave_usuario'] ) {
+    //             // La nueva contraseña es igual a la contraseña actual
+    //             // Mostrar un mensaje de error en la consola del navegador
+    //             echo '<script>console.error("Contras iguales");</script>';
+    //             return false; // Puedes retornar false u otro valor que indique un error.
+    //         }
+    //     }
+    //     return null;
+
+
+    // }
+
     public function resetPassword()
     {
         $sql = 'UPDATE usuario
@@ -325,7 +355,7 @@ class UsuarioQueries
         $params = array($this->clave, date('Y-m-d'), $_SESSION['id_usuario_password']);
         return Database::executeRow($sql, $params);
     }
-  //Para cambiar la clave 
+
     public function resetNewPassword()
     {
         $sql = 'UPDATE usuario
@@ -338,7 +368,7 @@ class UsuarioQueries
     //Para leer el usuario que inicio sesion
     public function readProfile()
     {
-        $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado, empleado.nombre_com_empleado
+        $sql = 'SELECT usuario.id_usuario, usuario.correo_usuario, usuario.alias_usuario, usuario.clave_usuario, usuario.fecha_creacion, usuario.id_empleado
         FROM usuario
         INNER JOIN empleado USING(id_empleado)
         WHERE id_usuario = ?';
