@@ -19,79 +19,83 @@ document.addEventListener('DOMContentLoaded', async () => {
             HEADER.innerHTML = `
             <a href="#" class="material-symbols-outlined">
             <i class='fa-solid fa-car-burst fa-2xl'></i>
-            <span class="text">Crazy driving</span>
+            <span class="text"> | CRAZY DRIVING |</span>
             </a>
             <ul class="side-menu top">
+            
             <li class="active">
             
                 <a href="pagina_principal.html">
                 <i class="fa-solid fa-house"></i>
-                    <span class="text">Inicio</span>
+                    <span class="text"> | Inicio </span>
                 </a>
             </li>
             
-            <li>
+            <li class="">
                 <a href="cliente.html">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <span class="">Cliente</span>
+                    <i class="fa-solid fa-user"></i>
+                    <span class="text"> | Cliente </span>
                 </a>
             </li>
  
             <li>
                 <a href="inscripcion.html">
                 <i class="fa-solid fa-id-card"></i>
-                    <span class="text">Inscripción</span>
+                    <span class="text"> | Inscripción</span>
                 </a>
             </li>
             
             <li>
                 <a href="paquete.html">
                 <i class="fa-solid fa-box-open"></i>
-                    <span class="text">Paquete</span>
+                    <span class="text">| Paquete</span>
                 </a>
             </li>
 
             <li>
                 <a href="sesion.html">
                 <i class="fa-solid fa-book-bookmark"></i>
-                    <span class="text">Sesión</span>
+                    <span class="text">| Sesión</span>
                 </a>
             </li>
             
             <li>
                 <a href="modelo.html">
                 <i class="fa-solid fa-car-on"></i>
-                    <span class="text">Modelo</span>
+                    <span class="text">| Modelo</span>
                 </a>
             </li>
             
             <li>
                 <a href="empleado.html">
                 <i class="fa-solid fa-users-gear"></i>
-                    <span class="text">Empleado</span>
+                    <span class="text">| Empleado</span>
                 </a>
             </li>
             
             <li>
                 <a href="usuario.html">
                 <i class="fa-solid fa-id-card-clip"></i>
-                    <span class="text">Usuario</span>
+                    <span class="text">| Usuario</span>
                 </a>
             </li>
             
+            <li></li>
+            <li></li>
             </ul>
             <ul class="side-menu">
             <li>
                 <a href="editar_perfil.html">
                 <i class="fa-solid fa-user-pen"></i>
-                    <span class="text">Ajustes</span>
+                    <span class="text"> | Ajustes</span>
                 </a>
             </li>
-
+             
+            
             <li>
                 <a href="#" class="logout" onclick="logOut()">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                    <span class="text">Cerrar sesión</span>
+                    <span class="text"> | Cerrar sesión</span>
                 </a>
             </li>
             </ul>
