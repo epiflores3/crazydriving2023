@@ -26,7 +26,7 @@ class ResponsableQueries
 
     public function readOne()
     {
-        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, nombre_com_cliente
+        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente, nombre_com_cliente
         FROM responsable_menor
         INNER JOIN cliente USING (id_cliente)
         WHERE id_responsable_menor = ?';
@@ -62,10 +62,10 @@ class ResponsableQueries
         return Database::executeRow($sql, $params);
     }
 
-    //Método para leer los clientes que existe en la base de datos
-    public function readCliente()
+    public function cmbCliente()
     {
-        $sql = 'SELECT id_cliente, nombre_com_cliente FROM cliente';
+        $sql = 'SELECT id_cliente, nombre_com_cliente, dui_cliente, fecha_nac_cliente, direccion_cliente, correo_cliente, estado_cliente
+        FROM cliente';
         return Database::getRows($sql);
     }
 }

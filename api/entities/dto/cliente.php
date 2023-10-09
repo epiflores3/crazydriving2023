@@ -14,6 +14,13 @@ class Cliente extends ClienteQueries
     protected $correo = null;
     protected $estado = null;
 
+    const ESTADOSTIPO = array(
+        array('En proceso', 'En proceso'),
+        array('Pendiente', 'Pendiente'),
+        array('Finalizado', 'Finalizado'),
+        array('Suspendido', 'Suspendido')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -83,7 +90,7 @@ class Cliente extends ClienteQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstado($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (in_array($value, array_column(self::ESTADOSTIPO, 0))) {
             $this->estado = $value;
             return true;
         } else {

@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../../resource/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../resource/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/solid.min.css">
+
+    <link rel="stylesheet" href="../../resource/css/icons.css">
     <link rel="stylesheet" href="../../resource/css/nav.css">
-    <link rel="stylesheet" href="../../resource/css/icons.css" />
     <!-- Boxicons -->
-    <link href='../../resource/css/unpkg.com_boxicons@2.0.9_css_boxicons.min.css' rel='stylesheet'>
     <title>Empleado</title>
 </head>
 
@@ -20,195 +22,470 @@
     <section id="content">
         <nav></nav>
         <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Empleado</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="">Empleado</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Empleado</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--Main principal-->
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Registro de empleados</h3>
-                        <form method="post" id="search-form">
-                            <div class="input-field">
-                                <input id="search" type="search" name="search"
-                                    placeholder="Buscar por nombre o sucursal" aria-label="Buscar" required />
-                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">AFP</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                        type="button" role="tab" aria-controls="contact" aria-selected="false">Sucursal</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <!-- EMPLEADO -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Empleado</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Empleado</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Empleado</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!--Main principal Tabla empleado-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de empleados</h3>
+
+
+                                <form method="post" id="search-form">
+                                    <div class="input-field">
+                                        <input id="search" type="search" name="search"
+                                            placeholder="Buscar por nombre o sucursal" aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+
+                                <button class="btn me-md-2" type="button">
+                                    <a onclick="openReportEmpleadoPorAfp()"><img height="20px" width="20px"
+                                            src="../../resource/img/imgtablas/reportAFP.png" alt=""></a>
+                                </button>
+
+                                <button class="btn me-md-2" type="button">
+                                    <a onclick="openReportEmpleadosPorSucu()"><img height="20px" width="20px"
+                                            src="../../resource/img/imgtablas/reportAFP.png" alt=""></a>
+                                </button>
+
+                                <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarEmpleado"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+
                             </div>
-                        </form>
-                        <!-- <button onclick="openReportEmpleadoPorAfp()" type="button" class="btn"><img height="40px" width="40px"
-                                src="../../resource/img/imgtablas/reportAFP.png" alt="check">
-                        </button> -->
-                        <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarEmpleado"><img height="25px" width="25px"
-                                src="../../resource/img/imgtablas/agregar.png" alt="check">
-                        </button>
-
-                        <button class="btn me-md-2" type="button">
-                            <a onclick="openReportEmpleadoPorAfp()"><img height="20px" width="20px"
-                                    src="../../resource/img/imgtablas/reportAFP.png" alt=""></a>
-                        </button>
-
-                        <button class="btn me-md-2" type="button">
-                            <a onclick="openReportEmpleadosPorSucu()"><img height="20px" width="20px"
-                                    src="../../resource/img/imgtablas/reportAFP.png" alt=""></a>
-                        </button>
-                    </div>
-                    <div class="row">
-                        <main class="container">
-                            <section>
-                                <div class="row meu">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="table-responsive">
-                                                <table>
-                                                    <tr id="records"></tr>
-                                                    <thead>
-                                                        <tr class="text-center">
-                                                            <th>Nombre completo</th>
-                                                            <th>DUI </th>
-                                                            <th>Licencia</th>
-                                                            <th>Teléfono</th>
-                                                            <th>Fecha de nacimiento</th>
-                                                            <th>Dirección</th>
-                                                            <th>Correo electrónico</th>
-                                                            <th>AFP</th>
-                                                            <th>Estado</th>
-                                                            <th>Asesor</th>
-                                                            <th>Rol</th>
-                                                            <th>Sucursal</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-center" id="tbody-rows"></tbody>
-                                                </table>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records"></tr>
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>Nombre completo</th>
+                                                                    <th>DUI </th>
+                                                                    <th>Licencia</th>
+                                                                    <th>Teléfono</th>
+                                                                    <th>Correo electrónico</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Asesor</th>
+                                                                    <th>Rol</th>
+                                                                    <th>Sucursal</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
                                             </div>
-                                            <br>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarEmpleado" tabindex="-1" aria-labelledby="agregarEmpleado"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
-
-                                <input class="invisible" type="number" id="id" name="id">
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Nombre completo</label><br>
-                                    <input type="text" name="nombre" id="nombre" class="form-control" required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">DUI</label><br>
-                                    <input type="text" name="dui" id="dui" class="form-control" required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="file-field input-field col s12 m6">
-                                        <label for="" class="form-label">Licencia</label><br>
-                                        <div class="btn waves-effect tooltipped"
-                                            data-tooltip="Elegir imagen de al menos 700x700 px">
-                                            <i class="bi bi-imagen"></i>
-                                            <input id="licencia" type="file" name="licencia" accept=".jpg, .png">
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Teléfono</label><br>
-                                    <input type="text" name="telefono" id="telefono" class="form-control" required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Fecha de nacimiento</label><br>
-                                    <input type="date" name="nacimiento" id="nacimiento" class="form-control"
-                                        required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Dirección</label><br>
-                                    <input type="text" name="direccion" id="direccion" class="form-control"
-                                        required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Correo electrónico</label><br>
-                                    <input type="email" name="correo" id="correo" class="form-control" required><br>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">AFP</label><br>
-                                    <input type="text" name="afp" id="afp" class="form-control" required><br>
-                                </div>
-
-                                <div class="col s12 m6">
-                                    <p>
-                                    <div class="switch">
-                                        <span>Estado</span>
-                                        <label>
-                                            <input id="estado" type="checkbox" name="estado" checked>
-                                            <span class="lever"></span>
-                                        </label>
-                                    </div>
-                                    </p>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Rol</label>
-                                    <select class="form-select" required aria-label="select example" id="rol"
-                                        name="rol">
-                                        <option value="">Seleccione una opcion</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Sucursal</label>
-                                    <select class="form-select" required aria-label="select example" id="sucursal"
-                                        name="sucursal">
-                                        <option value="">Seleccione una opcion</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary"><i
-                                            class="fa-solid fa-floppy-disk"></i>
-                                        Agregar</button>
-                                </div>
-                            </form>
+                                    </section>
+                                </main>
+                            </div>
                         </div>
                     </div>
+                    <!-- Modal  para agregar modal empleado-->
+                    <div class="modal fade" id="agregarEmpleado" tabindex="-1" aria-labelledby="agregarEmpleado"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
+
+                                        <input class="" type="number" id="id_empleado" name="id_empleado">
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Nombre completo</label><br>
+                                            <input type="text" name="nombre" id="nombre" class="form-control"
+                                                required><br>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">DUI</label><br>
+                                            <input type="text" name="dui" id="dui" class="form-control" required><br>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <div class="file-field input-field col s12 m6">
+                                                <label for="" class="form-label">Licencia</label><br>
+                                                <div class="btn waves-effect tooltipped"
+                                                    data-tooltip="Elegir imagen de al menos 700x700 px">
+                                                    <i class="bi bi-imagen"></i>
+                                                    <input id="licencia" type="file" name="licencia"
+                                                        accept=".jpg, .png">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Teléfono</label><br>
+                                            <input type="text" name="telefono" id="telefono" class="form-control"
+                                                required><br>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Fecha de nacimiento</label><br>
+                                            <input type="date" name="nacimiento" id="nacimiento" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Dirección</label><br>
+                                            <input type="text" name="direccion" id="direccion" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Correo electrónico</label><br>
+                                            <input type="email" name="correo" id="correo" class="form-control"
+                                                required><br>
+                                        </div>
+
+                                        <div class="col s12 m6">
+                                            <p>
+                                            <div class="switch">
+                                                <span>Asesor</span>
+                                                <label>
+                                                    <input id="asesor" type="checkbox" name="asesor" >
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                            </p>
+                                        </div>
+
+                                        <div class="col s12 m6">
+                                            <p>
+                                            <div class="switch">
+                                                <span>Estado</span>
+                                                <label>
+                                                    <input id="estado" type="checkbox" name="estado" >
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label>Sucursal</label>
+                                            <select class="form-select" required aria-label="select example"
+                                                id="sucursal" name="sucursal">
+                                                <option value="">Seleccione una opcion</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">AFP</label><br>
+                                            <select class="form-select" required aria-label="select example" id="afp"
+                                            name="afp">
+                                            <option value="">Seleccione una opcion</option>
+                                        </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label>Rol</label>
+                                            <select class="form-select" required aria-label="select example" id="rol"
+                                                name="rol">
+                                                <option value="">Seleccione una opcion</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    
+                    <!-- AFP -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>AFP</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">AFP</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">AFP</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal AFP-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de AFP</h3>
+                                <form method="post" id="search-form-AFP">
+                                    <div class="input-field">
+                                        <input id="search-AFP" type="search" name="search-AFP" placeholder="Buscar por nombre AFP"
+                                            aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateAFP()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarAFP"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+    
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="recordsAFP"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Nombre AFP</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-AFP"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar AFP-->
+                    <div class="modal fade" id="agregarAFP" tabindex="-1" aria-labelledby="agregarAFP" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-titleAFP"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-AFP" enctype="multipart/form-data" autocomplete="off">
+        
+                                        <input class="invisible" type="number" id="id_afp" name="id_afp">
+        
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">AFP</label><br>
+                                            <input type="text" id="nombre_afp" name="nombre_afp"  class="form-control" required><br>
+                                        </div>
+        
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    
+                    <!-- SUCURSAL -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Sucursal</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Sucursal</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Sucursal</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal Scursal-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de sucursales</h3>
+                                <form method="post" id="search-form-sucursal">
+                                    <div class="input-field">
+                                        <input id="search-sucursal" type="search" name="search-sucursal"
+                                            placeholder="Buscar por nombre y dirección" aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateSucursal()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarSucursal"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="recordsS"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Nombre de sucursal</th>
+                                                                    <th>Dirección</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-sucursal"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar Sucursal-->
+                    <div class="modal fade" id="agregarSucursal" tabindex="-1" aria-labelledby="agregarSucursal"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title-sucursal"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-sucursal" enctype="multipart/form-data" autocomplete="off">
+                                        <input class="invisible" type="number" id="id_sucursal" name="id_sucursal">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Nombre de sucursal</label><br>
+                                            <input type="text" name="nombre_sucursal" id="nombre_sucursal" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Dirección de sucursal</label><br>
+                                            <input type="text" name="direccion_sucursal" id="direccion_sucursal"
+                                                class="form-control" required><br>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </main>
 
     </section>
-    
+
     <script src="../../resource/js/bootstrap.bundle.min.js"></script>
     <script src="../../resource/js/sweetalert.min.js"></script>
-    <script src="../../controllers/components.js"></script> 
+    <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/plantilla.js"></script>
-    <script src="../../controllers/privado/empleado.js"></script>
+    <script src="../../controllers/privado/afp.js"></script>
+    <script src="../../controllers/privado/sucursal.js"></script>
+    <script src="../../controllers/privado/empleado.js"></script> 
 </body>
 
 </html>

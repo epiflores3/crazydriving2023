@@ -52,8 +52,8 @@ class ClienteQueries
     //Método para realizar el mantenimiento eliminar(delete)
     public function deleteRow()
     {
-        $sql = 'DELETE FROM vehiculo
-        WHERE id_vehiculo = ?';
+        $sql = 'DELETE FROM cliente
+        WHERE id_cliente = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }

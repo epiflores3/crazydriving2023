@@ -4,6 +4,10 @@ require_once('../../helpers/report2.php');
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
+
+// Se inicia el reporte con el encabezado del documento.
+$pdf->startReport('Sesiones por tipo de clase: '. $_GET['tipo_clase']);
+
 // Se verifica si existe un valor para la categoría, de lo contrario se muestra un mensaje.
 if (isset($_GET['tipo_clase'])) {
     // Se incluyen las clases para la transferencia y acceso a datos.
@@ -15,9 +19,6 @@ if (isset($_GET['tipo_clase'])) {
     // Se establece el valor de la categoría, de lo contrario se muestra un mensaje.
     if ($ses->setTipoClase($_GET['tipo_clase'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
-
-        // Se inicia el reporte con el encabezado del documento.
-        $pdf->startReport('Sesiones por tipo de clase: '. $_GET['tipo_clase']);
 
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataSesion = $ses->sesionTipoclase()) {

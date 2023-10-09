@@ -4,6 +4,9 @@ require_once('../../helpers/report.php');
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
+
+// Se inicia el reporte con el encabezado del documento.
+$pdf->startReport('Inscripciones por tipo de licencia: ' . $_GET['tipo_licencia']);
 // Se verifica si existe un valor para la categoría, de lo contrario se muestra un mensaje.
 if (isset($_GET['tipo_licencia'])) {
     // Se incluyen las clases para la transferencia y acceso a datos.
@@ -16,8 +19,6 @@ if (isset($_GET['tipo_licencia'])) {
     if ($ins->setTlicencia($_GET['tipo_licencia'])) {
         // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
 
-        // Se inicia el reporte con el encabezado del documento.
-        $pdf->startReport('Inscripciones por tipo de licencia: ' . $_GET['tipo_licencia']);
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataInscripcion = $ins->inscripcionLicencia()) {
             // Se establece un color de relleno para los encabezados.

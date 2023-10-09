@@ -27,22 +27,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getParentesco':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Madre', 'Madre'),
-                    array('Padre', 'Padre'),
-                    array('Hermano', 'Hermano'),
-                    array('Hermana', 'Hermana'),
-                    array('Abuelo', 'Abuelo'),
-                    array('Abuela', 'Abuela'),
-                    array('Tío', 'Tío'),
-                    array('Tía', 'Tía'),
-                    array('Madrastra', 'Madrastra'),
-                    array('Padrastro', 'Padrastro'),
-                    array('Primo', 'Primo'),
-                    array('Prima', 'Prima'),
-                    array('Cuñado', 'Cuñado'),
-                    array('Cuñada', 'Cuñada')
-                );
+                $result['dataset'] = $Responsable::PARENTESCO;
                 break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
@@ -56,6 +41,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Responsable menor inexistente';
                 }
                 break;
+
+                case 'cmbCliente':
+                    if ($result['dataset'] = $Responsable->cmbCliente()) {
+                        $result['status'] = 1;
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
+
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
@@ -75,33 +71,22 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay coincidencias';
                 }
                 break;
-                //Se comprueba si existen registro de cliente para poder asignarle un responsable
-            case 'readCliente':
-                if ($result['dataset'] = $Responsable->readCliente()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Existen registros';
-                } elseif (Database::getException()) {
-                    $result['exception'] = Database::getException();
-                } else {
-                    $result['exception'] = 'No hay datos registrados';
-                }
-                break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
                 if (!$Responsable->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'nombre incorrecto';
-                } elseif (!$Responsable->setTelefono($_POST['telefono'])) {
+                } elseif (!$Responsable->setTelefono($_POST['telefono_re'])) {
                     $result['exception'] = 'Telefono incorrecto';
                 } elseif (!$Responsable->setCorreo($_POST['correo'])) {
                     $result['exception'] = 'Correo incorrecto';
                 } elseif (!$Responsable->setDui($_POST['dui'])) {
                     $result['exception'] = 'Dui incorrecto';
-                } elseif (!$Responsable->setParentesco($_POST['parentesco'])) {
+                } elseif (!$Responsable->setParentesco($_POST['parentesco_re'])) {
                     $result['exception'] = 'Parentesco incorrecto';
-                } elseif (!isset($_POST['idcliente'])) {
-                    $result['exception'] = 'Seleccione un cliente';
-                } elseif (!$Responsable->setIdCliente($_POST['idcliente'])) {
+                // } elseif (!isset($_POST['cliente'])) {
+                //     $result['exception'] = 'Seleccione un cliente';
+                } elseif (!$Responsable->setIdCliente($_POST['cliente_cmb'])) {
                     $result['exception'] = 'Id Cliente incorrecto';
                 } elseif ($Responsable->createRow()) {
                     $result['status'] = 1;
@@ -113,23 +98,23 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Responsable->setId($_POST['id'])) {
+                if (!$Responsable->setId($_POST['id_responsable_menor'])) {
                     $result['exception'] = 'id del responsable menor incorrecto';
                 } elseif (!$data = $Responsable->readOne()) {
                     $result['exception'] = 'Responsable menor inexistente';
                 } elseif (!$Responsable->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'nombre incorrecto';
-                } elseif (!$Responsable->setTelefono($_POST['telefono'])) {
+                } elseif (!$Responsable->setTelefono($_POST['telefono_re'])) {
                     $result['exception'] = 'telefono incorrecto';
                 } elseif (!$Responsable->setCorreo($_POST['correo'])) {
                     $result['exception'] = 'correo incorrecto';
                 } elseif (!$Responsable->setDui($_POST['dui'])) {
                     $result['exception'] = 'Dui incorrecto';
-                } elseif (!$Responsable->setParentesco($_POST['parentesco'])) {
+                } elseif (!$Responsable->setParentesco($_POST['parentesco_re'])) {
                     $result['exception'] = 'Parentesco incorrecto';
-                } elseif (!isset($_POST['idcliente'])) {
-                    $result['exception'] = 'Seleccione un cliente';
-                } elseif (!$Responsable->setIdCliente($_POST['idcliente'])) {
+                // } elseif (!isset($_POST['cliente'])) {
+                //     $result['exception'] = 'Seleccione un cliente';
+                } elseif (!$Responsable->setIdCliente($_POST['cliente_cmb'])) {
                     $result['exception'] = 'Cliente incorrecto';
                 } elseif ($Responsable->updateRow()) {
                     $result['status'] = 1;

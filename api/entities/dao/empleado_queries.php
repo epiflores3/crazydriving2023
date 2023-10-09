@@ -7,20 +7,27 @@ class EmpleadoQueries
     //Método para realizar el mantenimiento read(leer)
     public function readAll()
     {
-        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, rol.rol, sucursal.nombre_sucursal, afp.nombre_afp
+        $sql = 'SELECT empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado,empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.asesor, empleado.estado_empleado, sucursal.nombre_sucursal, afp.nombre_afp, rol.rol
         FROM empleado
-        INNER JOIN rol USING(id_rol)
         INNER JOIN sucursal USING(id_sucursal)
-        INNER JOIN afp USING(id_afp)';
+        INNER JOIN afp USING (id_afp)
+        INNER JOIN rol USING (id_rol)';
+        return Database::getRows($sql);
+    }
+
+    public function readRol()
+    {
+        $sql = 'SELECT * FROM rol';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.nombre_afp, empleado.estado_empleado, rol.rol, rol.id_rol, sucursal.nombre_sucursal, sucursal.id_sucursal
+        $sql = 'SELECT empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.estado_empleado, empleado.asesor, sucursal.id_sucursal, sucursal.nombre_sucursal, afp.id_afp,  afp.nombre_afp, rol.id_rol, rol.rol
         FROM empleado
-        INNER JOIN rol USING(id_rol)
         INNER JOIN sucursal USING(id_sucursal)
+        INNER JOIN afp USING (id_afp)
+        INNER JOIN rol USING (id_rol)
         where id_empleado=? ';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -29,10 +36,11 @@ class EmpleadoQueries
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
-        $sql = 'SELECT  empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado, empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.nombre_afp, empleado.estado_empleado, rol.rol, rol.id_rol, sucursal.nombre_sucursal, sucursal.id_sucursal
+        $sql = 'SELECT empleado.id_empleado, empleado.nombre_com_empleado, empleado.dui_empleado,empleado.licencia_empleado, empleado.telefono_empleado, empleado.fecha_nac_empleado, empleado.direccion_empleado, empleado.correo_empleado, empleado.asesor, empleado.estado_empleado, sucursal.nombre_sucursal, afp.nombre_afp, rol.rol
         FROM empleado
-        INNER JOIN rol USING(id_rol)
         INNER JOIN sucursal USING(id_sucursal)
+        INNER JOIN afp USING (id_afp)
+        INNER JOIN rol USING (id_rol)
         WHERE nombre_com_empleado ILIKE ? OR nombre_sucursal ILIKE ?';
         $params = array("%$value%", "%$value%");
         return Database::getRows($sql, $params);
@@ -41,34 +49,33 @@ class EmpleadoQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
-        $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, licencia_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, id_afp, estado_empleado, id_rol, id_sucursal)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->dui, $this->licencia, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->AFP, $this->estado, $this->idrol, $this->idsucursal);
+        $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, licencia_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, id_afp, asesor, estado_empleado, id_sucursal, id_rol)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->dui, $this->licencia, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->AFP, $this->asesor, $this->estado, $this->idsucursal, $this->idrol);
         return Database::executeRow($sql, $params);
     }
 
-
-    /* public function createEmpleado()
+    public function createFirstEmpleado()
     {
-   
-    $this->estado = 'true';
-    
-    $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, estado_empleado, id_rol, )
-    VALUES (?, ?, ?, ?, ?, ?, ?)';
-    $params = array($this->nombre, $this->dui, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->estado);
-    return Database ::executeRow($sql, $params);
+        $this->idrol = 1;
+
+        $sql = 'INSERT INTO empleado(nombre_com_empleado, dui_empleado, telefono_empleado, fecha_nac_empleado, direccion_empleado, correo_empleado, id_afp, estado_empleado, id_rol, id_sucursal)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->dui, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->AFP, $this->estado, $this->idrol, $this->idsucursal);
+        return Database::executeRow($sql, $params);
     }
-*/
+
 
     //Método para realizar el mantenimiento actualizar(update)
     public function updateRow($current_imagen)
     {
         // Se verifica si existe una nueva imagen de licencia para borrar la actual, de lo contrario se mantiene la actual.
         ($this->licencia) ? Validator::deleteFile($this->getRuta(), $current_imagen) : $this->licencia = $current_imagen;
+        
         $sql = 'UPDATE empleado
-                SET nombre_com_empleado = ?, dui_empleado = ?, licencia_empleado = ?, telefono_empleado = ?, fecha_nac_empleado = ?, direccion_empleado = ?, correo_empleado = ?, nombre_afp = ?, estado_empleado = ?, id_rol = ?, id_sucursal = ?
+               	SET nombre_com_empleado=?, dui_empleado=?, licencia_empleado=?, telefono_empleado=?, fecha_nac_empleado=?, direccion_empleado=?, correo_empleado=?, estado_empleado=?, asesor=?, id_sucursal=?, id_afp=?, id_rol=?
                 WHERE id_empleado = ?';
-        $params = array($this->nombre, $this->dui, $this->licencia, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->AFP, $this->estado, $this->idrol, $this->idsucursal, $this->id);
+                $params = array($this->nombre, $this->dui, $this->licencia, $this->telefono, $this->fechaN, $this->direccion, $this->correo, $this->estado,  $this->asesor,  $this->idsucursal, $this->AFP, $this->idrol, $this->id);
         return Database::executeRow($sql, $params);
     }
 

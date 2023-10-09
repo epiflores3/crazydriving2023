@@ -24,6 +24,17 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No hay datos registrados';
                 }
                 break;
+
+            case 'readAsesor':
+                    if ($result['dataset'] = $inscripcion->readAsesor()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                    } elseif (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos registrados';
+                    }
+                    break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
                 if (!$inscripcion->setId($_POST['id_inscripcion'])) {
@@ -39,15 +50,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getTipoLicencia':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Liviana', 'Liviana'),
-                    array('Particular', 'Particular'),
-                    array('Motocicleta', 'Motocicleta'),
-                    array('Juvenil motocicleta', 'Juvenil motocicleta'),
-                    array('Juvenil particular', 'Juvenil particular'),
-                    array('Pesada', 'Pesada'),
-                    array('Pesada T', 'Pesada T')
-                );
+                $result['dataset'] = $inscripcion::TIPOLICENCIA;
                 break;
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getEstadoCliente':
@@ -78,23 +81,21 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$inscripcion->setAnticipo($_POST['anticipo'])) {
                     $result['exception'] = 'Anticipo incorrecto';
-                } elseif (!$inscripcion->setFechar($_POST['fecharegistro'])) {
-                    $result['exception'] = 'Fecha registro incorrecto';
                 } elseif (!$inscripcion->setFechai($_POST['fechaini'])) {
                     $result['exception'] = 'Fecha inicio incorrecto';
-                } elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion']) ? 1 : 0)) {
+                } elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion_inscripcion']) ? 1 : 0)) {
                     $result['exception'] = 'Evaluacion incorrecto';
+                } elseif (!$inscripcion->setEstado($_POST['estado_cliente'])) {
+                    $result['exception'] = 'Estado incorrecto';
                 } elseif (!$inscripcion->setTlicencia($_POST['tipodelicencia'])) {
                     $result['exception'] = 'Tipo licencia incorrecta';
-                } elseif (!$inscripcion->setEstado($_POST['estadoc'])) {
-                    $result['exception'] = 'Estado cliente incorrecta';
-                } elseif (!$inscripcion->setIdPaquete($_POST['Paquete'])) {
+                } elseif (!$inscripcion->setIdPaquete($_POST['paquete'])) {
                     $result['exception'] = 'Paquete incorrecta';
-                } elseif (!$inscripcion->setIdcliente($_POST['cliente'])) {
+                } elseif (!$inscripcion->setIdcliente($_POST['cliente_inscripcion'])) {
                     $result['exception'] = 'Cliente incorrecta';
-                } elseif (!$inscripcion->setIdempleado($_POST['asesor'])) {
+                } elseif (!$inscripcion->setIdempleado($_POST['asesor_inscripcion'])) {
                     $result['exception'] = 'Empleado  incorrecta';
-                } elseif (!$inscripcion->setIdHorario($_POST['horario'])) {
+                } elseif (!$inscripcion->setIdHorario($_POST['horario_inscripcion'])) {
                     $result['exception'] = 'Horario incorrecta';
                 } elseif ($inscripcion->createRow()) {
                     $result['status'] = 1;
@@ -103,37 +104,29 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                //Se comprueba lo que viene del input
-                // case 'uniqueCustomerRegistration':
-                //     if (!$inscripcion->setIdcliente($_POST['cliente'])) {
-                //         $result['exception'] = 'Inscripcion incorrecto';
-                //     } elseif ($result['dataset'] = $inscripcion->uniqueCustomerRegistration()) {
-                //         $result['status'] = 1;
-                //     } else {
-                //         $result['exception'] = Database::getException();
-                //     } 
-                //     break;
-                //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
+          
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$inscripcion->setId($_POST['id'])) {
+                if (!$inscripcion->setId($_POST['id_inscripcion'])) {
                     $result['exception'] = 'Inscripcion incorrecto';
                 } elseif (!$inscripcion->setAnticipo($_POST['anticipo'])) {
                     $result['exception'] = 'Anticipo incorrecto';
-                } elseif (!$inscripcion->setFechar($_POST['fecharegistro'])) {
-                    $result['exception'] = 'Fecha registro incorrecto';
                 } elseif (!$inscripcion->setFechai($_POST['fechaini'])) {
                     $result['exception'] = 'Fecha inicio incorrecto';
-                } elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion']) ? 1 : 0)) {
+                } elseif (!$inscripcion->setEvaluacion(isset($_POST['evaluacion_inscripcion']) ? 1 : 0)) {
                     $result['exception'] = 'Evaluacion incorrecto';
                 } elseif (!$inscripcion->setTlicencia($_POST['tipodelicencia'])) {
                     $result['exception'] = 'Tipo licencia incorrecta';
-                } elseif (!$inscripcion->setEstado($_POST['estadoc'])) {
+                } elseif (!$inscripcion->setIdPaquete($_POST['paquete'])) {
+                    $result['exception'] = 'paquete incorrecta';
+                } elseif (!$inscripcion->setEstado($_POST['estado_cliente'])) {
                     $result['exception'] = 'Estado cliente incorrecta';
-                } elseif (!$inscripcion->setIdcliente($_POST['cliente'])) {
+                } elseif (!$inscripcion->setIdcliente($_POST['cliente_inscripcion'])) {
                     $result['exception'] = 'Cliente incorrecta';
-                } elseif (!$inscripcion->setIdempleado($_POST['asesor'])) {
+                } elseif (!$inscripcion->setIdempleado($_POST['asesor_inscripcion'])) {
                     $result['exception'] = 'Empleado incorrecta';
+                } elseif (!$inscripcion->setIdHorario($_POST['horario_inscripcion'])) {
+                    $result['exception'] = 'Horario incorrecta';
                 } elseif ($inscripcion->updateRow()) {
                     $result['status'] = 1;
                     $result['message'] = 'Inscripcion modificado correctamente';

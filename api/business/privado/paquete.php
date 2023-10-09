@@ -27,11 +27,9 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getTransmision':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Estándar', 'Estándar'),
-                    array('Automático', 'Automático')
-                );
+                $result['dataset'] = $paquete::TRANSMISION;
                 break;
+                
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
                 if (!$paquete->setId($_POST['id_paquete'])) {
@@ -66,15 +64,15 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$paquete->setDescripcion($_POST['descripcion'])) {
+                if (!$paquete->setDescripcion($_POST['descripcion_paquete'])) {
                     $result['exception'] = 'Descripción incorrecto';
-                } elseif (!$paquete->setValorPaquete($_POST['valorpaquete'])) {
+                } elseif (!$paquete->setValorPaquete($_POST['valorpaquete_paquete'])) {
                     $result['exception'] = 'Valor paquete incorrecto';
-                } elseif (!$paquete->setTranmision($_POST['transmision'])) {
+                } elseif (!$paquete->setTranmision($_POST['transmision_paquete'])) {
                     $result['exception'] = 'Transmisión incorrecto';
-                } elseif (!$paquete->setCantidadClase($_POST['cantidadclases'])) {
+                } elseif (!$paquete->setCantidadClase($_POST['cantidadclases_paquete'])) {
                     $result['exception'] = 'Cantidad de clases incorrecto';
-                } elseif (!$paquete->setTipoPaquete($_POST['tipopaquete'])) {
+                } elseif (!$paquete->setTipoPaquete($_POST['tipo_paquete_tp'])) {
                     $result['exception'] = 'Tipo paquete incorrecta';
                 } elseif ($paquete->createRow()) {
                     $result['status'] = 1;
@@ -86,17 +84,17 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$paquete->setId($_POST['id'])) {
+                if (!$paquete->setId($_POST['id_paquete'])) {
                     $result['exception'] = 'Paquete incorrecto';
-                } elseif (!$paquete->setDescripcion($_POST['descripcion'])) {
+                } elseif (!$paquete->setDescripcion($_POST['descripcion_paquete'])) {
                     $result['exception'] = 'Decsripción incorrecto';
-                } elseif (!$paquete->setValorPaquete($_POST['valorpaquete'])) {
+                } elseif (!$paquete->setValorPaquete($_POST['valorpaquete_paquete'])) {
                     $result['exception'] = 'Valor paquete incorrecto';
-                } elseif (!$paquete->setTranmision($_POST['transmision'])) {
+                } elseif (!$paquete->setTranmision($_POST['transmision_paquete'])) {
                     $result['exception'] = 'Transmisicion incorrecto';
-                } elseif (!$paquete->setCantidadClase($_POST['cantidadclases'])) {
+                } elseif (!$paquete->setCantidadClase($_POST['cantidadclases_paquete'])) {
                     $result['exception'] = 'Cantidad de clases incorrecto';
-                } elseif (!$paquete->setTipoPaquete($_POST['tipopaquete'])) {
+                } elseif (!$paquete->setTipoPaquete($_POST['tipo_paquete_tp'])) {
                     $result['exception'] = 'Tipo paquete incorrecta';
                 } elseif ($paquete->updateRow()) {
                     $result['status'] = 1;

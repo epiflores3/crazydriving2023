@@ -39,14 +39,14 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-telefono'] == '') {
                     if ($result['dataset'] = $telefono->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     }
-                } elseif ($_POST['search'] == 'alias') {
+                } elseif ($_POST['search-telefono'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $telefono->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $telefono->searchRows($_POST['search-telefono'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
@@ -58,12 +58,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getTipos':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Personal', 'Personal'),
-                    array('Emergencia', 'Emergencia'),
-                    array('Trabajo', 'Trabajo'),
-                    array('Casa', 'Casa')
-                );
+                $result['dataset'] = $telefono::TIPOTELEFONO;
                 break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
@@ -84,7 +79,7 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$telefono->setId($_POST['id'])) {
+                if (!$telefono->setId($_POST['id_telefono'])) {
                     $result['exception'] = 'id de telefono incorrecta';
                 } elseif (!$data = $telefono->readOne()) {
                     $result['exception'] = 'telefono inexistente';

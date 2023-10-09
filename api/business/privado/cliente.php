@@ -58,12 +58,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getTipos':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('En proceso', 'En proceso'),
-                    array('Pendiente', 'Pendiente'),
-                    array('Finalizado', 'Finalizado'),
-                    array('Suspendido', 'Suspendido')
-                );
+                $result['dataset'] = $cliente::ESTADOSTIPO;
                 break;
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
@@ -115,7 +110,7 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':
-                if (!$cliente->setId($_POST['id_vehiculo'])) {
+                if (!$cliente->setId($_POST['id_cliente'])) {
                     $result['exception'] = 'Vehiculo incorrecta';
                 } elseif (!$data = $cliente->readOne()) {
                     $result['exception'] = 'Vehiculo inexistente';
@@ -126,7 +121,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = Database::getException();
                 }
                 break;
-                break;
+
+             
                 // Se mandar a llamar a la consulta, para que se pueda mostrar futuramente la gráfica 
             case 'cantidadEstadoCliente':
                 if ($result['dataset'] = $cliente->cantidadEstadoCliente()) {

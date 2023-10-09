@@ -28,15 +28,24 @@ class InscripcionQueries
         return Database::getRows($sql);
     }
 
+    public function readAsesor()
+    {
+        $sql = 'SELECT empleado.id_empleado, empleado.nombre_com_empleado
+        FROM empleado
+        WHERE estado_empleado = true AND asesor = true
+        group by empleado.id_empleado, empleado.nombre_com_empleado';
+        return Database::getRows($sql);
+    }
+
     public function readOne()
     {
-        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, paquete.descripcion, cliente.nombre_com_cliente, empleado.nombre_com_empleado, horario.inicio 
+        $sql = 'SELECT  inscripcion.id_inscripcion, inscripcion.anticipo_paquete, inscripcion.fecha_registro, inscripcion.fecha_inicio, inscripcion.evaluacion, inscripcion.tipo_licencia, inscripcion.estado_cliente, paquete.id_paquete, paquete.descripcion, cliente.id_cliente, cliente.nombre_com_cliente, empleado.id_empleado, empleado.nombre_com_empleado, horario.id_horario, horario.inicio
         FROM inscripcion
         INNER JOIN cliente USING(id_cliente)
         INNER JOIN empleado USING(id_empleado)
         INNER JOIN paquete USING(id_paquete)
         INNER JOIN horario USING(id_horario)
-        where id_inscripcion=? ';
+        where id_inscripcion = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -46,9 +55,9 @@ class InscripcionQueries
     {
         date_default_timezone_set('America/El_Salvador');
         $date = date('d-m-Y');
-        $sql = 'INSERT INTO inscripcion(anticipo_paquete, fecha_registro, fecha_inicio, evaluacion, tipo_licencia, estado_cliente, id_cliente, id_cliente, id_empleado, id_horario)
+        $sql = 'INSERT INTO inscripcion(anticipo_paquete, fecha_registro, fecha_inicio, evaluacion, tipo_licencia, estado_cliente, id_paquete, id_cliente, id_empleado, id_horario)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->anticipo, $this->$date, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idpaquete, $this->idcliente, $this->idempleado, $this->idhorario);
+        $params = array($this->anticipo, $date, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idpaquete, $this->idcliente, $this->idempleado, $this->idhorario);
         return Database::executeRow($sql, $params);
     }
 
@@ -56,9 +65,9 @@ class InscripcionQueries
     public function updateRow()
     {
         $sql = 'UPDATE inscripcion
-                SET anticipo_paquete = ?, fecha_registro = ?, fecha_inicio = ?, evaluacion = ?, tipo_licencia = ?, estado_cliente = ?, id_cliente = ?, id_empleado = ?
+                SET anticipo_paquete = ?, fecha_inicio = ?, evaluacion = ?, tipo_licencia = ?, estado_cliente = ?, id_cliente = ?, id_empleado = ?,  id_horario = ?, id_paquete = ?
                 WHERE id_inscripcion = ?';
-        $params = array($this->anticipo, $this->fecharegistro, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idcliente, $this->idempleado, $this->id);
+        $params = array($this->anticipo, $this->fechainicio, $this->evaluacion,  $this->tipolicencia, $this->estadocliente, $this->idcliente, $this->idempleado,$this->idhorario, $this->idpaquete,  $this->id);
         return Database::executeRow($sql, $params);
     }
 

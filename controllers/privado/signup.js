@@ -1,3 +1,5 @@
+
+const USUARIO_API = 'business/privado/usuario.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const ROL1_API = 'business/privado/roles.php';
 const SUCURSAL1_API = 'business/privado/sucursal.php';
@@ -7,27 +9,23 @@ const AFP1_API = 'business/privado/afp.php';
 const SIGNUP_FORM = document.getElementById('first-use');
 
 // Método manejador de eventos para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async() => {
 
-    // LLamada a la función para asignar el token del reCAPTCHA al formulario.
-    // reCAPTCHA();
-    // Constante tipo objeto para obtener la fecha y hora actual.
-    // const TODAY = new Date();
-    // // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
-    // let day = ('0' + TODAY.getDate()).slice(-2);
-    // // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
-    // var month = ('0' + (TODAY.getMonth() + 1)).slice(-2);
-    // // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
-    // let year = TODAY.getFullYear() - 18;
-    // // Se declara e inicializa una variable para establecer el formato de la fecha.
-    // let date = `${year}-${month}-${day}`;
-    // // Se asigna la fecha como valor máximo en el campo del formulario.
-    // document.getElementById('nacimiento').max = date;
+   const JSON = await dataFetch(USUARIO_API, 'readUsers');
+   if (JSON.session) {
+    location.href = 'pagina_principal.html';
+   }else if (JSON.status){
+    sweetAlert(3, 'Ya existe almenos un usuario registrado', false, 'index.html');
+   }else{
     fillSelect(AFP1_API, 'readAll', 'afp_primer');
     fillSelect(ROL1_API, 'readAll', 'rol_primer');
     fillSelect(SUCURSAL1_API, 'readAll', 'sucursal_primer');
+   }
 
-    
+    // fillSelect(AFP1_API, 'readAll', 'afp_primer');
+    // fillSelect(ROL1_API, 'readAll', 'rol_primer');
+    // fillSelect(SUCURSAL1_API, 'readAll', 'sucursal_primer');
+   
 });
 
 // Método manejador de eventos para cuando se envía el formulario de registrar cliente.
@@ -52,20 +50,3 @@ SIGNUP_FORM.addEventListener('submit', async (event) => {
 
 
 
-/*
-*   Función para obtener un token del reCAPTCHA y asignarlo al formulario.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-// function reCAPTCHA() {
-//     // Método para generar el token del reCAPTCHA.
-//     grecaptcha.ready(() => {
-//         // Constante para guardar la llave pública del reCAPTCHA.
-//         const PUBLIC_KEY = '6LdBzLQUAAAAAJvH-aCUUJgliLOjLcmrHN06RFXT';
-//         // Se obtiene un token para la página web mediante la llave pública.
-//         grecaptcha.execute(PUBLIC_KEY, { action: 'homepage' }).then((token) => {
-//             // Se asigna el valor del token al campo oculto del formulario
-//             document.getElementById('g-recaptcha-response').value = token;
-//         });
-//     });
-// }

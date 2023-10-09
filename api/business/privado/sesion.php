@@ -36,24 +36,19 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Sesion inexistente';
                 }
                 break;
+            
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'readTipoClase':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Práctica', 'Práctica'),
-                    array('Teórica', 'Teórica'),
-                    array('Mecánica', 'Mecánica')
-                );
+                $result['dataset'] = $sesion::TIPOCLASE;
                 break;
+
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'readEstadoSesion':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Pendiente', 'Pendiente'),
-                    array('Incompleta', 'Incompleta'),
-                    array('Finalizada', 'Finalizada')
-                );
+                $result['dataset'] = $sesion::ESTADOSESION;
                 break;
+
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);

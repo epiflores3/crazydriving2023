@@ -11,6 +11,12 @@ class Modelo extends ModeloQueries
     protected $tipo_vehiculo = null;
     protected $marca = null;
 
+    const TIPOVEHICULO = array(
+        array('Carro', 'Carro'),
+        array('Pick up', 'Pick up'),
+        array('Motocicleta', 'Motocicleta')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -36,7 +42,7 @@ class Modelo extends ModeloQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTipoVehiculo($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (in_array($value, array_column(self::TIPOVEHICULO, 0))) {
             $this->tipo_vehiculo = $value;
             return true;
         } else {

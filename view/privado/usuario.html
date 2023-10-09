@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../../resource/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../resource/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/solid.min.css">
     <link rel="stylesheet" href="../../resource/css/nav.css">
-    <!-- Boxicons -->
-    <link href='../../resource/css/unpkg.com_boxicons@2.0.9_css_boxicons.min.css' rel='stylesheet'>
+
     <title>Usuario</title>
 </head>
 
@@ -19,149 +20,391 @@
     <section id="content">
         <nav></nav>
         <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Usuario</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="">Usuario</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Usuario</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--Main principal-->
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Registro de usuarios</h3>
-                        <form method="post" id="search-form">
-                            <div class="input-field">
-                                <input id="search" type="search" name="search"
-                                    placeholder="Buscar por correo y alias del usuario" aria-label="Buscar" required />
-                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+
+
+
+
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">Usuario</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">Rol</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                        type="button" role="tab" aria-controls="contact" aria-selected="false">Niveles</button>
+                </li>
+
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <!-- USUARIO -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Usuario</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Usuario</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Usuario</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principa USUARIO-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de usuarios</h3>
+                                <form method="post" id="search-form" autocomplete="off">
+                                    <div class="input-field">
+                                        <input id="search" type="search" name="search"
+                                            placeholder="Buscar por correo y alias del usuario" aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarUsuario"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
                             </div>
-                        </form>
-                        <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarUsuario"><img height="25px" width="25px"
-                                src="../../resource/img/imgtablas/agregar.png" alt="check">
-                        </button>
-                    </div>
-                    <div class="row">
-                        <main class="container">
-                            <section>
-                                <div class="row meu">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="table-responsive">
-                                                <table>
-                                                    <tr id="records"></tr>
-                                                    <thead>
-                                                        <tr class="text-center">
-                                                            <th>Correo usuario</th>
-                                                            <th>Alias usuario</th>
-                                                            <th>Imagen del usuario</th>
-                                                            <th>Fecha de creación</th>
-                                                            <th>Intentos</th>
-                                                            <th>Estado usuario</th>
-                                                            <th>Empleado</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-center" id="tbody-rows"></tbody>
-                                                </table>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records"></tr>
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>Correo usuario</th>
+                                                                    <th>Alias usuario</th>
+                                                                    <th>Imagen del usuario</th>
+                                                                    <th>Fecha de creación</th>
+                                                                    <th>Intentos</th>
+                                                                    <th>Estado usuario</th>
+                                                                    <th>Empleado</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
                                             </div>
-                                            <br>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
-                                <input class="invisible" type="number" id="id" name="id">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Correo usuario</label><br>
-                                    <input type="email" name="correo" id="correo" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Alias usuario</label><br>
-                                    <input type="text" name="alias" id="alias" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Clave usuario</label><br>
-                                    <input type="password" name="clave" id="clave" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Confirmar clave</label><br>
-                                    <input type="password" name="confirmar" id="confirmar" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Fecha de creación</label><br>
-                                    <input type="date" name="fechacreacion" id="fechacreacion" class="form-control"
-                                        required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="file-field input-field col s12 m6">
-                                        <div class="btn waves-effect tooltipped"
-                                            data-tooltip="Elegir imagen de al menos 700x700 px">
-                                            <i class="bi bi-imagen"></i>
-                                            <input id="imagen_usuario" type="file" name="imagen_usuario"
-                                                accept=".jpg, .png">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text"
-                                                placeholder="Formatos: jpg y png">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Intentos</label><br>
-                                    <input type="number" name="intentos" id="intentos" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Estado Usuario</label>
-                                    <select class="form-select" required aria-label="select example" id="estadousu"
-                                        name="estadousu">
-                                        <option value="">Seleccione una opcion</option>
-
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Empleado</label>
-                                    <select class="form-select" required aria-label="select example" id="idempleado"
-                                        name="idempleado">
-                                        <option value="">Seleccione una opcion</option>
-
-                                    </select>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary"><i
-                                            class="fa-solid fa-floppy-disk"></i>
-                                        Agregar</button>
-                                </div>
-                            </form>
+                                    </section>
+                                </main>
+                            </div>
                         </div>
                     </div>
+                    <!-- Modal  para agregar USUARIO-->
+                    <div class="modal fade" id="agregarUsuario" tabindex="-1" aria-labelledby="agregarUsuario"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
+                                        <input class="invisible" type="number" id="id" name="id">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Correo usuario</label><br>
+                                            <input type="email" name="correo" id="correo" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Alias usuario</label><br>
+                                            <input type="text" name="alias" id="alias" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Clave usuario</label><br>
+                                            <input type="password" name="clave" id="clave" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Confirmar clave</label><br>
+                                            <input type="password" name="confirmar" id="confirmar" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="file-field input-field col s12 m6">
+                                                <div class="btn waves-effect tooltipped"
+                                                    data-tooltip="Elegir imagen de al menos 700x700 px">
+                                                    <i class="bi bi-imagen"></i>
+                                                    <input id="imagen_usuario" type="file" name="imagen_usuario"
+                                                        accept=".jpg, .png">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text"
+                                                        placeholder="Formatos: jpg y png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label>Estado Usuario</label>
+                                            <select class="form-select" required aria-label="select example"
+                                                id="estadousu" name="estadousu">
+                                                <option value="">Seleccione una opcion</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>Empleado</label>
+                                            <select class="form-select" required aria-label="select example"
+                                                id="idempleado" name="idempleado">
+                                                <option value="">Seleccione una opcion</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+
+                    <!-- ROL -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Rol</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Rol</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Rol</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal ROL-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+
+                                <h3>Registro de roles</h3>
+                                <form method="post" id="search-form-rol" autocomplete="off">
+                                    <div class="input-field">
+                                        <input id="search-rol" type="search" name="search-rol" placeholder="Buscar por rol"
+                                            aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+
+
+                                <button onclick="openCreateRol()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarRol"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records-rol"></tr>
+                                                            <thead>
+
+                                                                <tr class="text-center">
+                                                                    <th>Tipo rol</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-rol"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar ROL-->
+                    <div class="modal fade" id="agregarRol" tabindex="-1" aria-labelledby="agregarRol"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title-rol" id="modal-title-rol"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-rol-crud" enctype="multipart/form-data" autocomplete="off">
+
+                                        <input class="invisible" type="number" id="id_rol-id" name="id_rol-id">
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Rol</label><br>
+                                            <input type="text" name="idrol" id="idrol" class="form-control" required><br>
+                                        </div>
+
+                  
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                      <!-- ROL MENU-->
+                      <div class="head-title">
+                        <div class="left">
+                            <h1>Niveles de usuario</h1>
+                        </div>
+                    </div>
+                    <!--Main principal ROL MENU-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+
+                                <h3>Registro de niveles</h3>
+                                <form method="post" id="search-form-rolM" autocomplete="off">
+                                    <div class="input-field">
+                                        <input id="search-rolM" type="search" name="search-rolM" placeholder="Buscar por rol"
+                                            aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+
+
+                                <button onclick="openCreateRolM()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarRolMenu"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records-rolM"></tr>
+                                                            <thead>
+
+                                                                <tr class="text-center">
+                                                                    <th>Tipo rol</th>
+                                                                    <th>Opciones</th>
+                                                                    <th>Actividades</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-rolM"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar ROL MENU-->
+                    <div class="modal fade" id="agregarRolMenu" tabindex="-1" aria-labelledby="agregarRolMenu"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title-rol" id="modal-title-rolM"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-rolM-crud" enctype="multipart/form-data" autocomplete="off">
+
+                                        <input class="invisible" type="number" id="id_rol-M" name="id_rol-M">
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Rol</label><br>
+                                            <select class="form-select" aria-label="Default select example" id="rol" name="rol">
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Opciones</label><br>
+                                            <input type="text" name="opciones" id="opciones" class="form-control" required><br>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Acciones</label><br>
+                                            <input type="text" name="acciones" id="acciones" class="form-control" required><br>
+                                        </div>
+
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
+
+
+
+
+
         </main>
 
     </section>
@@ -170,6 +413,8 @@
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/plantilla.js"></script>
     <script src="../../controllers/privado/usuario.js"></script>
+    <script src="../../controllers/privado/roles.js"></script>
+    <script src="../../controllers/privado/rol_menu.js"></script>
 </body>
 
 </html>

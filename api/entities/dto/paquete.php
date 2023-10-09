@@ -13,6 +13,11 @@ class Paquete extends PaqueteQueries
     protected $cantidadclase = null;
     protected $idtipopaquete = null;
 
+    const TRANSMISION = array(
+        array('Estándar', 'Estándar'),
+        array('Automático', 'Automático')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -49,7 +54,8 @@ class Paquete extends PaqueteQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTranmision($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        //print_r(array_search($value, array_column(self::TRANSMISION, 0)));
+        if (in_array($value, array_column(self::TRANSMISION, 0))) {
             $this->transmision = $value;
             return true;
         } else {

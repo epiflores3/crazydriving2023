@@ -4,6 +4,8 @@ require_once('../../helpers/report2.php');
 
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
+// Se inicia el reporte con el encabezado del documento.
+$pdf->startReport('Vehículos por tipo: ' . $_GET['tipo_vehiculo']);
 // Se verifica si existe un valor para la categoría, de lo contrario se muestra un mensaje.
 if (isset($_GET['tipo_vehiculo'])) {
     // Se incluyen las clases para la transferencia y acceso a datos.
@@ -14,11 +16,6 @@ if (isset($_GET['tipo_vehiculo'])) {
     $veh = new Modelo;
     // Se establece el valor de la categoría, de lo contrario se muestra un mensaje.
     if ($veh->setTipoVehiculo($_GET['tipo_vehiculo'])) {
-        // Se verifica si la categoría existe, de lo contrario se muestra un mensaje.
-
-        // Se inicia el reporte con el encabezado del documento.
-        $pdf->startReport('Vehículos por tipo: ' . $_GET['tipo_vehiculo']);
-
         // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
         if ($dataVehiculo = $veh->vehiculosModelos()) {
             // Se establece un color de relleno para los encabezados.

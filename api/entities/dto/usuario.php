@@ -18,6 +18,12 @@ class Usuario extends UsuarioQueries
     protected $codigo_recuperacion = null;
     protected $ruta = '../../images/usuario/';
 
+    const ESTADOUSUARIO = array(
+            array('Activo', 'Activo'),
+            array('Inactivo', 'Inactivo'),
+            array('Bloqueado', 'Bloqueado')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -108,8 +114,7 @@ class Usuario extends UsuarioQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstadousuario($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
-
+        if (in_array($value, array_column(self::ESTADOUSUARIO, 0))) {
             $this->estadousu = $value;
             return true;
         } else {

@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="../../resource/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="../../resource/css/nav.css">
-    <!-- Boxicons -->
-    <link href='../../resource/css/unpkg.com_boxicons@2.0.9_css_boxicons.min.css' rel='stylesheet'>
+   
     <title>Modelo</title>
 </head>
 
@@ -19,119 +18,355 @@
     <section id="content">
         <nav></nav>
         <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Modelo</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="">Modelo</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Modelo</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--Main principal-->
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Registro de modelos</h3>
+           
+           
 
-                        <form class="row" method="post">
-                            <label for="tipodevehiculocmb" class="form-label">Reporte por tipo de vehículo </label><br>
-                            <select class="form-select" aria-label="Default select example" name="tipodevehiculocmb"
-                                id="tipodevehiculocmb"></select><br>
-                        </form>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-                        <br>
-                        <form method="post" id="search-form">
-                            <div class="input-field">
-                                <input id="search" type="search" name="search" placeholder="Buscar" aria-label="Buscar"
-                                    required />
-                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
-                            </div>
-                        </form>
-                        <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarModelo"><img height="25px" width="25px"
-                                src="../../resource/img/imgtablas/agregar.png" alt="check">
-                        </button>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Modelo</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Marca</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Vehículo</button>
+                </li>
+
+              </ul>
+
+              <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <!-- MODELO -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Modelo</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Modelo</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Modelo</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="row">
-                        <main class="container">
-                            <section>
-                                <div class="row meu">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="table-responsive">
-                                                <table>
-                                                    <tr id="records"></tr>
-                                                    <thead>
-
-                                                        <tr class="text-center">
-                                                            <th>Nombre de modelo</th>
-                                                            <th>Tipo de vehículo</th>
-                                                            <th>Nombre de marca</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-center" id="tbody-rows"></tbody>
-                                                </table>
-                                            </div>
-                                            <br>
-                                        </div>
+                    <!--Main principal MODELO-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de modelos</h3>
+        
+                                <form class="row" method="post">
+                                    <label for="tipodevehiculocmb" class="form-label">Reporte por tipo de vehículo </label><br>
+                                    <select class="form-select" aria-label="Default select example" name="tipodevehiculocmb"
+                                        id="tipodevehiculocmb"></select><br>
+                                </form>
+        
+                                <br>
+                                <form method="post" id="search-form">
+                                    <div class="input-field">
+                                        <input id="search" type="search" name="search" placeholder="Buscar" aria-label="Buscar"
+                                            required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                                     </div>
-                                </div>
-                            </section>
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarModelo" tabindex="-1" aria-labelledby="agregarModelo" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
-
-                                <input class="invisible" type="number" id="id" name="id">
-
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Modelo</label><br>
-                                    <input type="text" name="modelo" id="modelo" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Tipo de vehículo </label><br>
-                                    <select class="form-select" aria-label="Default select example" name="tipovehiculo"
-                                        id="tipovehiculo"></select><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Marca</label>
-                                    <select class="form-select" required aria-label="select example" name="marca"
-                                        id="marca">
-                                        <option value="">Seleccione una opcion</option>
-                                    </select>
-                                </div>
-
-
-
-                                <div>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary"><i
-                                            class="fa-solid fa-floppy-disk"></i>
-                                        Agregar</button>
-                                </div>
-                            </form>
+                                </form>
+                                <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarModelo"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Nombre de modelo</th>
+                                                                    <th>Tipo de vehículo</th>
+                                                                    <th>Nombre de marca</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
                         </div>
                     </div>
+                    <!-- Modal  para agregar MODELO-->
+                    <div class="modal fade" id="agregarModelo" tabindex="-1" aria-labelledby="agregarModelo" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
+        
+                                        <input class="invisible" type="number" id="id" name="id">
+        
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Modelo</label><br>
+                                            <input type="text" name="modelo" id="modelo" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Tipo de vehículo </label><br>
+                                            <select class="form-select" aria-label="Default select example" name="tipovehiculo"
+                                                id="tipovehiculo"></select><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>Marca</label>
+                                            <select class="form-select" required aria-label="select example" name="marca"
+                                                id="marca">
+                                                <option value="">Seleccione una opcion</option>
+                                            </select>
+                                        </div>
+        
+        
+        
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                
                 </div>
-            </div>
+
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    
+                    <!-- MARCA -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Marca</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Marca</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Marca</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal MARCA-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de marcas</h3>
+                                <form method="post" id="search-form-marca">
+                                    <div class="input-field">
+                                        <input id="search-marca" type="search" name="search-marca"
+                                            placeholder="Buscar por nombre de la marca" aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateMarca()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarmarca"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="recordsMarca"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Nombre de marca</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-Marca"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar MARCA-->
+                    <div class="modal fade" id="agregarmarca" tabindex="-1" aria-labelledby="agregarmarca" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title-marca"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-marca" enctype="multipart/form-data" autocomplete="off">
+        
+                                        <input class="invisible" type="number" id="id_marca" name="id_marca">
+        
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Marca</label><br>
+                                            <input type="text"  id="marca_M" name="marca_M" class="form-control" required><br>
+                                        </div>
+        
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    
+                    <!-- VEHÍCULO -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Vehículo</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Vehículo</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Vehículo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal TABLA VEHICULO-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de vehículos</h3>
+                                <form method="post" id="search-form-vehiculo">
+                                    <div class="input-field">
+                                        <input id="search-vehiculo" type="search" name="search-vehiculo" placeholder="Buscar por placa"
+                                            aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateVehiculo()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregavehiculo"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+        
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="recordsV"></tr>
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>Placa</th>
+                                                                    <th>Modelo</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-vehiculo"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Modal  para agregar VEHICULO-->
+                    <div class="modal fade" id="agregavehiculo" tabindex="-1" aria-labelledby="agregavehiculo" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title-vehiculo"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-vehiculo" enctype="multipart/form-data" autocomplete="off">
+                                        <input class="invisible" type="number" id="id_vehiculo" name="id_vehiculo">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Placa</label><br>
+                                            <input type="text" name="placa" id="placa" class="form-control" required><br>
+        
+                                            <label for="" class="form-label">Modelo</label><br>
+                                            <select class="form-select" aria-label="Default select example" name="modelocm"
+                                                id="modelocm">
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                
+            
+                </div>
+              </div>
+
+
+
+
+
+
+           
+          
+
         </main>
     </section>
     <script src="../../resource/js/bootstrap.bundle.min.js"></script>
@@ -139,6 +374,8 @@
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/plantilla.js"></script>
     <script src="../../controllers/privado/modelo.js"></script>
+    <script src="../../controllers/privado/marca.js"></script>
+    <script src="../../controllers/privado/vehiculo.js"></script>
 </body>
 
 </html>

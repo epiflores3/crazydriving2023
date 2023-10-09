@@ -3,11 +3,9 @@ const INSCRIPCION_API = 'business/privado/inscripcion.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const CLIENTE_API = 'business/privado/cliente.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
-const HORARIO_API = 'business/privado/horario.php';
+const HORARIO_CRUD_API = 'business/privado/horario.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const PAQUETE_API = 'business/privado/paquete.php';
-// Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
-const EMPLEADO_API = 'business/privado/empleado.php';
 //Constante para poder guardar los datos del modal
 const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregar'));
 //Constante para poder guardar los datos del formulario
@@ -54,7 +52,7 @@ SEARCH_INPUT.addEventListener("keyup", (event) => {
 // Método que sirve para el formulario se envía para ser guardado
 SAVE_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id_inscripcion').value) ? action = 'update' : action = 'create';
     const FORM = new FormData(SAVE_FORM);
     const JSON = await dataFetch(INSCRIPCION_API, action, FORM);
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
@@ -80,16 +78,6 @@ document.getElementById('tipodelicenciacmb').addEventListener('change', () => {
 
 
 
-// async function unicoRegistro(){
-//     const FORM = new FormData();
-//         FORM.append('cliente', row.id_cliente);
-//         const JSON = await dataFetch(INSCRIPCION_API, 'uniqueCustomerRegistration', FORM);
-//         if (JSON.dataset ===false) {
-
-//         } else {
-
-//         }
-// }
 
 //Función de preparación para poder insertar un nuevo registro
 function openCreate() {
@@ -97,11 +85,11 @@ function openCreate() {
     // Se da un título que se mostrará en el modal.
     MODAL_TITLE.textContent = 'Crear Inscripcion';
     fillSelect(INSCRIPCION_API, 'getTipoLicencia', 'tipodelicencia');
-    fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estadoc');
-    fillSelect(EMPLEADO_API, 'readAll', 'asesor');
-    fillSelect(CLIENTE_API, 'readAll', 'cliente');
-    fillSelect(PAQUETE_API, 'readAll', 'Paquete');
-    fillSelect(HORARIO_API, 'readAll', 'horario');
+    fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estado_cliente');
+    fillSelect(INSCRIPCION_API, 'readAsesor', 'asesor_inscripcion');
+    fillSelect(CLIENTE_API, 'readAll', 'cliente_inscripcion');
+    fillSelect(PAQUETE_API, 'readAll', 'paquete');
+    fillSelect(HORARIO_CRUD_API, 'readAll', 'horario_inscripcion');
 }
 
 //Función que llena la tabla con todos los registros que se necuentran en la base
@@ -117,12 +105,13 @@ async function fillTable(form = null) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
             (row.evaluacion) ? icon = 'visibility' : icon = 'visibility_off';
+            // <td><i class="material-icons">${icon}</i></td>
             TBODY_ROWS.innerHTML += `
         <tr>
             <td>${row.anticipo_paquete}</td>
             <td>${row.fecha_registro}</td>
             <td>${row.fecha_inicio}</td>
-            <td><i class="material-icons">${icon}</i></td>
+            <td><i class="material-icons ">${icon}</i></td>
             <td>${row.tipo_licencia}</td>
             <td>${row.estado_cliente}</td>
             <td>${row.nombre_com_cliente}</td>
@@ -163,19 +152,21 @@ async function openUpdate(id) {
         // Se da un título que se mostrará en el modal.
         MODAL_TITLE.textContent = 'Actualizar Paquete';
         // Se escriben los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_inscripcion;
+        document.getElementById('id_inscripcion').value = JSON.dataset.id_inscripcion;
         document.getElementById('anticipo').value = JSON.dataset.anticipo_paquete;
         document.getElementById('fechaini').value = JSON.dataset.fecha_inicio;
-        document.getElementById('fecharegistro').value = JSON.dataset.fecha_registro;
         fillSelect(INSCRIPCION_API, 'getTipoLicencia', 'tipodelicencia', JSON.dataset.tipo_licencia);
-        fillSelect(EMPLEADO_API, 'readAll', 'asesor', JSON.dataset.id_empleado);
-        fillSelect(CLIENTE_API, 'readAll', 'cliente', JSON.dataset.id_cliente);
-        fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estadoc', JSON.dataset.estado_cliente);
+        fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estado_cliente', JSON.dataset.estado_cliente);
+        fillSelect(PAQUETE_API, 'readAll', 'paquete',JSON.dataset.id_paquete);
+        fillSelect(CLIENTE_API, 'readAll', 'cliente_inscripcion', JSON.dataset.id_cliente);
+        fillSelect(INSCRIPCION_API, 'readAsesor', 'asesor_inscripcion', JSON.dataset.id_empleado);
+        fillSelect(HORARIO_CRUD_API, 'readAll', 'horario_inscripcion', JSON.dataset.id_horario);
         if (JSON.dataset.evaluacion) {
-            document.getElementById('evaluacion').checked = true;
+            document.getElementById('evaluacion_inscripcion').checked = true;
         } else {
-            document.getElementById('evaluacion').checked = false;
+            document.getElementById('evaluacion_inscripcion').checked = false;
         }
+
     } else {
         sweetAlert(2, JSON.exception, false);
     }

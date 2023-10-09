@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+
+
 LOGIN.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();

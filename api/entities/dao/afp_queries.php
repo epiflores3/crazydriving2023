@@ -22,6 +22,14 @@ class AfpQueries
         return Database::getRows($sql);
     }
 
+    // public function readAllAFP()
+    // {
+    //     $sql = 'SELECT id_afp, nombre_afp
+    //     FROM afp';
+    //     return Database::getRows($sql);
+    // }
+
+    
     public function readOne()
     {
         $sql = 'SELECT id_afp, nombre_afp 

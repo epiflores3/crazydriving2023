@@ -39,14 +39,14 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-vehiculo'] == '') {
                     if ($result['dataset'] = $vehiculo->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     }
-                } elseif ($_POST['search'] == 'alias') {
+                } elseif ($_POST['search-vehiculo'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $vehiculo->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $vehiculo->searchRows($_POST['search-vehiculo'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
@@ -60,7 +60,7 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecta';
-                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                } elseif (!$vehiculo->setId_modelo($_POST['modelocm'])) {
                     $result['exception'] = 'Modelo incorrecta';
                 } elseif ($vehiculo->createRow()) {
                     $result['status'] = 1;
@@ -72,13 +72,13 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$vehiculo->setId($_POST['id'])) {
+                if (!$vehiculo->setId($_POST['id_vehiculo'])) {
                     $result['exception'] = 'id de vehiculo incorrecta';
                 } elseif (!$data = $vehiculo->readOne()) {
                     $result['exception'] = 'Vehiculo inexistente';
                 } elseif (!$vehiculo->setPlaca($_POST['placa'])) {
                     $result['exception'] = 'Placa incorrecto';
-                } elseif (!$vehiculo->setId_modelo($_POST['modelo'])) {
+                } elseif (!$vehiculo->setId_modelo($_POST['modelocm'])) {
                     $result['exception'] = 'Modelo incorrecto';
                 } elseif ($vehiculo->updateRow()) {
                     $result['status'] = 1;

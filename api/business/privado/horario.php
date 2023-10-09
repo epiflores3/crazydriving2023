@@ -26,7 +26,7 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':
-                if (!$horario->setId($_POST['idhorario'])) {
+                if (!$horario->setId($_POST['id_horario'])) {
                     $result['exception'] = 'Horario incorrecto';
                 } elseif ($result['dataset'] = $horario->readOne()) {
                     $result['status'] = 1;
@@ -39,14 +39,14 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-horario'] == '') {
                     if ($result['dataset'] = $horario->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     }
-                } elseif ($_POST['search'] == 'alias') {
+                } elseif ($_POST['search-horario'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $horario->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $horario->searchRows($_POST['search-horario'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
@@ -58,9 +58,9 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$horario->setInicio($_POST['inicio'])) {
+                if (!$horario->setInicio($_POST['inicio_horario'])) {
                     $result['exception'] = 'Inicio del horario incorrecto';
-                } elseif (!$horario->setFin($_POST['final'])) {
+                } elseif (!$horario->setFin($_POST['final_horario'])) {
                     $result['exception'] = 'Final del horario incorrecto';
                 } elseif ($horario->createRow()) {
                     $result['status'] = 1;
@@ -70,23 +70,22 @@ if (isset($_GET['action'])) {
                 }
                 break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
-            case 'update':
-                $_POST = Validator::validateForm($_POST);
-                if (!$horario->setId($_POST['id'])) {
-                    $result['exception'] = 'id de horario incorrecta';
-                } elseif (!$data = $horario->readOne()) {
-                    $result['exception'] = 'Horario inexistente';
-                } elseif (!$horario->setInicio($_POST['inicio'])) {
-                    $result['exception'] = 'Inicio del horario incorrecto';
-                } elseif (!$horario->setFin($_POST['final'])) {
-                    $result['exception'] = 'Final del horario incorrecto';
-                } elseif ($horario->updateRow()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Horario modificada correctamente';
-                } else {
-                    $result['exception'] = Database::getException();
-                }
-                break;
+               case 'update':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$horario->setId($_POST['id_horario'])) {
+                        $result['exception'] = 'Horario incorrecto';
+                    } elseif (!$horario->setInicio($_POST['inicio_horario'])) {
+                        $result['exception'] = 'Inicio incorrecto';
+                    } elseif (!$horario->setFin($_POST['final_horario'])) {
+                        $result['exception'] = 'Final incorrecto';
+                    } elseif ($horario->updateRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Horario modificado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
+
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':
                 if (!$horario->setId($_POST['id_horario'])) {

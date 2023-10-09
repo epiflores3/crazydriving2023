@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Afp->setAfp($_POST['afp'])) {
+                if (!$Afp->setAfp($_POST['nombre_afp'])) {
                     $result['exception'] = 'Afp incorrecto';
                 } elseif ($Afp->createRow()) {
                     $result['status'] = 1;
@@ -65,11 +65,11 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Afp->setId($_POST['id'])) {
+                if (!$Afp->setId($_POST['id_afp'])) {
                     $result['exception'] = 'id de Afp incorrecto';
                 } elseif (!$data = $Afp->readOne()) {
                     $result['exception'] = 'Afp inexistente';
-                } elseif (!$Afp->setAfp($_POST['afp'])) {
+                } elseif (!$Afp->setAfp($_POST['nombre_afp'])) {
                     $result['exception'] = 'Afp incorrecto';
                 } elseif ($Afp->updateRow()) {
                     $result['status'] = 1;
@@ -94,10 +94,10 @@ if (isset($_GET['action'])) {
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
-        // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
-        header('content-type: application/json; charset=utf-8');
-        // Se imprime el resultado en formato JSON y se retorna al controlador.
-        print(json_encode($result));
+
+         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
+         header('content-type: application/json; charset=utf-8');
+
     } else {
         switch ($_GET['action']) {
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente

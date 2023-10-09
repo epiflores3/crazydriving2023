@@ -11,6 +11,13 @@ class Telefono extends TelefonoQueries
     protected $tipo_telefono = null;
     protected $id_cliente = null;
 
+    const TIPOTELEFONO = array(
+        array('Personal', 'Personal'),
+        array('Emergencia', 'Emergencia'),
+        array('Trabajo', 'Trabajo'),
+        array('Casa', 'Casa')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -36,7 +43,7 @@ class Telefono extends TelefonoQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTipoTelefono($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (in_array($value, array_column(self::TIPOTELEFONO, 0))) {
             $this->tipo_telefono = $value;
             return true;
         } else {

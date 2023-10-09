@@ -14,6 +14,23 @@ class Responsable extends ResponsableQueries
     protected $parentesco = null;
     protected $idcliente = null;
 
+    const PARENTESCO = array(
+        array('Madre', 'Madre'),
+        array('Padre', 'Padre'),
+        array('Hermano', 'Hermano'),
+        array('Hermana', 'Hermana'),
+        array('Abuelo', 'Abuelo'),
+        array('Abuela', 'Abuela'),
+        array('Tío', 'Tío'),
+        array('Tía', 'Tía'),
+        array('Madrastra', 'Madrastra'),
+        array('Padrastro', 'Padrastro'),
+        array('Primo', 'Primo'),
+        array('Prima', 'Prima'),
+        array('Cuñado', 'Cuñado'),
+        array('Cuñada', 'Cuñada')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -72,7 +89,7 @@ class Responsable extends ResponsableQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setParentesco($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (in_array($value, array_column(self::PARENTESCO, 0))) {
             $this->parentesco = $value;
             return true;
         } else {

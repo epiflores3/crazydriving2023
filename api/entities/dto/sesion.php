@@ -17,6 +17,18 @@ class Sesion extends SesionQueries
     protected $idempleado = null;
     protected $idvehiculo = null;
 
+    const TIPOCLASE = array(
+        array('Práctica', 'Práctica'),
+        array('Teórica', 'Teórica'),
+        array('Mecánica', 'Mecánica')
+    );
+
+    const ESTADOSESION = array(
+        array('Pendiente', 'Pendiente'),
+        array('Incompleta', 'Incompleta'),
+        array('Finalizada', 'Finalizada')
+    );
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {
@@ -64,7 +76,7 @@ class Sesion extends SesionQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTipoClase($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+          if (in_array($value, array_column(self::TIPOCLASE, 0))) {
             $this->tipoclase = $value;
             return true;
         } else {
@@ -75,7 +87,7 @@ class Sesion extends SesionQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstadoSesion($value)
     {
-        if (Validator::validateAlphanumeric($value, 1, 50)) {
+        if (in_array($value, array_column(self::ESTADOSESION, 0))) {
             $this->estadosesion = $value;
             return true;
         } else {

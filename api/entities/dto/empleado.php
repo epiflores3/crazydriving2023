@@ -21,6 +21,7 @@ class Empleado extends EmpleadoQueries
     protected $idsucursal = null;
     protected $ruta = '../../img/licencia_empleado/';
 
+
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setId($value)
     {

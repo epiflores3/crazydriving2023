@@ -1,58 +1,81 @@
 // Constante para dirgirse a la ruta de API.
 const VEHICULO_API = 'business/privado/vehiculo.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
-const MODELO_API = 'business/privado/modelo.php';
+const MODELO_CRUD_API = 'business/privado/modelo.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
-const MODAL_TITLE = document.getElementById('modal-title');
+const MODAL_TITLE_VEHICULO = document.getElementById('modal-title-vehiculo');
 //Constante para poder guardar los datos del modal
-const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
+const SAVE_MODAL_VEHICULO = new bootstrap.Modal(document.getElementById('agregavehiculo'));
 // Constante para poder hacer uso del formulario de buscar.
-const SEARCH_FORM = document.getElementById('search-form');
-const SEARCH_INPUT = document.getElementById('search');
+const SEARCH_FORM_VEHICULO = document.getElementById('search-form-vehiculo');
+const SEARCH_INPUT_VEHICULO = document.getElementById('search-vehiculo');
 // Constantes para cuerpo de la tabla
-const TBODY_ROWS = document.getElementById('tbody-rows');
-const RECORDS = document.getElementById('records');
+const TBODY_ROWS_VEHICULO = document.getElementById('tbody-rows-vehiculo');
+const RECORDS_VEHICULO = document.getElementById('recordsV');
 //Constante para poder guardar los datos del formulario
-const SAVE_FORM = document.getElementById('save-form');
+const SAVE_FORM_VEHICULO= document.getElementById('save-form-vehiculo');
+
+
+
+
 
 //Método que se utiliza cuando el mantenimiento leer ha cargado
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
-    fillTable();
+    fillTableVehiculo();
+    fillSelect(MODELO_CRUD_API, 'readAll', 'modelocm');
 });
 
 // Método que sirve para el formulario se envía para ser guardado
-SAVE_FORM.addEventListener('submit', async (event) => {
+SAVE_FORM_VEHICULO.addEventListener('submit', async (event) => {
     event.preventDefault();
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
-    const FORM = new FormData(SAVE_FORM);
+    (document.getElementById('id_vehiculo').value) ? action = 'update' : action = 'create';
+    const FORM = new FormData(SAVE_FORM_VEHICULO);
     const JSON = await dataFetch(VEHICULO_API, action, FORM);
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
     if (JSON.status) {
-        SAVE_MODAL.hide();
+        SAVE_MODAL_VEHICULO.hide();
         // Se carga la tabla para ver los cambios.
-        fillTable();
+        fillTableVehiculo();
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
     }
 });
 
+// Método que sirve para el formulario se envía para ser guardado
+SAVE_FORM_VEHICULO.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    (document.getElementById('id_vehiculo').value) ? action = 'update' : action = 'create';
+    const FORM = new FormData(SAVE_FORM_VEHICULO);
+    const JSON = await dataFetch(MODELO_CRUD_API, action, FORM);
+    // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
+    if (JSON.status) {
+        SAVE_MODAL_VEHICULO.hide();
+        // Se carga la tabla para ver los cambios.
+        fillTableVehiculo();
+        sweetAlert(1, JSON.message, true);
+    } else {
+        sweetAlert(2, JSON.exception, false);
+    }
+});
+
+
 //Función de preparación para poder insertar un nuevo registro
-function openCreate() {
-    SAVE_FORM.reset();
+function openCreateVehiculo() {
+    SAVE_FORM_VEHICULO.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear vehículo';
-    fillSelect(MODELO_API, 'readAll', 'modelo');
+    MODAL_TITLE_VEHICULO.textContent = 'Crear vehículo';
+    fillSelect(MODELO_CRUD_API, 'readAll', 'modelocm');
 }
 
 
 // Método que se utiliza para el formulario de buscar.
-SEARCH_FORM.addEventListener('submit', (event) => {
+SEARCH_FORM_VEHICULO.addEventListener('submit', (event) => {
     event.preventDefault();
-    const FORM = new FormData(SEARCH_FORM);
+    const FORM = new FormData(SEARCH_FORM_VEHICULO);
     //Llena la tabla con las respuestas de la búsqueda.
-    fillTable(FORM);
+    fillTableVehiculo(FORM);
 });
 
 // Método que se utiliza para el formulario de buscar.
@@ -61,16 +84,16 @@ SEARCH_INPUT.addEventListener("keyup", (event) => {
     console.log(texto);
     if (texto.value != "") {
         event.preventDefault();
-        const FORM = new FormData(SEARCH_FORM);
+        const FORM = new FormData(SEARCH_FORM_VEHICULO);
         //Llena la tabla con las respuestas de la búsqueda.
-        fillTable(FORM);
+        fillTableVehiculo(FORM);
     }
 });
 
 //Función que llena la tabla con todos los registros que se necuentran en la base
-async function fillTable(form = null) {
-   TBODY_ROWS.innerHTML = '';
-    RECORDS.textContent = '';
+async function fillTableVehiculo(form = null) {
+    TBODY_ROWS_VEHICULO.innerHTML = '';
+    RECORDS_VEHICULO.textContent = '';
     (form) ? action = 'search' : action = 'readAll';
     // Verificación de la acción a hacer.
     const JSON = await dataFetch(VEHICULO_API, action, form);
@@ -79,15 +102,12 @@ async function fillTable(form = null) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TBODY_ROWS.innerHTML += `
+            TBODY_ROWS_VEHICULO.innerHTML += `
     <tr>
     <td>${row.placa}</td>
     <td>${row.modelo}</td>
         <td>
-            <button onclick="openReport(${row.id_vehiculo})" type="button" class="btn ">
-                <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
-            </button>
-
+            
             <button type="button" class="btn " onclick="openUpdate(${row.id_vehiculo})">
                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
             </button>
@@ -100,11 +120,12 @@ async function fillTable(form = null) {
 `;
         });
 
-        RECORDS.textContent = JSON.message;
+        RECORDS_VEHICULO.textContent = JSON.message;
     } else {
         sweetAlert(4, JSON.exception, true);
     }
 }
+
 
 
 
@@ -116,13 +137,13 @@ async function openUpdate(id) {
     const JSON = await dataFetch(VEHICULO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (JSON.status) {
-        SAVE_MODAL.show();
+        SAVE_MODAL_VEHICULO.show();
         // Se asigna título para la caja de diálogo.
         MODAL_TITLE.textContent = 'Actualizar vehículo';
         // Se inicializan los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_vehiculo;
+        document.getElementById('id_vehiculo').value = JSON.dataset.id_vehiculo;
         document.getElementById('placa').value = JSON.dataset.placa;
-        fillSelect(MODELO_API, 'readAll', 'modelo', JSON.dataset.id_modelo);
+        fillSelect(MODELO_CRUD_API, 'readAll', 'modelocm', JSON.dataset.id_modelo);
         ;
     } else {
         sweetAlert(2, JSON.exception, false);
@@ -142,7 +163,7 @@ async function openDelete(id) {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTable();
+            fillTableVehiculo();
             // Se muestra un mensaje de éxito.
             sweetAlert(1, JSON.message, true);
         } else {

@@ -7,7 +7,7 @@ class RolesQueries
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_rol, rol
+        $sql = 'SELECT id_rol, rol, opciones, acciones
         FROM rol
         WHERE rol ::text ILIKE ?';
         $params = array("%$value%");
@@ -15,6 +15,7 @@ class RolesQueries
     }
 
     //Método para realizar el mantenimiento read(leer)
+
     public function readAll()
     {
         $sql = 'SELECT id_rol, rol
@@ -22,9 +23,11 @@ class RolesQueries
         return Database::getRows($sql);
     }
 
+
+
     public function readOne()
     {
-        $sql = 'SELECT id_rol, rol 
+        $sql = 'SELECT id_rol, rol
         FROM rol
         WHERE id_rol = ?';
         $params = array($this->id);

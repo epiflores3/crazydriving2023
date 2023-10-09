@@ -18,11 +18,22 @@ class Inscripcion extends InscripcionQueries
     protected $idcliente = null;
     protected $idempleado = null;
     protected $idhorario = null;
+
     const ESTADOS = array(
         array('En proceso', 'En proceso'),
         array('Pendiente', 'Pendiente'),
         array('Finalizado', 'Finalizado'),
         array('Suspendido', 'Suspendido')
+    );
+
+    const TIPOLICENCIA = array(
+        array('Liviana', 'Liviana'),
+        array('Particular', 'Particular'),
+        array('Motocicleta', 'Motocicleta'),
+        array('Juvenil motocicleta', 'Juvenil motocicleta'),
+        array('Juvenil particular', 'Juvenil particular'),
+        array('Pesada', 'Pesada'),
+        array('Pesada T', 'Pesada T')
     );
 
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
@@ -83,7 +94,7 @@ class Inscripcion extends InscripcionQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setEstado($value)
     {
-        if (Validator::validateBoolean($value)) {
+        if (in_array($value, array_column(self::ESTADOS, 0))) {
             $this->estadocliente = $value;
             return true;
         } else {
@@ -94,7 +105,7 @@ class Inscripcion extends InscripcionQueries
     //Método para validar dependiendo del dato que se utiliza, asimismo asignarle los valores de los atributos
     public function setTlicencia($value)
     {
-        if (Validator::validateAlphabetic($value, 1, 50)) {
+        if (in_array($value, array_column(self::TIPOLICENCIA, 0))) {
             $this->tipolicencia = $value;
             return true;
         } else {

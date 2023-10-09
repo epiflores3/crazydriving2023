@@ -126,11 +126,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'readEstadousu':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Activo', 'Activo'),
-                    array('Inactivo', 'Inactivo'),
-                    array('Bloqueado', 'Bloqueado')
-                );
+                $result['dataset'] = $usuario::ESTADOUSUARIO;
                 break;
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
@@ -302,8 +298,11 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que las credenciales sean correcta, para realizar el proceso de registrarse.
             case 'signup':
+                
                 $_POST = Validator::validateForm($_POST);
-                if (!$empleado->setNombre($_POST['nombre'])) {
+                if ($empleado->readAll() and $usuario->readAll()) {
+                    $result['exception'] = 'Ya existe almenos un usuario registrado';
+                } elseif (!$empleado->setNombre($_POST['nombre'])) {
                     $result['exception'] = 'Nombre del empleado incorrecto';
                 } elseif (!$empleado->setDUI($_POST['dui'])) {
                     $result['exception'] = 'DUI del empleado incorrecto';
@@ -317,8 +316,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Correo del empleado incorrecto';
                 } elseif (!$empleado->setAFP($_POST['afp_primer'])) {
                     $result['exception'] = 'Nombre de afp del empleado incorrecto';
-                } elseif (!$empleado->setRol($_POST['rol_primer'])) {
-                    $result['exception'] = 'Rol del empleado incorrecto';
                 } elseif (!$empleado->setSucursal($_POST['sucursal_primer'])) {
                     $result['exception'] = 'Sucursal del empleado incorrecta';
                 } elseif (!$usuario->setAlias($_POST['ali_primer'])) {
@@ -329,7 +326,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Claves diferentes';
                 } elseif (!$empleado->setEstado(1)) {
                     $result['exception'] = 'Claves diferentes';
-                } elseif (!$empleado->createRow()) {
+                } elseif (!$empleado->createFirstEmpleado()) {
                     $result['status'] = 1;
                 } elseif ($usuario->createFirstUse()) {
                     $result['status'] = 1;

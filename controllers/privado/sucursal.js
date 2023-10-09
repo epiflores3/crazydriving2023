@@ -1,35 +1,35 @@
 // Constante para dirgirse a la ruta de API.
 const SUCURSAL_API = 'business/privado/sucursal.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
-const MODAL_TITLE = document.getElementById('modal-title');
+const MODAL_TITLE_SUCURSAL = document.getElementById('modal-title-sucursal');
 //Constante para poder guardar los datos del modal
-const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarSucursal'));
+const SAVE_MODAL_SUCURSAL = new bootstrap.Modal(document.getElementById('agregarSucursal'));
 // Constante para poder hacer uso del formulario de buscar.
-const SEARCH_FORM = document.getElementById('search-form');
-const SEARCH_INPUT = document.getElementById('search');
+const SEARCH_FORM_SUCURSAL = document.getElementById('search-form-sucursal');
+const SEARCH_INPUT_SUCURSAL = document.getElementById('search-sucursal');
 // Constantes para cuerpo de la tabla
-const TBODY_ROWS = document.getElementById('tbody-rows');
-const RECORDS = document.getElementById('records');
+const TBODY_ROWS_SUCURSAL = document.getElementById('tbody-rows-sucursal');
+const RECORDS_SUCURSAL = document.getElementById('recordsS');
 //Constante para poder guardar los datos del formulario
-const SAVE_FORM = document.getElementById('save-form');
+const SAVE_FORM_SUCURSAL = document.getElementById('save-form-sucursal');
 
 //Método que se utiliza cuando el mantenimiento leer ha cargado
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
-    fillTable();
+    fillTableS();
 });
 
 // Método que sirve para el formulario se envía para ser guardado
-SAVE_FORM.addEventListener('submit', async (event) => {
+SAVE_FORM_SUCURSAL.addEventListener('submit', async (event) => {
     event.preventDefault();
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
-    const FORM = new FormData(SAVE_FORM);
+    (document.getElementById('id_sucursal').value) ? action = 'update' : action = 'create';
+    const FORM = new FormData(SAVE_FORM_SUCURSAL);
     const JSON = await dataFetch(SUCURSAL_API, action, FORM);
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
     if (JSON.status) {
-        SAVE_MODAL.hide();
+        SAVE_MODAL_SUCURSAL.hide();
         // Se carga la tabla para ver los cambios.
-        fillTable();
+        fillTableS();
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
@@ -37,37 +37,37 @@ SAVE_FORM.addEventListener('submit', async (event) => {
 });
 
 //Función de preparación para poder insertar un nuevo registro
-function openCreate() {
-    SAVE_FORM.reset();
+function openCreateSucursal() {
+    SAVE_FORM_SUCURSAL.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear sucursal';
+    MODAL_TITLE_SUCURSAL.textContent = 'Crear sucursal';
 }
 
 
 // Método que se utiliza para el formulario de buscar.
-SEARCH_FORM.addEventListener('submit', (event) => {
+SEARCH_FORM_SUCURSAL.addEventListener('submit', (event) => {
     event.preventDefault();
-    const FORM = new FormData(SEARCH_FORM);
+    const FORM = new FormData(SEARCH_FORM_SUCURSAL);
     //Llena la tabla con las respuestas de la búsqueda.
-    fillTable(FORM);
+    fillTableS(FORM);
 });
 
 //Llena la tabla con las respuestas de la búsqueda.
-SEARCH_INPUT.addEventListener("keyup", (event) => {
+SEARCH_INPUT_SUCURSAL.addEventListener("keyup", (event) => {
     let texto = event.target.value;
     console.log(texto);
     if (texto.value != "") {
         event.preventDefault();
-        const FORM = new FormData(SEARCH_FORM);
+        const FORM = new FormData(SEARCH_FORM_SUCURSAL);
         //Llena la tabla con las respuestas de la búsqueda.
-        fillTable(FORM);
+        fillTableS(FORM);
     }
 });
 
 //Función que llena la tabla con todos los registros que se necuentran en la base
-async function fillTable(form = null) {
-    TBODY_ROWS.innerHTML = '';
-    RECORDS.textContent = '';
+async function fillTableS(form = null) {
+    TBODY_ROWS_SUCURSAL.innerHTML = '';
+    RECORDS_SUCURSAL.textContent = '';
     // Verificación de la acción a hacer.
     (form) ? action = 'search' : action = 'readAll';
     const JSON = await dataFetch(SUCURSAL_API, action, form);
@@ -76,7 +76,7 @@ async function fillTable(form = null) {
         // Se recorre el conjunto de registros fila por fila.
         JSON.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            TBODY_ROWS.innerHTML += `
+            TBODY_ROWS_SUCURSAL.innerHTML += `
     <tr>
         <td>${row.nombre_sucursal}</td>
         <td>${row.direccion_sucursal}</td>
@@ -97,7 +97,7 @@ async function fillTable(form = null) {
     </tr>
 `;
         });
-        RECORDS.textContent = JSON.message;
+        RECORDS_SUCURSAL.textContent = JSON.message;
     } else {
         sweetAlert(4, JSON.exception, true);
     }
@@ -111,11 +111,11 @@ async function openUpdate(id) {
     const JSON = await dataFetch(SUCURSAL_API, 'readOne', FORM);
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
     if (JSON.status) {
-        SAVE_MODAL.show();
+        SAVE_MODAL_SUCURSAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar sucursal';
+        MODAL_TITLE_SUCURSAL.textContent = 'Actualizar sucursal';
         // Se escriben los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_sucursal;
+        document.getElementById('id_sucursal').value = JSON.dataset.id_sucursal;
         document.getElementById('nombre_sucursal').value = JSON.dataset.nombre_sucursal;
         document.getElementById('direccion_sucursal').value = JSON.dataset.direccion_sucursal;
     } else {
@@ -137,7 +137,7 @@ async function openDelete(id) {
         // Se comprueba si la respuesta es correcta, sino muestra con la excepción.
         if (JSON.status) {
             //Carga la tabla para ver los cambios.
-            fillTable();
+            fillTableS();
             // Se muestra un mensaje con el proceso completado.
             sweetAlert(1, JSON.message, true);
         } else {

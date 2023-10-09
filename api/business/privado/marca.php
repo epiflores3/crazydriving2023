@@ -39,14 +39,14 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-marca'] == '') {
                     if ($result['dataset'] = $marca->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     }
-                } elseif ($_POST['search'] == 'alias') {
+                } elseif ($_POST['search-marca'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $marca->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $marca->searchRows($_POST['search-marca'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {
@@ -58,7 +58,7 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correcto, de lo contario mostrará mensajes de error, y si todo es correcto creará un nuevo registro.
             case 'create':
                 $_POST = Validator::validateForm($_POST);
-                if (!$marca->setMarca($_POST['marca'])) {
+                if (!$marca->setMarca($_POST['marca_M'])) {
                     $result['exception'] = 'Marca incorrecta';
                 } elseif ($marca->createRow()) {
                     $result['status'] = 1;
@@ -70,11 +70,11 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$marca->setId($_POST['id'])) {
+                if (!$marca->setId($_POST['id_marca'])) {
                     $result['exception'] = 'id de marca incorrecta';
                 } elseif (!$data = $marca->readOne()) {
                     $result['exception'] = 'Marca inexistente';
-                } elseif (!$marca->setMarca($_POST['marca'])) {
+                } elseif (!$marca->setMarca($_POST['marca_M'])) {
                     $result['exception'] = 'Marca incorrecto';
                 } elseif ($marca->updateRow()) {
                     $result['status'] = 1;

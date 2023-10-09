@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../../resource/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../resource/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../resource/fonts/fontawesome/css/solid.min.css">
     <link rel="stylesheet" href="../../resource/css/nav.css">
     <!-- Boxicons -->
-    <link href='../../resource/css/unpkg.com_boxicons@2.0.9_css_boxicons.min.css' rel='stylesheet'>
+
     <title>Cliente</title>
 </head>
 
@@ -19,128 +21,395 @@
     <section id="content">
         <nav></nav>
         <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Cliente</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="">Cliente</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Cliente</a>
-                        </li>
-                    </ul>
-                </div>
+          
 
-            </div>
-            <!--Main principal-->
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Registro de clientes</h3>
-                        <form method="post" id="search-form">
-                            <div class="input-field">
-                                <input id="search" type="search" name="search"
-                                    placeholder="Buscar por nombre, DUI y correo " aria-label="Buscar" required />
-                                <button type="submit" class="btn"><i class='bx bx-search'></i></button>
-                            </div>
-                        </form>
-                         <!-- Boton para el reporte generall -->
 
-                         <button class="btn me-md-2" type="button">
-                            <a onclick="openReportInscripcionEstadoCliente()"><img height="20px"
-                                    width="20px"
-                                    src="../../resource/img/imgtablas/reportAFP.png"
-                                    alt=""></a>
-                        </button>
+            
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-                        <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#agregarmarca"><img height="25px" width="25px"
-                                src="../../resource/img/imgtablas/agregar.png" alt="check">
-                        </button>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cliente</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Teléfono</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Responsable Menor</button>
+                </li>
+
+              </ul>
+              
+              <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <!-- CLIENTE -->
+                    <div class="head-title">
+                        <div class="left">
+                            <h1>Cliente</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Cliente</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Cliente</a>
+                                </li>
+                            </ul>
+                        </div>
+        
                     </div>
-                    <div class="row">
-                        <main class="container">
-                            <section>
-                                <div class="row meu">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="table-responsive">
-                                                <table>
-                                                    <tr id="records"></tr>
-                                                    <thead>
-
-                                                        <tr class="text-center">
-                                                            <th>Nombre completo</th>
-                                                            <th>DUI</th>
-                                                            <th>Fecha de nacimiento</th>
-                                                            <th>Dirección</th>
-                                                            <th>Correo electrónico</th>
-                                                            <th>Estado</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-center" id="tbody-rows"></tbody>
-                                                </table>
-                                            </div>
-                                            <br>
-                                        </div>
+                    <!--Main principal CLIENTE-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de clientes</h3>
+                                <form method="post" id="search-form">
+                                    <div class="input-field">
+                                        <input id="search" type="search" name="search"
+                                            placeholder="Buscar por nombre, DUI y correo " aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
                                     </div>
-                                </div>
-                            </section>
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal  para agregar-->
-            <div class="modal fade" id="agregarmarca" tabindex="-1" aria-labelledby="agregarmarca" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </form>
+                                <!-- Boton para el reporte generall -->
+        
+                                <button class="btn me-md-2" type="button">
+                                    <a onclick="openReportInscripcionEstadoCliente()"><img height="20px" width="20px"
+                                            src="../../resource/img/imgtablas/reportAFP.png" alt=""></a>
+                                </button>
+        
+                                <button onclick="openCreate()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarCliente"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Nombre completo</th>
+                                                                    <th>DUI</th>
+                                                                    <th>Fecha de nacimiento</th>
+                                                                    <th>Dirección</th>
+                                                                    <th>Correo electrónico</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
-                                <input class="invisible" type="number" id="id" name="id">
-                                <div class="mb-3">
-                                    <label for="">Nombre completo</label><br>
-                                    <input type="text" name="nombrec" id="nombrec" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">DUI</label><br>
-                                    <input type="text" name="duic" id="duic" class="form-control" required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Fecha nacimiento</label><br>
-                                    <input type="date" name="fechanacc" id="fechanacc" class="form-control"
-                                        required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Dirección</label><br>
-                                    <input type="text" name="direccionc" id="direccionc" class="form-control"
-                                        required><br>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Correo</label><br>
-                                    <input type="email" name="correoc" id="correoc" class="form-control" required><br>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="">Estado</label><br>
-                                    <select class="form-select" aria-label="Default select example" name="tipoestado"
-                                        id="tipoestado"></select><br>
-                                </div>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-
-                            </form>
-                        </div>
-
                     </div>
+                    <!-- Modal  para agregar CLIENTE-->
+                    <div class="modal fade" id="agregarCliente" tabindex="-1" aria-labelledby="agregarCliente" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form" enctype="multipart/form-data" autocomplete="off">
+                                        <input class="invisible" type="number" id="id" name="id">
+                                        <div class="mb-3">
+                                            <label for="">Nombre completo</label><br>
+                                            <input type="text" name="nombrec" id="nombrec" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">DUI</label><br>
+                                            <input type="text" name="duic" id="duic" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Fecha nacimiento</label><br>
+                                            <input type="date" name="fechanacc" id="fechanacc" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Dirección</label><br>
+                                            <input type="text" name="direccionc" id="direccionc" class="form-control"
+                                                required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Correo</label><br>
+                                            <input type="email" name="correoc" id="correoc" class="form-control" required><br>
+                                        </div>
+        
+                                        <div class="mb-3">
+                                            <label for="">Estado</label><br>
+                                            <select class="form-select" aria-label="Default select example" name="tipoestado"
+                                                id="tipoestado"></select><br>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+        
+                                    </form>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                
                 </div>
-            </div>
+
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    
+
+                       <!-- TELEFONO -->
+                       <div class="head-title">
+                        <div class="left">
+                            <h1>Teléfono</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Teléfono</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Teléfono</a>
+                                </li>
+                            </ul>
+                        </div>
+        
+                    </div>
+                    <!--Main principal TELEFONO-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de teléfonos</h3>
+                                <form method="post" id="search-form-telefono">
+                                    <div class="input-field">
+                                        <input id="search-telefono" type="search" name="search-telefono"
+                                            placeholder="Buscar por número de teléfono" aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateTelefono()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarTelefono"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="records-telefono"></tr>
+                                                            <thead>
+        
+                                                                <tr class="text-center">
+                                                                    <th>Telefono</th>
+                                                                    <th>Tipo de teléfono</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-telefono"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Modal  para agregar TELEFONO-->
+                    <div class="modal fade" id="agregarTelefono" tabindex="-1" aria-labelledby="agregarTelefono" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title-telefono"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-telefono" enctype="multipart/form-data">
+        
+                                        <input class="invisible" type="number" id="id_telefono" name="id_telefono">
+        
+                                        <div class="mb-3">
+        
+                                            <label for="" class="form-label">Teléfono</label><br>
+                                            <input type="text" name="telefono" id="telefono" class="form-control" required autocomplete="off"><br>
+                                            <label for="" class="form-label">Tipo teléfono </label><br>
+                                            <!-- <input type="text" name="tipovehiculo" id="tipovehiculo" class="form-control"
+                                                required><br> -->
+        
+                                            <select class="form-select" aria-label="Default select example" name="tipotelefono"
+                                                id="tipotelefono"></select><br>
+                                            <label for="" class="form-label">Cliente</label><br>
+                                            <select class="form-select" aria-label="Default select example" name="cliente"
+                                                id="cliente">
+                                            </select>
+        
+                                        </div>
+        
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                  
+
+                </div>
+
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    
+                      <!-- RESPONSABLE MENOR -->
+                      <div class="head-title">
+                        <div class="left">
+                            <h1>Responsable menor</h1>
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="">Responsable menor</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                    <a class="active" href="#">Responsable menor</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Main principal RESPONSABLE-->
+                    <div class="table-data">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Registro de responsables menores</h3>
+                                <form method="post" id="search-form-responsable">
+                                    <div class="input-field">
+                                        <input id="search-responsable" type="search" name="search-responsable" placeholder="Buscar por nombre completo"
+                                            aria-label="Buscar" required />
+                                        <button type="submit" class="btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <button onclick="openCreateResponsable()" type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#agregarResponsable"><img height="25px" width="25px"
+                                        src="../../resource/img/imgtablas/agregar.png" alt="check">
+                                </button>
+                            </div>
+                            <div class="row">
+                                <main class="container">
+                                    <section>
+                                        <div class="row meu">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <tr id="recordsRe"></tr>
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>Nombre de responsable</th>
+                                                                    <th>Teléfono</th>
+                                                                    <th>Correo electrónico</th>
+                                                                    <th>DUI</th>
+                                                                    <th>Parentesco</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center" id="tbody-rows-responsable"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal  para agregar RESPONSABLE-->
+                    <div class="modal fade" id="agregarResponsable" tabindex="-1" aria-labelledby="agregarResponsable"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title-responsable"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="save-form-responsable" enctype="multipart/form-data" autocomplete="off">
+                                        <input class="" type="number" id="id_responsable_menor" name="id_responsable_menor">
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Nombre de responsable</label><br>
+                                            <input type="text" name="nombre" id="nombre" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Teléfono</label><br>
+                                            <input type="text" name="telefono_re" id="telefono_re" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Correo electrónico</label><br>
+                                            <input type="email" name="correo" id="correo" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">DUI</label><br>
+                                            <input type="text" name="dui" id="dui" class="form-control" required><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Parentesco </label><br>
+                                            <select class="form-select" aria-label="Default select example" name="parentesco_re"
+                                                id="parentesco_re"></select><br>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>Cliente</label>
+                                            <select class="form-select" required aria-label="select example"
+                                                id="cliente_cmb" name="cliente_cmb">
+                                                <option value="">Seleccione una opcion</option>
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk"></i>
+                                                Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                </div>
+              </div>
+
+
         </main>
     </section>
     <script src="../../resource/js/bootstrap.bundle.min.js"></script>
@@ -148,6 +417,8 @@
     <script src="../../controllers/components.js"></script>
     <script src="../../controllers/privado/plantilla.js"></script>
     <script src="../../controllers/privado/cliente.js"></script>
+    <script src="../../controllers/privado/telefono.js"></script>
+    <script src="../../controllers/privado/responsable_menor.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 // Constante para dirgirse a la ruta de API.
 const USUARIO_API = 'business/privado/usuario.php';
+
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const MODAL_TITLE = document.getElementById('modal-title');
 //Constante para poder guardar los datos del modal
@@ -10,6 +11,9 @@ const SEARCH_INPUT = document.getElementById('search');
 // Constantes para cuerpo de la tabla
 const TBODY_ROWS = document.getElementById('tbody-rows');
 const RECORDS = document.getElementById('records');
+
+
+
 //Constante para poder guardar los datos del formulario
 const SAVE_FORM = document.getElementById('save-form');
 
@@ -17,6 +21,7 @@ const SAVE_FORM = document.getElementById('save-form');
 document.addEventListener('DOMContentLoaded', () => {
     // Llena la tabla con los registros que existan.
     fillTable();
+    // fillTableRol();
 });
 
 //Función de preparación para poder insertar un nuevo registro
@@ -111,6 +116,51 @@ async function fillTable(form = null) {
         sweetAlert(4, JSON.exception, true);
     }
 }
+
+
+// async function fillTableRol(form = null) {
+//     TBODY_ROWS_ROL.innerHTML = '';
+//     RECORDS_ROL.textContent = '';
+//     // Verificación de la acción a hacer.
+//     (form) ? action = 'search' : action = 'readAll';
+//     const JSONR = await dataFetch(ROLES_API, action, form);
+//     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
+//     if (JSONR.status) {
+//         // Se recorre el conjunto de registros fila por fila.
+//         JSONR.dataset.forEach(row => {
+//             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+//             TBODY_ROWS_ROL.innerHTML += `
+//     <tr>
+//         <td>${row.rol}</td>
+//         <td>${row.opciones}</td>
+//         <td>${row.acciones}</td>
+ 
+//         <td>
+//             <button onclick="openReport(${row.id_rol})" type="button" class="btn ">
+//                 <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
+//             </button>
+
+//             <button type="button" class="btn " onclick="openUpdate(${row.id_rol})">
+//                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
+//             </button>
+
+//             <button onclick="openDelete(${row.id_rol})" class="btn"><img height="20px" width="20px"
+//                     src="../../resource/img/imgtablas/delete.png" alt="eliminar">
+//             </button>
+//         </td>
+//     </tr>
+// `;
+//         });
+
+//         RECORDS_ROL.textContent = JSONR.message;
+//     } else {
+//         sweetAlert(4, JSON.exception, true);
+//     }
+// }
+
+
+
+
 
 //Función de preparación para poder actualizar cualquier campo, de cualquier registro
 async function openUpdate(id) {

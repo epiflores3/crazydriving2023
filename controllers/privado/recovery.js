@@ -25,9 +25,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     }
   }
 
-  // // Enviar los datos del formulario al servidor
-  // var params = 'alias=' + encodeURIComponent(alias) + 'correo_usuario=' + encodeURIComponent(correo);
-  // xhr.send(params);
+
 });
 
 
@@ -76,9 +74,3 @@ SAVE_FORM_VALIDARDATOS.addEventListener('submit', async (event) => {
   }
 });
 
-
-// // Asociar la función sendEmail al evento submit del formulario
-// document.getElementById('recu-form').addEventListener('submit', function (event) {
-//   event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
-//   sendEmail();
-// });

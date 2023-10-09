@@ -5,7 +5,7 @@ const MODELO_API = 'business/privado/modelo.php';
 // Constante para obtener los datos del archivo a utilizar y poder realizar el combobox
 const MODAL_TITLE = document.getElementById('modal-title');
 //Constante para poder guardar los datos del modal
-const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarmarca'));
+const SAVE_MODAL = new bootstrap.Modal(document.getElementById('agregarCliente'));
 // Constante para poder hacer uso del formulario de buscar.
 const SEARCH_FORM = document.getElementById('search-form');
 const SEARCH_INPUT = document.getElementById('search');
@@ -91,10 +91,6 @@ async function fillTable(form = null) {
     <td>${row.estado_cliente}</td>
         <td>
 
-            <button onclick="openReport(${row.id_cliente})" type="button" class="btn ">
-                <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
-            </button>
-
             <button type="button" class="btn " onclick="openUpdate(${row.id_cliente})">
                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
             </button>
@@ -146,7 +142,7 @@ async function openDelete(id) {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('id_vehiculo', id);
+        FORM.append('id_cliente', id);
         // Petición para eliminar el registro seleccionado.
         const JSON = await dataFetch(CLIENTE_API, 'delete', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.

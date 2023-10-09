@@ -27,11 +27,7 @@ if (isset($_GET['action'])) {
                 //Se simula los datos ocupandos en type en la base de datos, por medio de un array.
             case 'getTipos':
                 $result['status'] = 1;
-                $result['dataset'] = array(
-                    array('Carro', 'Carro'),
-                    array('Pick up', 'Pick up'),
-                    array('Motocicleta', 'Motocicleta')
-                );
+                $result['dataset'] = $modelo::TIPOVEHICULO;
                 break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOne':

@@ -17,150 +17,65 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Se comprueba si existe un alias definido para el usuario, de lo contrario se muestra un mensaje con la excepción.
         if (JSON.status) {
             HEADER.innerHTML = `
-            <a href="#" class="brand">
-            <i class='bx bxs-car-crash'></i>
+            <a href="#" class="material-symbols-outlined">
+            <i class='fa-solid fa-car-burst fa-2xl'></i>
             <span class="text">Crazy driving</span>
             </a>
             <ul class="side-menu top">
             <li class="active">
             
                 <a href="pagina_principal.html">
-                    <i class='bx bxs-dashboard' ></i>
+                <i class="fa-solid fa-house"></i>
                     <span class="text">Inicio</span>
                 </a>
             </li>
             
             <li>
                 <a href="cliente.html">
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">Cliente</span>
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span class="">Cliente</span>
                 </a>
             </li>
-            
-            <li>
-                <a href="telefono.html">
-                    <i class='bx bxs-phone' ></i>
-                    <span class="text">Teléfono</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="responsable_menor.html">
-                    <i class='bx bxs-user-pin' ></i>
-                    <span class="text">Responsable menor</span>
-                </a>
-            </li>
-            
+ 
             <li>
                 <a href="inscripcion.html">
-                    <i class='bx bxs-pencil' ></i>
+                <i class="fa-solid fa-id-card"></i>
                     <span class="text">Inscripción</span>
                 </a>
             </li>
             
             <li>
                 <a href="paquete.html">
-                    <i class='bx bxs-package' ></i>
+                <i class="fa-solid fa-box-open"></i>
                     <span class="text">Paquete</span>
                 </a>
             </li>
-            
-            <li>
-                <a href="tipo_paquete.html">
-                    <i class='bx bxs-copy-alt' ></i>
-                    <span class="text">Tipo paquete</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="horario.html">
-                    <i class='bx bxs-time' ></i>
-                    <span class="text">Horario</span>
-                </a>
-            </li>
-            
+
             <li>
                 <a href="sesion.html">
-                    <i class='bx bxs-analyse' ></i>
+                <i class="fa-solid fa-book-bookmark"></i>
                     <span class="text">Sesión</span>
                 </a>
             </li>
             
             <li>
-                <a href="faltante.html">
-                    <i class='bx bxs-time-five' ></i>
-                    <span class="text">Faltante</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="marca.html">
-                    <i class='bx bxs-car' ></i>
-                    <span class="text">Marca</span>
-                </a>
-            </li>
-            
-            <li>
                 <a href="modelo.html">
-                    <i class='bx bxs-car' ></i>
+                <i class="fa-solid fa-car-on"></i>
                     <span class="text">Modelo</span>
                 </a>
             </li>
             
             <li>
-                <a href="vehiculo.html">
-                    <i class='bx bxs-car' ></i>
-                    <span class="text">Vehículo</span>
-                </a>
-            </li>
-            
-            <li>
                 <a href="empleado.html">
-                    <i class='bx bxs-user' ></i>
+                <i class="fa-solid fa-users-gear"></i>
                     <span class="text">Empleado</span>
                 </a>
             </li>
             
             <li>
-                <a href="sucursal.html">
-                    <i class='bx bxs-been-here' ></i>
-                    <span class="text">Sucursal</span>
-                </a>
-            </li>
-            
-            
-            <li>
                 <a href="usuario.html">
-                    <i class='bx bxs-user-circle' ></i>
+                <i class="fa-solid fa-id-card-clip"></i>
                     <span class="text">Usuario</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="rol.html">
-                    <i class='bx bxs-calendar-edit' ></i>
-                    <span class="text">Rol</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="menu.html">
-                    <i class='bx bxs-calendar-event' ></i>
-                    <span class="text">Menú</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="afp.html">
-                    <i class='bx bxs-calendar-event' ></i>
-                    <span class="text">AFP</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="rol_menu.html">
-                    <i class='bx bxs-food-menu' ></i>
-                    <span class="text">Rol menú</span>
                 </a>
             </li>
             
@@ -168,13 +83,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             <ul class="side-menu">
             <li>
                 <a href="editar_perfil.html">
-                    <i class='bx bxs-cog' ></i>
+                <i class="fa-solid fa-user-pen"></i>
                     <span class="text">Ajustes</span>
                 </a>
             </li>
+
             <li>
                 <a href="#" class="logout" onclick="logOut()">
-                    <i class='bx bxs-log-out-circle' ></i>
+                <i class="fa-solid fa-right-from-bracket"></i>
                     <span class="text">Cerrar sesión</span>
                 </a>
             </li>
@@ -183,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             NAV.innerHTML = `
-            <i class='bx bx-menu' ></i>
+            <i class="fa-solid fa-bars"></i>
             <div class="invisible">
             <a href="#" class="nav-link" >Categories</a>
             </div>
@@ -252,7 +168,7 @@ async function checkSessionTime() {
 
 
 // // TOGGLE SIDEBAR
-// const menuBar = document.querySelector('#content nav .bx.bx-menu');
+// const menuBar = document.querySelector('#content nav .fa-solid fa-bars');
 // const sidebar = document.getElementById('sidebar');
 
 // menuBar.addEventListener('click', function () {

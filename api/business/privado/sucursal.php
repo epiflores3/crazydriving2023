@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
             case 'update':
                 $_POST = Validator::validateForm($_POST);
-                if (!$Sucursal->setId($_POST['id'])) {
+                if (!$Sucursal->setId($_POST['id_sucursal'])) {
                     $result['exception'] = 'id de sucursal incorrecto';
                 } elseif (!$data = $Sucursal->readOne()) {
                     $result['exception'] = 'Sucursal inexistente';
@@ -107,7 +107,7 @@ if (isset($_GET['action'])) {
         // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
         header('content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
-        print(json_encode($result));
+        // print(json_encode($result));
     } else {
         switch ($_GET['action']) {
                 //Se lee todos los datos que están almacenandos y lo que se agregarán posteriormente
