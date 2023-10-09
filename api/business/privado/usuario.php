@@ -165,10 +165,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Seleccione una imagen';
                 } elseif (!$usuario->setImagen($_FILES['imagen_usuario'])) {
                     $result['exception'] = Validator::getFileError();
-                } elseif (!$usuario->setFechaCracion($_POST['fechacreacion'])) {
-                    $result['exception'] = 'Fecha creacion incorrecta';
-                } elseif (!$usuario->setIntentos($_POST['intentos'])) {
-                    $result['exception'] = 'Intentos incorrectos';
                 } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
                     $result['exception'] = 'Estado incorrecto';
                 } elseif (!isset($_POST['idempleado'])) {
@@ -187,6 +183,26 @@ if (isset($_GET['action'])) {
                 }
                 break;
 
+                
+                case 'update':
+                    $_POST = Validator::validateForm($_POST);
+                    if (!$usuario->setId($_POST['id_usuario'])) {
+                        $result['exception'] = 'Usuario incorrecto';
+                    }elseif (!$usuario->setCorreo($_POST['correo'])) {
+                        $result['exception'] = 'Correo incorrecto';
+                    } elseif (!$usuario->setAlias($_POST['alias'])) {
+                        $result['exception'] = 'Alias incorrecto';
+                    } elseif (!$usuario->setEstadousuario($_POST['estadousu'])) {
+                        $result['exception'] = 'Estado incorrecto';
+                    } elseif (!$usuario->setEmpleado($_POST['idempleado'])) {
+                        $result['exception'] = 'empleado incorrecta';
+                    } elseif ($usuario->updateRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'Usuario modificado correctamente';
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                    break;
 
                 //Se comprueba que el registro existe y si esta correcto, si todo es correcto se podrán eliminar el registro.    
             case 'delete':

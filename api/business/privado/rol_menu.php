@@ -26,6 +26,7 @@ if (isset($_GET['action'])) {
                     break;
                 //Se comprueba que los id estén correctos y que existen
             case 'readOneM':
+                // print_r($_POST['id_rol-M']);
                 if (!$rol_menu->setId($_POST['id_rol-M'])) {
                     $result['exception'] = 'Rol incorrecto';
                 } elseif ($result['dataset'] = $rol_menu->readOne()) {
@@ -71,8 +72,6 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (!$rol_menu->setId($_POST['id_rol-M'])) {
                     $result['exception'] = 'id de rol incorrecto';
-                // } elseif (!$data = $rol_menu->readOne()) {
-                //     $result['exception'] = 'Rol inexistente';
                 } elseif (!$rol_menu->setRol($_POST['rol'])) {
                     $result['exception'] = 'Rol incorrecto';
                 }elseif(!$rol_menu->setOpciones($_POST['opciones'])){

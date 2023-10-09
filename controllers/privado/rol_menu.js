@@ -76,11 +76,11 @@ async function fillTableRolM(form = null) {
 
         <td>
             
-            <button type="button" class="btn " onclick="openUpdateRolMenu(${row.id_rol})">
+            <button type="button" class="btn " onclick="openUpdateRolMenu(${row.id_rol_menu})">
                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
             </button>
 
-            <button onclick="openDelete(${row.id_rol})" class="btn"><img height="20px" width="20px"
+            <button onclick="openDelete(${row.id_rol_menu})" class="btn"><img height="20px" width="20px"
                     src="../../resource/img/imgtablas/delete.png" alt="eliminar">
             </button>
         </td>
@@ -96,6 +96,7 @@ async function fillTableRolM(form = null) {
 // //Función de preparación para poder actualizar cualquier campo, de cualquier registro
 
 async function openUpdateRolMenu(id) {
+    console.log(id);
     const FORM = new FormData();
     FORM.append('id_rol-M', id);
     // Petición para obtener los datos del registro solicitado.

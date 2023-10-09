@@ -71,6 +71,7 @@ if (isset($_GET['action'])) {
                 break;
                 //Se comprueba que todos los datos estén correctos, de lo contarrio se mostrará mensaje de error, y si todo está correcto se pondrá realizar la acción de actualizar.
                case 'update':
+                // print_r($_POST['inicio_horario']);
                     $_POST = Validator::validateForm($_POST);
                     if (!$horario->setId($_POST['id_horario'])) {
                         $result['exception'] = 'Horario incorrecto';

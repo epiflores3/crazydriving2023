@@ -258,9 +258,12 @@ class UsuarioQueries
     //Método para realizar el mantenimiento crear(create)
     public function createRow()
     {
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('d-m-Y');
+        $this->intentos = 0;
         $sql = 'INSERT INTO usuario(correo_usuario, alias_usuario, clave_usuario, imagen_usuario, fecha_creacion, intento, estado_usuario, id_empleado )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->correo, $this->alias, $this->clave, $this->imagen_usuario, $this->fechacreacion, $this->intentos, $this->estadousu, $this->idempleado);
+        $params = array($this->correo, $this->alias, $this->clave, $this->imagen_usuario, $date, $this->intentos, $this->estadousu, $this->idempleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -280,14 +283,12 @@ class UsuarioQueries
 
 
     //Método para realizar el mantenimiento actualizar(update)
-    public function updateRow($current_imagen)
+    public function updateRow()
     {
-        // Se verifica si existe una nueva imagen_usuario para borrar la actual, de lo contrario se mantiene la actual.
-        ($this->imagen_usuario) ? Validator::deleteFile($this->getRuta(), $current_imagen) : $this->imagen_usuario = $current_imagen;
-        $sql = 'UPDATE usuario
-                SET  correo_usuario = ?, alias_usuario = ?,  clave_usuario = ?,  imagen_usuario = ?,  fecha_creacion = ?, intento = ?,  estado_usuario = ?,  id_empleado = ?
+       $sql = 'UPDATE usuario
+                SET  correo_usuario = ?, alias_usuario = ?, estado_usuario = ?,  id_empleado = ?
                 WHERE id_usuario = ?';
-        $params = array($this->correo, $this->alias, $this->clave, $this->imagen_usuario, $this->fechacreacion, $this->intentos, $this->estadousu, $this->idempleado, $_SESSION['id_usuario']);
+        $params = array($this->correo, $this->alias, $this->estadousu, $this->idempleado, $this->id);
         return Database::executeRow($sql, $params);
     }
 
@@ -328,24 +329,6 @@ class UsuarioQueries
         return Database::executeRow($sql, $params);
     }
 
-    //     public function changePassword()
-
-    // {
-    //     $sql = 'SELECT clave_usuario FROM usuario WHERE id_usuario = ?';
-    //     $params = array($_SESSION['id_usuario']);
-    //     $data  = Database::getRow($sql, $params);
-    //     if ($data) {
-    //         if ($this->clave ===  $data['clave_usuario'] ) {
-    //             // La nueva contraseña es igual a la contraseña actual
-    //             // Mostrar un mensaje de error en la consola del navegador
-    //             echo '<script>console.error("Contras iguales");</script>';
-    //             return false; // Puedes retornar false u otro valor que indique un error.
-    //         }
-    //     }
-    //     return null;
-
-
-    // }
 
     public function resetPassword()
     {

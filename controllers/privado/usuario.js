@@ -41,7 +41,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (document.getElementById('id').value) ? action = 'update' : action = 'create';
+    (document.getElementById('id_usuario').value) ? action = 'update' : action = 'create';
     const FORM = new FormData(SAVE_FORM);
     const JSON = await dataFetch(USUARIO_API, action, FORM);
     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
@@ -62,6 +62,9 @@ function openCreate() {
     MODAL_TITLE.textContent = 'Crear usuario';
     fillSelect(USUARIO_API, 'readEmpleado', 'idempleado');
     fillSelect(USUARIO_API, 'readEstadousu', 'estadousu');
+    document.getElementById('clave').disabled = false;
+    document.getElementById('confirmar').disabled = false;
+    document.getElementById('imagen_usuario').disabled = false;
 }
 
 
@@ -103,7 +106,7 @@ async function fillTable(form = null) {
                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
             </button>
 
-            <button onclick="openDelete(${row.id_usuario})" class="btn"><img height="20px" width="20px"
+            <button onclick="openDeleteUsu(${row.id_usuario})" class="btn"><img height="20px" width="20px"
                     src="../../resource/img/imgtablas/delete.png" alt="eliminar">
             </button>
         </td>
@@ -118,50 +121,6 @@ async function fillTable(form = null) {
 }
 
 
-// async function fillTableRol(form = null) {
-//     TBODY_ROWS_ROL.innerHTML = '';
-//     RECORDS_ROL.textContent = '';
-//     // Verificación de la acción a hacer.
-//     (form) ? action = 'search' : action = 'readAll';
-//     const JSONR = await dataFetch(ROLES_API, action, form);
-//     // Se comprueba si la respuesta es correcta, sino muestra un mensaje de error.
-//     if (JSONR.status) {
-//         // Se recorre el conjunto de registros fila por fila.
-//         JSONR.dataset.forEach(row => {
-//             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-//             TBODY_ROWS_ROL.innerHTML += `
-//     <tr>
-//         <td>${row.rol}</td>
-//         <td>${row.opciones}</td>
-//         <td>${row.acciones}</td>
- 
-//         <td>
-//             <button onclick="openReport(${row.id_rol})" type="button" class="btn ">
-//                 <img height="1px" width="1px" src="../../resource/img/imgtablas/ojo.png" alt="ver">
-//             </button>
-
-//             <button type="button" class="btn " onclick="openUpdate(${row.id_rol})">
-//                 <img height="20px" width="20px" src="../../resource/img/imgtablas/update.png" alt="actualizar">
-//             </button>
-
-//             <button onclick="openDelete(${row.id_rol})" class="btn"><img height="20px" width="20px"
-//                     src="../../resource/img/imgtablas/delete.png" alt="eliminar">
-//             </button>
-//         </td>
-//     </tr>
-// `;
-//         });
-
-//         RECORDS_ROL.textContent = JSONR.message;
-//     } else {
-//         sweetAlert(4, JSON.exception, true);
-//     }
-// }
-
-
-
-
-
 //Función de preparación para poder actualizar cualquier campo, de cualquier registro
 async function openUpdate(id) {
     const FORM = new FormData();
@@ -174,13 +133,14 @@ async function openUpdate(id) {
         // Se da un título que se mostrará en el modal.
         MODAL_TITLE.textContent = 'Actualizar usuario';
         // Se escriben los campos del formulario.
-        document.getElementById('id').value = JSON.dataset.id_usuario;
+        document.getElementById('id_usuario').value = JSON.dataset.id_usuario;
         document.getElementById('correo').value = JSON.dataset.correo_usuario;
         document.getElementById('alias').value = JSON.dataset.alias_usuario;
-        document.getElementById('clave').value = JSON.dataset.clave_usuario;
-        document.getElementById('fechacreacion').value = JSON.dataset.fecha_creacion;
-        document.getElementById('imagen_usuario').value = JSON.dataset.imagen_usuario;
-        document.getElementById('intentos').value = JSON.dataset.intento;
+
+        document.getElementById('clave').disabled = true;
+        document.getElementById('confirmar').disabled = true;
+        document.getElementById('imagen_usuario').disabled = true;
+
         fillSelect(USUARIO_API, 'readEstadousu', 'estadousu', JSON.dataset.estado_usuario);
         fillSelect(USUARIO_API, 'readEmpleado', 'idempleado', JSON.dataset.id_empleado);
     } else {
@@ -189,7 +149,7 @@ async function openUpdate(id) {
 }
 
 //Función de preparación para poder eliminar cualquier registro
-async function openDelete(id) {
+async function openDeleteUsu(id) {
     // Muestra un mensaje de confirmación, capturando la respuesta.
     const RESPONSE = await confirmAction('¿Desea eliminar el usuario de forma permanente?');
     // Se verifica la respuesta del mensaje.
