@@ -104,7 +104,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Telefono inexistente';
                 } elseif ($telefono->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Telefono eliminado correctamente';
+                    $result['message'] = 'Teléfono eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }

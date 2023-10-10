@@ -95,7 +95,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Vehiculo inexistente';
                 } elseif ($vehiculo->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Vehiculo eliminado correctamente';
+                    $result['message'] = 'Vehículo eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }

@@ -111,7 +111,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Pedido inexistente';
                 } elseif ($paquete->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Pedido eliminado correctamente';
+                    $result['message'] = 'Paquete eliminado correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }

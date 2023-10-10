@@ -118,7 +118,7 @@ async function openUpdateAFP(id) {
     if (JSON.status) {
         SAVE_MODAL_AFP.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE_AFP.textContent = 'Actualizar rol';
+        MODAL_TITLE_AFP.textContent = 'Actualizar AFP';
         // Se escriben los campos del formulario.
         document.getElementById('id_afp').value = JSON.dataset.id_afp;
         document.getElementById('nombre_afp').value = JSON.dataset.nombre_afp;

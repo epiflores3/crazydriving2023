@@ -142,7 +142,7 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Inscripcion inexistente';
                 } elseif ($inscripcion->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Inscripcion eliminado correctamente';
+                    $result['message'] = 'Inscripción eliminada correctamente';
                 } else {
                     $result['exception'] = Database::getException();
                 }

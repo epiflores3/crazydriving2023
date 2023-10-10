@@ -83,7 +83,7 @@ document.getElementById('tipodelicenciacmb').addEventListener('change', () => {
 function openCreate() {
     SAVE_FORM.reset();
     // Se da un título que se mostrará en el modal.
-    MODAL_TITLE.textContent = 'Crear Inscripcion';
+    MODAL_TITLE.textContent = 'Crear inscripción';
     fillSelect(INSCRIPCION_API, 'getTipoLicencia', 'tipodelicencia');
     fillSelect(INSCRIPCION_API, 'getEstadoCliente', 'estado_cliente');
     fillSelect(INSCRIPCION_API, 'readAsesor', 'asesor_inscripcion');
@@ -150,7 +150,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL.show();
         // Se da un título que se mostrará en el modal.
-        MODAL_TITLE.textContent = 'Actualizar Paquete';
+        MODAL_TITLE.textContent = 'Actualizar inscripción';
         // Se escriben los campos del formulario.
         document.getElementById('id_inscripcion').value = JSON.dataset.id_inscripcion;
         document.getElementById('anticipo').value = JSON.dataset.anticipo_paquete;
