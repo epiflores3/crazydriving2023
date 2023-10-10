@@ -6,6 +6,7 @@ const MODAL_TITLE_ROL = document.getElementById('modal-title-rol');
 const SAVE_MODAL_ROL = new bootstrap.Modal(document.getElementById('agregarRol'));
 // Constante para poder hacer uso del formulario de buscar.
 const SEARCH_FORM_ROL = document.getElementById('search-form-rol');
+const SEARCH_INPUT_ROL = document.getElementById('search-rol');
 // Constantes para cuerpo de la tabla
 const TBODY_ROWS_ROL = document.getElementById('tbody-rows-rol');
 const RECORDS_ROL = document.getElementById('records-rol');
@@ -32,6 +33,18 @@ SAVE_FORM_ROL.addEventListener('submit', async (event) => {
         sweetAlert(1, JSON.message, true);
     } else {
         sweetAlert(2, JSON.exception, false);
+    }
+});
+
+// Método que se utiliza para el formulario de buscar.
+SEARCH_INPUT_ROL.addEventListener("keyup", (event) => {
+    let texto = event.target.value;
+    console.log(texto);
+    if (texto.value != "") {
+        event.preventDefault();
+        const FORM = new FormData(SEARCH_FORM_ROL);
+        //Llena la tabla con las respuestas de la búsqueda.
+        fillTableAFP(FORM);
     }
 });
 

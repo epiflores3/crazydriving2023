@@ -39,14 +39,14 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-sucursal'] == '') {
                     if ($result['dataset'] = $Sucursal->readAll()) {
                         $result['status'] = 1;
                         $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                     }
-                } elseif ($_POST['search'] == 'alias') {
+                } elseif ($_POST['search-sucursal'] == 'alias') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $Sucursal->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $Sucursal->searchRows($_POST['search-sucursal'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {

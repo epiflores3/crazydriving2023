@@ -79,7 +79,7 @@ SEARCH_FORM_VEHICULO.addEventListener('submit', (event) => {
 });
 
 // Método que se utiliza para el formulario de buscar.
-SEARCH_INPUT.addEventListener("keyup", (event) => {
+SEARCH_INPUT_VEHICULO.addEventListener("keyup", (event) => {
     let texto = event.target.value;
     console.log(texto);
     if (texto.value != "") {
@@ -139,7 +139,7 @@ async function openUpdate(id) {
     if (JSON.status) {
         SAVE_MODAL_VEHICULO.show();
         // Se asigna título para la caja de diálogo.
-        MODAL_TITLE.textContent = 'Actualizar vehículo';
+        MODAL_TITLE_VEHICULO.textContent = 'Actualizar vehículo';
         // Se inicializan los campos del formulario.
         document.getElementById('id_vehiculo').value = JSON.dataset.id_vehiculo;
         document.getElementById('placa').value = JSON.dataset.placa;

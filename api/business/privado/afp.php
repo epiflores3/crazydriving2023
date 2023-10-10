@@ -39,9 +39,9 @@ if (isset($_GET['action'])) {
                 //Acción para poder buscar dentro de la interfaz
             case 'search':
                 $_POST = Validator::validateForm($_POST);
-                if ($_POST['search'] == '') {
+                if ($_POST['search-AFP'] == '') {
                     $result['exception'] = 'Ingrese un valor para buscar';
-                } elseif ($result['dataset'] = $Afp->searchRows($_POST['search'])) {
+                } elseif ($result['dataset'] = $Afp->searchRows($_POST['search-AFP'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
                 } elseif (Database::getException()) {

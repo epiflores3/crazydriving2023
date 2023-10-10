@@ -7,10 +7,10 @@ class ResponsableQueries
     //Método para realizar el mantenimiento buscar(search)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, id_cliente
+        $sql = 'SELECT id_responsable_menor, nombre_com_responsable, telefono_responsable, correo_responsable, dui_responsable, parentesco, nombre_com_cliente
         FROM responsable_menor
         INNER JOIN cliente USING (id_cliente)
-        WHERE nombre_com_responsable ::text ILIKE ?';
+        WHERE nombre_com_responsable ILIKE ?';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
